@@ -14,7 +14,7 @@ body, html {
 }
 
 /* Фрейм для фону */
-#bg-frame {
+iframe {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +22,7 @@ body, html {
     height: 100%;
     border: none;
     z-index: 1;
-    opacity: 0.75; /* Трохи приглушуємо яскравість фону для захисту очей */
+    opacity: 0.75;
 }
 
 /* Контейнер */
@@ -37,7 +37,7 @@ body, html {
     background: rgba(3, 5, 9, 0.45);
 }
 
-/* Картка — Темний Liquid Glass */
+/* Картка — Ultra Dark Liquid Glass з анімацією появи */
 .card {
     background: rgba(15, 20, 28, 0.65);
     backdrop-filter: blur(30px) saturate(160%);
@@ -51,6 +51,18 @@ body, html {
     box-shadow: 
         0 25px 60px rgba(0, 0, 0, 0.7),
         inset 0 0 15px rgba(255, 255, 255, 0.02);
+    animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* Шапка */
@@ -61,11 +73,46 @@ body, html {
     margin-bottom: 20px;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Шрифт для імені McChopik */
 .profile-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
     color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Кнопка плеєра музики */
+.icon-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.icon-btn.playing {
+    background: rgba(83, 252, 24, 0.2);
+    border-color: rgba(83, 252, 24, 0.5);
+    animation: pulseMusic 1.5s infinite alternate;
+}
+
+@keyframes pulseMusic {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
 }
 
 /* Перемикач мов */
@@ -118,7 +165,7 @@ body, html {
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .bio-item.clickable {
@@ -126,7 +173,8 @@ body, html {
 }
 
 .bio-item.clickable:hover {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(2px);
 }
 
 .bio-label {
@@ -151,15 +199,15 @@ body, html {
 
 /* Випадаюча панель Minecraft */
 .sub-panel {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.35);
     border-radius: 14px;
-    padding: 8px 14px;
+    padding: 10px 14px;
     margin-top: -3px;
     margin-bottom: 3px;
     border: 1px dashed rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     transition: all 0.3s ease;
 }
 
@@ -171,6 +219,24 @@ body, html {
     display: flex;
     justify-content: space-between;
     font-size: 0.8rem;
+}
+
+.page-link-btn {
+    display: block;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 6px;
+    border-radius: 8px;
+    margin-top: 4px;
+    transition: all 0.2s ease;
+}
+
+.page-link-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
 }
 
 /* Заголовки розділів */
@@ -201,12 +267,13 @@ body, html {
     font-size: 0.8rem;
     font-weight: 500;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .link-btn:hover {
     background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .link-btn.twitch:hover {
@@ -240,14 +307,5 @@ body, html {
 .fame-tag:hover {
     background: rgba(255, 255, 255, 0.12);
     color: #ffffff;
+    transform: scale(1.04);
 }
-
-.fame-tag.highlight {
-    border-color: rgba(255, 215, 0, 0.3);
-    color: #ffd700;
-}
-
-.fame-tag.highlight:hover {
-    background: rgba(255, 215, 0, 0.15);
-}
-
