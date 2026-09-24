@@ -13,7 +13,6 @@ body, html {
     color: #e6edf3;
 }
 
-/* Фрейм для фону */
 iframe {
     position: fixed;
     top: 0;
@@ -25,7 +24,6 @@ iframe {
     opacity: 0.75;
 }
 
-/* Контейнер */
 .container {
     position: relative;
     min-height: 100vh;
@@ -33,11 +31,10 @@ iframe {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px 15px;
+    padding: 20px 15px;
     background: rgba(3, 5, 9, 0.45);
 }
 
-/* Картка — Ultra Dark Liquid Glass з анімацією появи */
 .card {
     background: rgba(15, 20, 28, 0.65);
     backdrop-filter: blur(30px) saturate(160%);
@@ -45,27 +42,18 @@ iframe {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-top: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 28px;
-    padding: 26px;
+    padding: 24px;
     width: 100%;
-    max-width: 400px;
-    box-shadow: 
-        0 25px 60px rgba(0, 0, 0, 0.7),
-        inset 0 0 15px rgba(255, 255, 255, 0.02);
+    max-width: 420px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
     animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes cardAppear {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Шапка */
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -73,55 +61,18 @@ iframe {
     margin-bottom: 20px;
 }
 
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* Шрифт для імені McChopik */
 .profile-name {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.4rem;
     font-weight: 900;
     letter-spacing: 0.5px;
     color: #ffffff;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Кнопка плеєра музики */
-.icon-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-}
-
-.icon-btn.playing {
-    background: rgba(83, 252, 24, 0.2);
-    border-color: rgba(83, 252, 24, 0.5);
-    animation: pulseMusic 1.5s infinite alternate;
-}
-
-@keyframes pulseMusic {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
-}
-
-/* Перемикач мов */
 .lang-switch {
     display: flex;
     gap: 3px;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     padding: 3px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -136,20 +87,13 @@ iframe {
     cursor: pointer;
     font-size: 0.72rem;
     font-weight: 600;
-    transition: all 0.2s ease;
-}
-
-.lang-btn:hover {
-    color: #ffffff;
 }
 
 .lang-btn.active {
     background: rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    border: 0.5px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Списки */
 .bio-list {
     display: flex;
     flex-direction: column;
@@ -164,92 +108,165 @@ iframe {
     padding: 11px 15px;
     border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.25s ease;
 }
 
-.bio-item.clickable {
+.bio-item.clickable { cursor: pointer; }
+.bio-label { color: rgba(255, 255, 255, 0.6); font-size: 0.82rem; }
+.bio-value { color: #ffffff; font-size: 0.88rem; font-weight: 500; }
+.bio-value a { color: #4dabf7; text-decoration: none; }
+
+.sub-panel {
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 16px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sub-panel.hidden { display: none; }
+.sub-panel-item { display: flex; justify-content: space-between; font-size: 0.82rem; }
+
+.page-link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(77, 171, 247, 0.15) 0%, rgba(0, 114, 255, 0.25) 100%);
+    border: 1px solid rgba(77, 171, 247, 0.3);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+/* Samsung One UI Player Styles */
+.samsung-player {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-cover-box {
+    width: 100%;
+    height: 180px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background: #151a21;
+}
+
+.player-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.player-info {
+    text-align: center;
+    margin: 12px 0;
+}
+
+.track-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.track-artist {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 2px;
+}
+
+.player-controls-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    padding: 14px 16px;
+}
+
+.device-output {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 10px;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4dabf7;
     cursor: pointer;
 }
 
-.bio-item.clickable:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateX(2px);
-}
-
-.bio-label {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.82rem;
-}
-
-.bio-value {
-    color: #ffffff;
-    font-size: 0.88rem;
-    font-weight: 500;
-}
-
-.bio-value a {
-    color: #4dabf7;
-    text-decoration: none;
-}
-
-.bio-value a:hover {
-    text-decoration: underline;
-}
-
-/* Випадаюча панель Minecraft */
-.sub-panel {
-    background: rgba(0, 0, 0, 0.35);
-    border-radius: 14px;
-    padding: 10px 14px;
-    margin-top: -3px;
-    margin-bottom: 3px;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transition: all 0.3s ease;
-}
-
-.sub-panel.hidden {
-    display: none;
-}
-
-.sub-panel-item {
+.time-box {
     display: flex;
     justify-content: space-between;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.page-link-btn {
-    display: block;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.08);
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ctrl-btn {
+    background: transparent;
+    border: none;
     color: #ffffff;
-    text-decoration: none;
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 6px;
-    border-radius: 8px;
-    margin-top: 4px;
-    transition: all 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.85;
 }
 
-.page-link-btn:hover {
-    background: rgba(255, 255, 255, 0.18);
+.ctrl-btn.sub-btn { opacity: 0.5; }
+.ctrl-btn.play-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    opacity: 1;
 }
 
-/* Заголовки розділів */
+.hidden { display: none !important; }
+
+/* Links & Hall of Fame */
 .section-title {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.5);
     margin: 18px 0 10px 4px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
-/* Кнопки посилань */
 .links-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -265,28 +282,9 @@ iframe {
     border-radius: 12px;
     color: #e6edf3;
     font-size: 0.8rem;
-    font-weight: 500;
     text-decoration: none;
-    transition: all 0.25s ease;
 }
 
-.link-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.link-btn.twitch:hover {
-    border-color: #9146ff;
-    color: #a970ff;
-}
-
-.link-btn.kick:hover {
-    border-color: #53fc18;
-    color: #53fc18;
-}
-
-/* Hall of Fame */
 .fame-list {
     display: flex;
     flex-wrap: wrap;
@@ -301,11 +299,10 @@ iframe {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.75rem;
     text-decoration: none;
-    transition: all 0.2s ease;
 }
 
-.fame-tag:hover {
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    transform: scale(1.04);
+/* Media Queries */
+@media (min-width: 600px) {
+    .card { max-width: 480px; padding: 30px; }
+    .player-cover-box { height: 220px; }
 }
