@@ -3,9 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>чото там</title>
+    <title>McChopik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0d1117;
+            color: #f0f6fc;
+        }
+
+        /* Интеграция фона fon.html */
+        #bg-iframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 1;
+        }
+
+        /* Оверлей поверх фона */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Карточка профиля */
+        .card {
+            background: rgba(22, 27, 34, 0.85);
+            border: 1px solid rgba(48, 54, 61, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        /* Переключатель языков */
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .lang-btn {
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            color: #c9d1d9;
+            border-color: #8b949e;
+        }
+
+        .lang-btn.active {
+            background: #238636;
+            color: #ffffff;
+            border-color: #2ea043;
+        }
+
+        /* Заголовок профиля */
+        .profile-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+
+        .profile-age {
+            font-size: 1.1rem;
+            color: #8b949e;
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            height: 1px;
+            background: #30363d;
+            margin: 15px 0;
+        }
+
+        /* Список информации */
+        .info-list {
+            list-style: none;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(13, 17, 23, 0.5);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(48, 54, 61, 0.4);
+        }
+
+        .info-label {
+            color: #8b949e;
+        }
+
+        .info-value {
+            color: #c9d1d9;
+            font-weight: 500;
+        }
+
+        .info-value a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
+        .info-value a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>8282</h1>
+
+    <!-- Фон из файла fon.html -->
+    <iframe id="bg-iframe" src="fon.html"></iframe>
+
+    <!-- Контент карточки -->
+    <div class="overlay">
+        <div class="card">
+            
+            <!-- Кнопки выбора языка -->
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('ua')">UA</button>
+                <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
+                <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            </div>
+
+            <!-- Имя и возраст -->
+            <h1 class="profile-title">McChopik</h1>
+            <div class="profile-age" id="text-age">14 років</div>
+
+            <div class="divider"></div>
+
+            <!-- Инфо-блок -->
+            <ul class="info-list">
+                <li class="info-item">
+                    <span class="info-label" id="label-bday">День народження</span>
+                    <span class="info-value">06.04</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label" id="label-friends">Друзі</span>
+                    <span class="info-value">6</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label" id="label-game">Улюблена гра</span>
+                    <span class="info-value">Minecraft</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label" id="label-langs">Мови</span>
+                    <span class="info-value" id="val-langs">UA (родная), RU/BY</span>
+                </li>
+                <li class="info-item">
+                    <span class="info-label">PP</span>
+                    <span class="info-value"><a href="https://t.me/j6nda" target="_blank">@j6nda</a></span>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <!-- Скрипт переключения языков -->
+    <script>
+        const translations = {
+            ua: {
+                age: "14 років",
+                bday: "День народження",
+                friends: "Друзі",
+                game: "Улюблена гра",
+                langs: "UA (рідна), RU/BY"
+            },
+            ru: {
+                age: "14 лет",
+                bday: "День рождения",
+                friends: "Друзья",
+                game: "Любимая игра",
+                langs: "UA (родной), RU/BY"
+            },
+            en: {
+                age: "14 years old",
+                bday: "Birthday",
+                friends: "Friends",
+                game: "Favorite game",
+                langs: "UA (native), RU/BY"
+            }
+        };
+
+        function setLanguage(lang) {
+            // Обновляем текст
+            document.getElementById('text-age').innerText = translations[lang].age;
+            document.getElementById('label-bday').innerText = translations[lang].bday;
+            document.getElementById('label-friends').innerText = translations[lang].friends;
+            document.getElementById('label-game').innerText = translations[lang].game;
+            document.getElementById('val-langs').innerText = translations[lang].langs;
+
+            // Переключаем активную кнопку
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>
