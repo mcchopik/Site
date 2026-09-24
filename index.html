@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McChopik</title>
-    <!-- Подключение шрифта Orbitron -->
+    <!-- Шрифт Orbitron и Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Аудио элемент -->
     <audio id="bg-music" src="Music.mp3" loop></audio>
 
-    <!-- Фон -->
     <iframe id="bg-frame" src="fon.html"></iframe>
 
     <div class="container">
@@ -43,10 +41,10 @@
                 </div>
                 <div class="bio-item clickable" onclick="toggleMcPanel()">
                     <span class="bio-label" id="lbl-game">Favorite Game</span>
-                    <span class="bio-value">Minecraft &blackdowntriangle;</span>
+                    <span class="bio-value">Minecraft <span class="arrow">▾</span></span>
                 </div>
 
-                <!-- Интерактивная панель Minecraft -->
+                <!-- Панель Minecraft -->
                 <div id="mc-panel" class="sub-panel hidden">
                     <div class="sub-panel-item">
                         <span class="bio-label" id="lbl-mc-server">Server</span>
@@ -69,23 +67,24 @@
                 </div>
             </div>
 
-            <!-- Samsung One UI Виджет Плеера -->
-            <div class="samsung-player">
-                <div class="player-cover-box">
-                    <img src="cover.jpg" alt="Cover" class="player-cover" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23888\' stroke-width=\'1.5\'><path d=\'M9 18V5l12-2v13\'/><circle cx=\'6\' cy=\'18\' r=\'3\'/><circle cx=\'18\' cy=\'16\' r=\'3\'/></svg>'">
-                </div>
-                <div class="player-info">
-                    <div class="track-title" id="track-title">Background Music</div>
-                    <div class="track-artist" id="track-artist">McChopik Subtitle</div>
+            <!-- Samsung Floating Media Player Widget -->
+            <div class="samsung-player" id="samsung-player">
+                <div class="player-top-bar">
+                    <div class="device-output">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                        <span>Media Output</span>
+                    </div>
+                    <!-- Кнопка свернуть/развернуть -->
+                    <button class="toggle-player-btn" onclick="togglePlayer()" id="toggle-player-btn" title="Collapse/Expand">−</button>
                 </div>
 
-                <div class="player-controls-card">
-                    <div class="device-output">
-                        <span class="output-icon">&para;</span>
-                        <span class="output-text">Web Audio</span>
+                <div class="player-body" id="player-body">
+                    <div class="track-info">
+                        <div class="track-title">Background Track</div>
+                        <div class="track-artist">McChopik Audio</div>
                     </div>
 
-                    <div class="progress-container">
+                    <div class="progress-box">
                         <input type="range" id="progress-bar" min="0" value="0" step="0.1" oninput="seekAudio(this.value)">
                         <div class="time-box">
                             <span id="current-time">00:00</span>
@@ -94,21 +93,21 @@
                     </div>
 
                     <div class="controls-row">
-                        <button class="ctrl-btn sub-btn" title="Like">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                        <button class="ctrl-btn sub-btn">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
                         </button>
-                        <button class="ctrl-btn" title="Previous">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                        <button class="ctrl-btn">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
                         </button>
-                        <button class="ctrl-btn play-btn" id="play-pause-btn" onclick="toggleMusic()" title="Play/Pause">
-                            <svg id="play-icon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                            <svg id="pause-icon" viewBox="0 0 24 24" width="26" height="26" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        <button class="ctrl-btn play-btn" onclick="toggleMusic()">
+                            <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         </button>
-                        <button class="ctrl-btn" title="Next">
-                            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                        <button class="ctrl-btn">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
                         </button>
-                        <button class="ctrl-btn sub-btn" title="Shuffle">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                        <button class="ctrl-btn sub-btn">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
                         </button>
                     </div>
                 </div>
@@ -204,7 +203,7 @@
             document.getElementById('mc-panel').classList.toggle('hidden');
         }
 
-        // Логика плеера Samsung
+        /* Плеер */
         const music = document.getElementById('bg-music');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
@@ -222,6 +221,13 @@
                 playIcon.classList.remove('hidden');
                 pauseIcon.classList.add('hidden');
             }
+        }
+
+        function togglePlayer() {
+            const body = document.getElementById('player-body');
+            const btn = document.getElementById('toggle-player-btn');
+            body.classList.toggle('hidden');
+            btn.innerText = body.classList.contains('hidden') ? '+' : '−';
         }
 
         function formatTime(sec) {
