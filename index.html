@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McChopik</title>
+    <!-- Підключення шрифту Orbitron для ніку -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <!-- Підключення окремого файлу стилів -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Фонова музика -->
+    <audio id="bg-music" src="Music.mp3" loop></audio>
 
     <!-- Підключення окремого фону -->
     <iframe id="bg-frame" src="fon.html"></iframe>
@@ -16,7 +23,11 @@
         <div class="card">
             
             <div class="card-header">
-                <h1 class="profile-name">McChopik</h1>
+                <div class="header-left">
+                    <h1 class="profile-name">McChopik</h1>
+                    <!-- Кнопка музики -->
+                    <button id="music-btn" class="icon-btn" onclick="toggleMusic()" title="Play Music">🎵</button>
+                </div>
                 <div class="lang-switch">
                     <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
                     <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
@@ -48,6 +59,8 @@
                         <span class="bio-label" id="lbl-mc-launcher">Launcher</span>
                         <span class="bio-value">MojoLauncher</span>
                     </div>
+                    <!-- Перехід на окрему сторінку Minecraft -->
+                    <a href="/Minecraft" class="page-link-btn" id="lbl-mc-page">Go to Minecraft Page →</a>
                 </div>
 
                 <div class="bio-item">
@@ -82,7 +95,7 @@
         </div>
     </div>
 
-    <!-- Скрипт зміни мови та панелей -->
+    <!-- Скрипт зміни мови, музики та панелей -->
     <script>
         const dict = {
             en: {
@@ -94,6 +107,7 @@
                 langs_val: "UA (native), RU/BY",
                 mc_server: "Server",
                 mc_launcher: "Launcher",
+                mc_page: "Go to Minecraft Page →",
                 channels: "Channels & Links",
                 main_channel: "Main Channel",
                 life_channel: "Real Life Channel (Face)"
@@ -107,6 +121,7 @@
                 langs_val: "UA (рідна), RU/BY",
                 mc_server: "Сервер",
                 mc_launcher: "Лаунчер",
+                mc_page: "Перейти на сторінку Minecraft →",
                 channels: "Канали та посилання",
                 main_channel: "Основний канал",
                 life_channel: "Лайф канал (з обличчям)"
@@ -120,6 +135,7 @@
                 langs_val: "UA (родной), RU/BY",
                 mc_server: "Сервер",
                 mc_launcher: "Лаунчер",
+                mc_page: "Перейти на страницу Minecraft →",
                 channels: "Каналы и ссылки",
                 main_channel: "Основной канал",
                 life_channel: "Лайф канал (с лицом)"
@@ -135,6 +151,7 @@
             document.getElementById('val-langs').innerText = dict[lang].langs_val;
             document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
             document.getElementById('lbl-mc-launcher').innerText = dict[lang].mc_launcher;
+            document.getElementById('lbl-mc-page').innerText = dict[lang].mc_page;
             document.getElementById('lbl-channels').innerText = dict[lang].channels;
             document.getElementById('btn-main-channel').innerText = dict[lang].main_channel;
             document.getElementById('btn-life-channel').innerText = dict[lang].life_channel;
@@ -146,6 +163,18 @@
         function toggleMcPanel() {
             const panel = document.getElementById('mc-panel');
             panel.classList.toggle('hidden');
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const btn = document.getElementById('music-btn');
+            if (music.paused) {
+                music.play();
+                btn.classList.add('playing');
+            } else {
+                music.pause();
+                btn.classList.remove('playing');
+            }
         }
     </script>
 </body>
