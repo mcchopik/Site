@@ -63,8 +63,8 @@
             <!-- Блок ссилок на канали -->
             <div class="section-title" id="lbl-channels">Channels & Links</div>
             <div class="links-grid">
-                <a href="https://t.me/McChopikkk" target="_blank" class="link-btn">My Channel</a>
-                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="link-btn">Real Life Channel</a>
+                <a href="https://t.me/McChopikkk" target="_blank" class="link-btn" id="btn-main-channel">Main Channel</a>
+                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="link-btn" id="btn-life-channel">Real Life Channel (Face)</a>
                 <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" class="link-btn twitch">Twitch</a>
                 <a href="https://kick.com/mcchopik" target="_blank" class="link-btn kick">Kick</a>
             </div>
@@ -77,7 +77,6 @@
                 <a href="https://t.me/DC_24V" target="_blank" class="fame-tag">@DC_24V</a>
                 <a href="https://t.me/angel1bigmelon" target="_blank" class="fame-tag">@angel1bigmelon</a>
                 <a href="https://t.me/Good_Dumpling" target="_blank" class="fame-tag">@Good_Dumpling</a>
-                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="fame-tag highlight">Channel with a face</a>
             </div>
 
         </div>
@@ -95,7 +94,9 @@
                 langs_val: "UA (native), RU/BY",
                 mc_server: "Server",
                 mc_launcher: "Launcher",
-                channels: "Channels & Links"
+                channels: "Channels & Links",
+                main_channel: "Main Channel",
+                life_channel: "Real Life Channel (Face)"
             },
             ua: {
                 age_lbl: "Вік",
@@ -106,7 +107,9 @@
                 langs_val: "UA (рідна), RU/BY",
                 mc_server: "Сервер",
                 mc_launcher: "Лаунчер",
-                channels: "Канали та посилання"
+                channels: "Канали та посилання",
+                main_channel: "Основний канал",
+                life_channel: "Лайф канал (з обличчям)"
             },
             ru: {
                 age_lbl: "Возраст",
@@ -117,7 +120,9 @@
                 langs_val: "UA (родной), RU/BY",
                 mc_server: "Сервер",
                 mc_launcher: "Лаунчер",
-                channels: "Каналы и ссылки"
+                channels: "Каналы и ссылки",
+                main_channel: "Основной канал",
+                life_channel: "Лайф канал (с лицом)"
             }
         };
 
@@ -131,6 +136,8 @@
             document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
             document.getElementById('lbl-mc-launcher').innerText = dict[lang].mc_launcher;
             document.getElementById('lbl-channels').innerText = dict[lang].channels;
+            document.getElementById('btn-main-channel').innerText = dict[lang].main_channel;
+            document.getElementById('btn-life-channel').innerText = dict[lang].life_channel;
 
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -143,4 +150,3 @@
     </script>
 </body>
 </html>
-
