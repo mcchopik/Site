@@ -8,12 +8,12 @@
 body, html {
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    background-color: #000000;
-    color: #ffffff;
+    overflow-x: hidden;
+    background-color: #030509;
+    color: #e6edf3;
 }
 
-/* Фрейм для фону з fon.html */
+/* Фрейм для фону */
 #bg-frame {
     position: fixed;
     top: 0;
@@ -22,82 +22,74 @@ body, html {
     height: 100%;
     border: none;
     z-index: 1;
+    opacity: 0.75; /* Трохи приглушуємо яскравість фону для захисту очей */
 }
 
-/* Оверлей-контейнер */
+/* Контейнер */
 .container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: relative;
+    min-height: 100vh;
     z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.25);
+    padding: 30px 15px;
+    background: rgba(3, 5, 9, 0.45);
 }
 
-/* Головна картка — Liquid / Frosted Glass */
+/* Картка — Темний Liquid Glass */
 .card {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-top: 1px solid rgba(255, 255, 255, 0.35); /* Світловий відблиск зверху */
+    background: rgba(15, 20, 28, 0.65);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 28px;
-    padding: 28px;
+    padding: 26px;
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        inset 0 0 15px rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        0 25px 60px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(255, 255, 255, 0.02);
 }
 
-.card:hover {
-    transform: translateY(-2px);
-}
-
-/* Шапка картки та перемикач мов */
+/* Шапка */
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .profile-name {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.5px;
     color: #ffffff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Перемикач мов у стилі iOS / One UI */
+/* Перемикач мов */
 .lang-switch {
     display: flex;
-    gap: 4px;
-    background: rgba(0, 0, 0, 0.25);
+    gap: 3px;
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 4px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .lang-btn {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 5px 11px;
-    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 4px 9px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
-    transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.2s ease;
 }
 
 .lang-btn:hover {
@@ -105,57 +97,157 @@ body, html {
 }
 
 .lang-btn.active {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.15);
     color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    border: 0.5px solid rgba(255, 255, 255, 0.3);
+    border: 0.5px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Елементи списку БІО */
+/* Списки */
 .bio-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .bio-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 12px 16px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 11px 15px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     transition: background 0.2s ease;
 }
 
-.bio-item:hover {
-    background: rgba(255, 255, 255, 0.09);
+.bio-item.clickable {
+    cursor: pointer;
+}
+
+.bio-item.clickable:hover {
+    background: rgba(255, 255, 255, 0.07);
 }
 
 .bio-label {
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 0.85rem;
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
 }
 
 .bio-value {
     color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 500;
 }
 
 .bio-value a {
-    color: #64b5f6;
+    color: #4dabf7;
     text-decoration: none;
-    transition: opacity 0.2s;
 }
 
 .bio-value a:hover {
-    opacity: 0.8;
     text-decoration: underline;
+}
+
+/* Випадаюча панель Minecraft */
+.sub-panel {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 14px;
+    padding: 8px 14px;
+    margin-top: -3px;
+    margin-bottom: 3px;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.sub-panel.hidden {
+    display: none;
+}
+
+.sub-panel-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+/* Заголовки розділів */
+.section-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 18px 0 10px 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Кнопки посилань */
+.links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.link-btn {
+    display: block;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px;
+    border-radius: 12px;
+    color: #e6edf3;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.link-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.link-btn.twitch:hover {
+    border-color: #9146ff;
+    color: #a970ff;
+}
+
+.link-btn.kick:hover {
+    border-color: #53fc18;
+    color: #53fc18;
+}
+
+/* Hall of Fame */
+.fame-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.fame-tag {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.fame-tag:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.fame-tag.highlight {
+    border-color: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+}
+
+.fame-tag.highlight:hover {
+    background: rgba(255, 215, 0, 0.15);
 }
 
