@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McChopik</title>
-    <!-- Шрифт Orbitron и Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
@@ -13,12 +12,11 @@
 <body>
 
     <audio id="bg-music" src="Music.mp3" loop></audio>
-
     <iframe id="bg-frame" src="fon.html"></iframe>
 
+    <!-- 1. ОСНОВНОЕ ОКНО (БИО) -->
     <div class="container">
         <div class="card">
-            
             <div class="card-header">
                 <div class="header-left">
                     <h1 class="profile-name">McChopik</h1>
@@ -44,7 +42,6 @@
                     <span class="bio-value">Minecraft <span class="arrow">▾</span></span>
                 </div>
 
-                <!-- Панель Minecraft -->
                 <div id="mc-panel" class="sub-panel hidden">
                     <div class="sub-panel-item">
                         <span class="bio-label" id="lbl-mc-server">Server</span>
@@ -67,53 +64,6 @@
                 </div>
             </div>
 
-            <!-- Samsung Floating Media Player Widget -->
-            <div class="samsung-player" id="samsung-player">
-                <div class="player-top-bar">
-                    <div class="device-output">
-                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                        <span>Media Output</span>
-                    </div>
-                    <!-- Кнопка свернуть/развернуть -->
-                    <button class="toggle-player-btn" onclick="togglePlayer()" id="toggle-player-btn" title="Collapse/Expand">−</button>
-                </div>
-
-                <div class="player-body" id="player-body">
-                    <div class="track-info">
-                        <div class="track-title">Background Track</div>
-                        <div class="track-artist">McChopik Audio</div>
-                    </div>
-
-                    <div class="progress-box">
-                        <input type="range" id="progress-bar" min="0" value="0" step="0.1" oninput="seekAudio(this.value)">
-                        <div class="time-box">
-                            <span id="current-time">00:00</span>
-                            <span id="duration-time">00:00</span>
-                        </div>
-                    </div>
-
-                    <div class="controls-row">
-                        <button class="ctrl-btn sub-btn">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-                        </button>
-                        <button class="ctrl-btn">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-                        </button>
-                        <button class="ctrl-btn play-btn" onclick="toggleMusic()">
-                            <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                            <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                        </button>
-                        <button class="ctrl-btn">
-                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-                        </button>
-                        <button class="ctrl-btn sub-btn">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Блок ссылок -->
             <div class="section-title" id="lbl-channels">Channels & Links</div>
             <div class="links-grid">
                 <a href="https://t.me/McChopikkk" target="_blank" class="link-btn" id="btn-main-channel">Main Channel</a>
@@ -122,7 +72,6 @@
                 <a href="https://kick.com/mcchopik" target="_blank" class="link-btn kick">Kick</a>
             </div>
 
-            <!-- Блок Hall of Fame -->
             <div class="section-title">Hall of Fame</div>
             <div class="fame-list">
                 <a href="https://t.me/aimrite2" target="_blank" class="fame-tag">@aimrite2</a>
@@ -131,54 +80,47 @@
                 <a href="https://t.me/angel1bigmelon" target="_blank" class="fame-tag">@angel1bigmelon</a>
                 <a href="https://t.me/Good_Dumpling" target="_blank" class="fame-tag">@Good_Dumpling</a>
             </div>
+        </div>
+    </div>
 
+    <!-- 2. ОТДЕЛЬНЫЙ ПЛАВАЮЩИЙ ПЛЕЕР (КНОПКА + ВЫДВИЖНАЯ ПАНЕЛЬ) -->
+    <div class="floating-widget" id="floating-widget">
+        <!-- Плавающая кнопка-иконка -->
+        <button class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+        </button>
+
+        <!-- Выдвижная панель плеера -->
+        <div class="player-panel hidden" id="player-panel">
+            <div class="track-info">
+                <div class="track-title">Background Music</div>
+                <div class="track-artist">McChopik Audio</div>
+            </div>
+
+            <div class="progress-box">
+                <input type="range" id="progress-bar" min="0" value="0" step="0.1" oninput="seekAudio(this.value)">
+                <div class="time-box">
+                    <span id="current-time">00:00</span>
+                    <span id="duration-time">00:00</span>
+                </div>
+            </div>
+
+            <div class="controls-row">
+                <button class="ctrl-btn play-btn" onclick="toggleMusic()">
+                    <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
         const dict = {
-            en: {
-                age_lbl: "Age",
-                age_val: "14 years old",
-                bday: "Birthday",
-                game: "Favorite Game",
-                langs_lbl: "Languages",
-                langs_val: "UA (native), RU/BY",
-                mc_server: "Server",
-                mc_launcher: "Launcher",
-                mc_page: "Go to Minecraft Page \u2192",
-                channels: "Channels & Links",
-                main_channel: "Main Channel",
-                life_channel: "Real Life Channel (Face)"
-            },
-            ua: {
-                age_lbl: "\u0412\u0456\u043A",
-                age_val: "14 \u0440\u043E\u043A\u0456\u0432",
-                bday: "\u0414\u0435\u043D\u044C \u043D\u0430\u0440\u043E\u0434\u0436\u0435\u043D\u043D\u044F",
-                game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430",
-                langs_lbl: "\u041C\u043E\u0432\u0438",
-                langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY",
-                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440",
-                mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440",
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 Minecraft \u2192",
-                channels: "\u041A\u0430\u043D\u0430\u043B\u0438 \u0442\u0430 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F",
-                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u0438\u0439 \u043A\u0430\u043D\u0430\u043B",
-                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0437 \u043E\u0431\u043B\u0438\u0447\u0447\u044F\u043C)"
-            },
-            ru: {
-                age_lbl: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442",
-                age_val: "14 \u043B\u0435\u0442",
-                bday: "\u0414\u0435\u043D\u044C \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F",
-                game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430",
-                langs_lbl: "\u042F\u0437\u044B\u043A\u0438",
-                langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY",
-                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440",
-                mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440",
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 Minecraft \u2192",
-                channels: "\u041A\u0430\u043D\u0430\u043B\u044B \u0438 \u0441\u0441\u044B\u043B\u043A\u0438",
-                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u0430\u043D\u0430\u043B",
-                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0441 \u043B\u0438\u0446\u043E\u043C)"
-            }
+            en: { age_lbl: "Age", age_val: "14 years old", bday: "Birthday", game: "Favorite Game", langs_lbl: "Languages", langs_val: "UA (native), RU/BY", mc_server: "Server", mc_launcher: "Launcher", mc_page: "Go to Minecraft Page \u2192", channels: "Channels & Links", main_channel: "Main Channel", life_channel: "Real Life Channel (Face)" },
+            ua: { age_lbl: "\u0412\u0456\u043A", age_val: "14 \u0440\u043E\u043A\u0456\u0432", bday: "\u0414\u0435\u043D\u044C \u043D\u0430\u0440\u043E\u0434\u0436\u0435\u043D\u043D\u044F", game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430", langs_lbl: "\u041C\u043E\u0432\u0438", langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY", mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 Minecraft \u2192", channels: "\u041A\u0430\u043D\u0430\u043B\u0438 \u0442\u0430 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F", main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u0438\u0439 \u043A\u0430\u043D\u0430\u043B", life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0437 \u043E\u0431\u043B\u0438\u0447\u0447\u044F\u043C)" },
+            ru: { age_lbl: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442", age_val: "14 \u043B\u0435\u0442", bday: "\u0414\u0435\u043D\u044C \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F", game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430", langs_lbl: "\u042F\u0437\u044B\u043A\u0438", langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY", mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 Minecraft \u2192", channels: "\u041A\u0430\u043D\u0430\u043B\u044B \u0438 \u0441\u0441\u044B\u043B\u043A\u0438", main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u0430\u043D\u0430\u043B", life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0441 \u043B\u0438\u0446\u043E\u043C)" }
         };
 
         function setLang(lang, btn) {
@@ -194,7 +136,6 @@
             document.getElementById('lbl-channels').innerText = dict[lang].channels;
             document.getElementById('btn-main-channel').innerText = dict[lang].main_channel;
             document.getElementById('btn-life-channel').innerText = dict[lang].life_channel;
-
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
@@ -203,7 +144,12 @@
             document.getElementById('mc-panel').classList.toggle('hidden');
         }
 
-        /* Плеер */
+        /* Выдвижение плеера */
+        function togglePlayerPanel() {
+            document.getElementById('player-panel').classList.toggle('hidden');
+        }
+
+        /* Управление треком */
         const music = document.getElementById('bg-music');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
@@ -221,13 +167,6 @@
                 playIcon.classList.remove('hidden');
                 pauseIcon.classList.add('hidden');
             }
-        }
-
-        function togglePlayer() {
-            const body = document.getElementById('player-body');
-            const btn = document.getElementById('toggle-player-btn');
-            body.classList.toggle('hidden');
-            btn.innerText = body.classList.contains('hidden') ? '+' : '−';
         }
 
         function formatTime(sec) {
@@ -250,6 +189,29 @@
         function seekAudio(value) {
             music.currentTime = value;
         }
+
+        /* Логика перетаскивания (Drag & Drop) плавающей кнопки */
+        const widget = document.getElementById('floating-widget');
+        let isDragging = false, startX, startY, initialX, initialY;
+
+        widget.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX - widget.offsetLeft;
+            startY = e.touches[0].clientY - widget.offsetTop;
+        });
+
+        widget.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            let newX = e.touches[0].clientX - startX;
+            let newY = e.touches[0].clientY - startY;
+            widget.style.left = newX + 'px';
+            widget.style.top = newY + 'px';
+            widget.style.bottom = 'auto';
+            widget.style.right = 'auto';
+        });
+
+        widget.addEventListener('touchend', () => { isDragging = false; });
     </script>
 </body>
 </html>
