@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,32 +18,41 @@
             <div class="card-header">
                 <h1 class="profile-name">McChopik</h1>
                 <div class="lang-switch">
-                    <button class="lang-btn active" onclick="setLang('ua', this)">UA</button>
+                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
                     <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
-                    <button class="lang-btn" onclick="setLang('en', this)">EN</button>
+                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
                 </div>
             </div>
 
             <div class="bio-list">
                 <div class="bio-item">
-                    <span class="bio-label" id="lbl-age">Вік</span>
-                    <span class="bio-value" id="val-age">14 років</span>
+                    <span class="bio-label" id="lbl-age">Age</span>
+                    <span class="bio-value" id="val-age">14 years old</span>
                 </div>
                 <div class="bio-item">
-                    <span class="bio-label" id="lbl-bday">День народження</span>
+                    <span class="bio-label" id="lbl-bday">Birthday</span>
                     <span class="bio-value">06.04</span>
                 </div>
-                <div class="bio-item">
-                    <span class="bio-label" id="lbl-friends">Друзі</span>
-                    <span class="bio-value">6</span>
+                <div class="bio-item clickable" onclick="toggleMcPanel()">
+                    <span class="bio-label" id="lbl-game">Favorite Game</span>
+                    <span class="bio-value">Minecraft ▾</span>
                 </div>
-                <div class="bio-item">
-                    <span class="bio-label" id="lbl-game">Гра</span>
-                    <span class="bio-value">Minecraft</span>
+
+                <!-- Інтерактивна панель з деталями про Minecraft -->
+                <div id="mc-panel" class="sub-panel hidden">
+                    <div class="sub-panel-item">
+                        <span class="bio-label" id="lbl-mc-server">Server</span>
+                        <span class="bio-value"><a href="http://forum.springplus.net" target="_blank">forum.springplus.net</a></span>
+                    </div>
+                    <div class="sub-panel-item">
+                        <span class="bio-label" id="lbl-mc-launcher">Launcher</span>
+                        <span class="bio-value">MojoLauncher</span>
+                    </div>
                 </div>
+
                 <div class="bio-item">
-                    <span class="bio-label" id="lbl-langs">Мови</span>
-                    <span class="bio-value" id="val-langs">UA (рідна), RU/BY</span>
+                    <span class="bio-label" id="lbl-langs">Languages</span>
+                    <span class="bio-value" id="val-langs">UA (native), RU/BY</span>
                 </div>
                 <div class="bio-item">
                     <span class="bio-label">PP</span>
@@ -51,38 +60,64 @@
                 </div>
             </div>
 
+            <!-- Блок ссилок на канали -->
+            <div class="section-title" id="lbl-channels">Channels & Links</div>
+            <div class="links-grid">
+                <a href="https://t.me/McChopikkk" target="_blank" class="link-btn">My Channel</a>
+                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="link-btn">Real Life Channel</a>
+                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" class="link-btn twitch">Twitch</a>
+                <a href="https://kick.com/mcchopik" target="_blank" class="link-btn kick">Kick</a>
+            </div>
+
+            <!-- Блок Hall of Fame -->
+            <div class="section-title">🌟 Hall of Fame</div>
+            <div class="fame-list">
+                <a href="https://t.me/aimrite2" target="_blank" class="fame-tag">@aimrite2</a>
+                <a href="https://t.me/GardenYabits" target="_blank" class="fame-tag">@GardenYabits</a>
+                <a href="https://t.me/DC_24V" target="_blank" class="fame-tag">@DC_24V</a>
+                <a href="https://t.me/angel1bigmelon" target="_blank" class="fame-tag">@angel1bigmelon</a>
+                <a href="https://t.me/Good_Dumpling" target="_blank" class="fame-tag">@Good_Dumpling</a>
+                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="fame-tag highlight">Channel with a face</a>
+            </div>
+
         </div>
     </div>
 
-    <!-- Скрипт зміни мови -->
+    <!-- Скрипт зміни мови та панелей -->
     <script>
         const dict = {
+            en: {
+                age_lbl: "Age",
+                age_val: "14 years old",
+                bday: "Birthday",
+                game: "Favorite Game",
+                langs_lbl: "Languages",
+                langs_val: "UA (native), RU/BY",
+                mc_server: "Server",
+                mc_launcher: "Launcher",
+                channels: "Channels & Links"
+            },
             ua: {
                 age_lbl: "Вік",
                 age_val: "14 років",
                 bday: "День народження",
-                friends: "Друзі",
-                game: "Гра",
+                game: "Улюблена гра",
                 langs_lbl: "Мови",
-                langs_val: "UA (рідна), RU/BY"
+                langs_val: "UA (рідна), RU/BY",
+                mc_server: "Сервер",
+                mc_launcher: "Лаунчер",
+                channels: "Канали та посилання"
             },
             ru: {
                 age_lbl: "Возраст",
                 age_val: "14 лет",
                 bday: "День рождения",
-                friends: "Друзья",
-                game: "Игра",
+                game: "Любимая игра",
                 langs_lbl: "Языки",
-                langs_val: "UA (родной), RU/BY"
-            },
-            en: {
-                age_lbl: "Age",
-                age_val: "14 years old",
-                bday: "Birthday",
-                friends: "Friends",
-                game: "Game",
-                langs_lbl: "Languages",
-                langs_val: "UA (native), RU/BY"
+                langs_val: "UA (родной), RU/BY",
+                mc_server: "Сервер",
+                mc_launcher: "Лаунчер",
+                channels: "Каналы и ссылки"
             }
         };
 
@@ -90,13 +125,20 @@
             document.getElementById('lbl-age').innerText = dict[lang].age_lbl;
             document.getElementById('val-age').innerText = dict[lang].age_val;
             document.getElementById('lbl-bday').innerText = dict[lang].bday;
-            document.getElementById('lbl-friends').innerText = dict[lang].friends;
             document.getElementById('lbl-game').innerText = dict[lang].game;
             document.getElementById('lbl-langs').innerText = dict[lang].langs_lbl;
             document.getElementById('val-langs').innerText = dict[lang].langs_val;
+            document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
+            document.getElementById('lbl-mc-launcher').innerText = dict[lang].mc_launcher;
+            document.getElementById('lbl-channels').innerText = dict[lang].channels;
 
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+        }
+
+        function toggleMcPanel() {
+            const panel = document.getElementById('mc-panel');
+            panel.classList.toggle('hidden');
         }
     </script>
 </body>
