@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <audio id="bg-music" src="Music.mp3" loop></audio>
+    <audio id="bg-music" src="Music.mp3" autoplay loop></audio>
     <iframe id="bg-frame" src="fon.html"></iframe>
 
     <!-- 1. ОСНОВНОЕ ОКНО (БИО) -->
@@ -39,7 +39,7 @@
                 </div>
                 <div class="bio-item clickable" onclick="toggleMcPanel()">
                     <span class="bio-label" id="lbl-game">Favorite Game</span>
-                    <span class="bio-value">Minecraft <span class="arrow">▾</span></span>
+                    <span class="bio-value"><span id="val-game-title">Mine Card</span> <span class="arrow">▾</span></span>
                 </div>
 
                 <div id="mc-panel" class="sub-panel hidden">
@@ -51,7 +51,7 @@
                         <span class="bio-label" id="lbl-mc-launcher">Launcher</span>
                         <span class="bio-value">MojoLauncher</span>
                     </div>
-                    <a href="/Minecraft" class="page-link-btn" id="lbl-mc-page">Go to Minecraft Page &rarr;</a>
+                    <a href="/Minecraft" class="page-link-btn" id="lbl-mc-page">Go to Mine Card Page &rarr;</a>
                 </div>
 
                 <div class="bio-item">
@@ -93,8 +93,9 @@
 
         <div class="player-panel hidden" id="player-panel">
             <div class="track-info">
-                <div class="track-title">Background Music</div>
-                <div class="track-artist">McChopik Audio</div>
+                <div class="track-title">Спокойный PHONK</div>
+                <div class="track-artist">ФОНК</div>
+                <a href="https://music.youtube.com/watch?v=ZUW7n0hJjxY&si=kdD2pyOzZEQXK-AQ" target="_blank" class="orig-link">Оригинал на YouTube Music</a>
             </div>
 
             <div class="progress-box">
@@ -118,16 +119,17 @@
         const dict = {
             en: { 
                 age_lbl: "Age", age_val: "14 years old", bday: "Birthday", game: "Favorite Game", 
-                langs_lbl: "Languages", langs_val: "UA (native), RU/BY", mc_server: "Server", 
-                mc_launcher: "Launcher", mc_page: "Go to Minecraft Page \u2192", 
+                game_title: "Mine Card", langs_lbl: "Languages", langs_val: "UA (native), RU/BY", 
+                mc_server: "Server", mc_launcher: "Launcher", mc_page: "Go to Mine Card Page \u2192", 
                 channels: "Channels & Links", main_channel: "Main Channel", 
                 life_channel: "Real Life Channel (Face)", fame: "Hall of Fame" 
             },
             ua: { 
                 age_lbl: "\u0412\u0456\u043A", age_val: "14 \u0440\u043E\u043A\u0456\u0432", bday: "\u0414\u0435\u043D\u044C \u043D\u0430\u0440\u043E\u0434\u0436\u0435\u043D\u043D\u044F", 
-                game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430", langs_lbl: "\u041C\u043E\u0432\u0438", langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY", 
+                game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430", game_title: "\u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430", 
+                langs_lbl: "\u041C\u043E\u0432\u0438", langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY", 
                 mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 Minecraft \u2192", 
+                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 \u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u2192", 
                 channels: "\u041A\u0430\u043D\u0430\u043B\u0438 \u0442\u0430 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F", 
                 main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u0438\u0439 \u043A\u0430\u043D\u0430\u043B", 
                 life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0437 \u043E\u0431\u043B\u0438\u0447\u0447\u044F\u043C)", 
@@ -135,9 +137,10 @@
             },
             ru: { 
                 age_lbl: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442", age_val: "14 \u043B\u0435\u0442", bday: "\u0414\u0435\u043D\u044C \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F", 
-                game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430", langs_lbl: "\u042F\u0437\u044B\u043A\u0438", langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY", 
+                game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430", game_title: "\u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430", 
+                langs_lbl: "\u042F\u0437\u044B\u043A\u0438", langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY", 
                 mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 Minecraft \u2192", 
+                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u2192", 
                 channels: "\u041A\u0430\u043D\u0430\u043B\u044B \u0438 \u0441\u0441\u044B\u043B\u043A\u0438", 
                 main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u0430\u043D\u0430\u043B", 
                 life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0441 \u043B\u0438\u0446\u043E\u043C)", 
@@ -150,6 +153,7 @@
             document.getElementById('val-age').innerText = dict[lang].age_val;
             document.getElementById('lbl-bday').innerText = dict[lang].bday;
             document.getElementById('lbl-game').innerText = dict[lang].game;
+            document.getElementById('val-game-title').innerText = dict[lang].game_title;
             document.getElementById('lbl-langs').innerText = dict[lang].langs_lbl;
             document.getElementById('val-langs').innerText = dict[lang].langs_val;
             document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
@@ -179,16 +183,41 @@
         const currentTimeElem = document.getElementById('current-time');
         const durationTimeElem = document.getElementById('duration-time');
 
+        function updatePlayIcons() {
+            if (music.paused) {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            } else {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            }
+        }
+
+        function startAutoplay() {
+            music.play().then(() => {
+                updatePlayIcons();
+            }).catch(() => {
+                // Если браузер заблокировал автовоспроизведение, запускаем при первом клике
+                const enableAudio = () => {
+                    music.play();
+                    updatePlayIcons();
+                    document.removeEventListener('click', enableAudio);
+                    document.removeEventListener('touchstart', enableAudio);
+                };
+                document.addEventListener('click', enableAudio);
+                document.addEventListener('touchstart', enableAudio);
+            });
+        }
+
+        window.addEventListener('load', startAutoplay);
+
         function toggleMusic() {
             if (music.paused) {
                 music.play();
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
             } else {
                 music.pause();
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
             }
+            updatePlayIcons();
         }
 
         function formatTime(sec) {
