@@ -1,267 +1,368 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>McChopik</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
 
-    <audio id="bg-music" src="Music.mp3" autoplay loop></audio>
-    <iframe id="bg-frame" src="fon.html"></iframe>
+body {
+    background-color: #0d0d11;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
 
-    <!-- 1. ОСНОВНОЕ ОКНО (БИО) -->
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="header-left">
-                    <h1 class="profile-name">McChopik</h1>
-                </div>
-                <div class="lang-switch">
-                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
-                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
-                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
-                </div>
-            </div>
+#bg-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: -1;
+    pointer-events: none;
+}
 
-            <div class="bio-list">
-                <div class="bio-item">
-                    <span class="bio-label" id="lbl-age">Age</span>
-                    <span class="bio-value" id="val-age">14 years old</span>
-                </div>
-                <div class="bio-item">
-                    <span class="bio-label" id="lbl-bday">Birthday</span>
-                    <span class="bio-value">06.04</span>
-                </div>
-                <div class="bio-item clickable" onclick="toggleMcPanel()">
-                    <span class="bio-label" id="lbl-game">Favorite Game</span>
-                    <span class="bio-value"><span id="val-game-title">Mine Card</span> <span class="arrow">▾</span></span>
-                </div>
+.container {
+    width: 100%;
+    max-width: 480px;
+    z-index: 1;
+}
 
-                <div id="mc-panel" class="sub-panel hidden">
-                    <div class="sub-panel-item">
-                        <span class="bio-label" id="lbl-mc-server">Server</span>
-                        <span class="bio-value"><a href="http://forum.springplus.net" target="_blank">forum.springplus.net</a></span>
-                    </div>
-                    <div class="sub-panel-item">
-                        <span class="bio-label" id="lbl-mc-launcher">Launcher</span>
-                        <span class="bio-value">MojoLauncher</span>
-                    </div>
-                    <a href="/Minecraft" class="page-link-btn" id="lbl-mc-page">Go to Mine Card Page &rarr;</a>
-                </div>
+.card {
+    background: rgba(18, 18, 24, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
 
-                <div class="bio-item">
-                    <span class="bio-label" id="lbl-langs">Languages</span>
-                    <span class="bio-value" id="val-langs">UA (native), RU/BY</span>
-                </div>
-                <div class="bio-item">
-                    <span class="bio-label">PP</span>
-                    <span class="bio-value"><a href="https://t.me/j6nda" target="_blank">@j6nda</a></span>
-                </div>
-            </div>
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-            <div class="section-title" id="lbl-channels">Channels & Links</div>
-            <div class="links-grid">
-                <a href="https://t.me/McChopikkk" target="_blank" class="link-btn" id="btn-main-channel">Main Channel</a>
-                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="link-btn" id="btn-life-channel">Real Life Channel (Face)</a>
-                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" class="link-btn twitch">Twitch</a>
-                <a href="https://kick.com/mcchopik" target="_blank" class="link-btn kick">Kick</a>
-            </div>
+.profile-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, #ff4757, #ff6b81);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-            <div class="section-title" id="lbl-fame">Hall of Fame</div>
-            <div class="fame-list">
-                <a href="https://t.me/aimrite2" target="_blank" class="fame-tag">@aimrite2</a>
-                <a href="https://t.me/GardenYabits" target="_blank" class="fame-tag">@GardenYabits</a>
-                <a href="https://t.me/DC_24V" target="_blank" class="fame-tag">@DC_24V</a>
-                <a href="https://t.me/angel1bigmelon" target="_blank" class="fame-tag">@angel1bigmelon</a>
-                <a href="https://t.me/Good_Dumpling" target="_blank" class="fame-tag">@Good_Dumpling</a>
-            </div>
-        </div>
-    </div>
+.lang-switch {
+    display: flex;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: 10px;
+}
 
-    <!-- 2. ОТДЕЛЬНЫЙ ПЛАВАЮЩИЙ ПЛЕЕР -->
-    <div class="floating-widget" id="floating-widget">
-        <button class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-            </svg>
-        </button>
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: #8e8e93;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
 
-        <div class="player-panel hidden" id="player-panel">
-            <div class="track-info">
-                <div class="track-title">Спокойный PHONK</div>
-                <div class="track-artist">ФОНК</div>
-                <a href="https://music.youtube.com/watch?v=ZUW7n0hJjxY&si=kdD2pyOzZEQXK-AQ" target="_blank" class="orig-link">Оригинал на YouTube Music</a>
-            </div>
+.lang-btn.active, .lang-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+}
 
-            <div class="progress-box">
-                <input type="range" id="progress-bar" min="0" value="0" step="0.1" oninput="seekAudio(this.value)">
-                <div class="time-box">
-                    <span id="current-time">00:00</span>
-                    <span id="duration-time">00:00</span>
-                </div>
-            </div>
+.bio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
 
-            <div class="controls-row">
-                <button class="ctrl-btn play-btn" onclick="toggleMusic()">
-                    <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                </button>
-            </div>
-        </div>
-    </div>
+.bio-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-    <script>
-        const dict = {
-            en: { 
-                age_lbl: "Age", age_val: "14 years old", bday: "Birthday", game: "Favorite Game", 
-                game_title: "Mine Card", langs_lbl: "Languages", langs_val: "UA (native), RU/BY", 
-                mc_server: "Server", mc_launcher: "Launcher", mc_page: "Go to Mine Card Page \u2192", 
-                channels: "Channels & Links", main_channel: "Main Channel", 
-                life_channel: "Real Life Channel (Face)", fame: "Hall of Fame" 
-            },
-            ua: { 
-                age_lbl: "\u0412\u0456\u043A", age_val: "14 \u0440\u043E\u043A\u0456\u0432", bday: "\u0414\u0435\u043D\u044C \u043D\u0430\u0440\u043E\u0434\u0436\u0435\u043D\u043D\u044F", 
-                game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430", game_title: "\u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430", 
-                langs_lbl: "\u041C\u043E\u0432\u0438", langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY", 
-                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 \u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u2192", 
-                channels: "\u041A\u0430\u043D\u0430\u043B\u0438 \u0442\u0430 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F", 
-                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u0438\u0439 \u043A\u0430\u043D\u0430\u043B", 
-                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0437 \u043E\u0431\u043B\u0438\u0447\u0447\u044F\u043C)", 
-                fame: "\u0414\u043E\u0448\u043A\u0430 \u0441\u043B\u0430\u0432\u0438" 
-            },
-            ru: { 
-                age_lbl: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442", age_val: "14 \u043B\u0435\u0442", bday: "\u0414\u0435\u043D\u044C \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F", 
-                game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430", game_title: "\u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430", 
-                langs_lbl: "\u042F\u0437\u044B\u043A\u0438", langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY", 
-                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u2192", 
-                channels: "\u041A\u0430\u043D\u0430\u043B\u044B \u0438 \u0441\u0441\u044B\u043B\u043A\u0438", 
-                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u0430\u043D\u0430\u043B", 
-                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0441 \u043B\u0438\u0446\u043E\u043C)", 
-                fame: "\u0414\u043E\u0441\u043A\u0430 \u0441\u043B\u0430\u0432\u044B" 
-            }
-        };
+.bio-item.clickable {
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
 
-        function setLang(lang, btn) {
-            document.getElementById('lbl-age').innerText = dict[lang].age_lbl;
-            document.getElementById('val-age').innerText = dict[lang].age_val;
-            document.getElementById('lbl-bday').innerText = dict[lang].bday;
-            document.getElementById('lbl-game').innerText = dict[lang].game;
-            document.getElementById('val-game-title').innerText = dict[lang].game_title;
-            document.getElementById('lbl-langs').innerText = dict[lang].langs_lbl;
-            document.getElementById('val-langs').innerText = dict[lang].langs_val;
-            document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
-            document.getElementById('lbl-mc-launcher').innerText = dict[lang].mc_launcher;
-            document.getElementById('lbl-mc-page').innerText = dict[lang].mc_page;
-            document.getElementById('lbl-channels').innerText = dict[lang].channels;
-            document.getElementById('btn-main-channel').innerText = dict[lang].main_channel;
-            document.getElementById('btn-life-channel').innerText = dict[lang].life_channel;
-            document.getElementById('lbl-fame').innerText = dict[lang].fame;
-            
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+.bio-item.clickable:hover {
+    background: rgba(255, 255, 255, 0.07);
+}
 
-        function toggleMcPanel() {
-            document.getElementById('mc-panel').classList.toggle('hidden');
-        }
+.bio-label {
+    color: #8e8e93;
+    font-size: 14px;
+}
 
-        function togglePlayerPanel() {
-            document.getElementById('player-panel').classList.toggle('hidden');
-        }
+.bio-value {
+    font-size: 14px;
+    font-weight: 500;
+}
 
-        const music = document.getElementById('bg-music');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
-        const progressBar = document.getElementById('progress-bar');
-        const currentTimeElem = document.getElementById('current-time');
-        const durationTimeElem = document.getElementById('duration-time');
+.bio-value a {
+    color: #ff4757;
+    text-decoration: none;
+}
 
-        function updatePlayIcons() {
-            if (music.paused) {
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-            } else {
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            }
-        }
+.bio-value a:hover {
+    text-decoration: underline;
+}
 
-        function startAutoplay() {
-            music.play().then(() => {
-                updatePlayIcons();
-            }).catch(() => {
-                // Если браузер заблокировал автовоспроизведение, запускаем при первом клике
-                const enableAudio = () => {
-                    music.play();
-                    updatePlayIcons();
-                    document.removeEventListener('click', enableAudio);
-                    document.removeEventListener('touchstart', enableAudio);
-                };
-                document.addEventListener('click', enableAudio);
-                document.addEventListener('touchstart', enableAudio);
-            });
-        }
+.arrow {
+    font-size: 12px;
+    color: #8e8e93;
+}
 
-        window.addEventListener('load', startAutoplay);
+.sub-panel {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: -4px;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+}
 
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-            } else {
-                music.pause();
-            }
-            updatePlayIcons();
-        }
+.sub-panel.hidden {
+    display: none;
+}
 
-        function formatTime(sec) {
-            if (isNaN(sec)) return "00:00";
-            let m = Math.floor(sec / 60);
-            let s = Math.floor(sec % 60);
-            return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
-        }
+.sub-panel-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
 
-        music.addEventListener('loadedmetadata', () => {
-            progressBar.max = music.duration;
-            durationTimeElem.innerText = formatTime(music.duration);
-        });
+.page-link-btn {
+    display: block;
+    text-align: center;
+    background: rgba(255, 71, 87, 0.15);
+    color: #ff4757;
+    padding: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+    transition: background 0.2s;
+}
 
-        music.addEventListener('timeupdate', () => {
-            progressBar.value = music.currentTime;
-            currentTimeElem.innerText = formatTime(music.currentTime);
-        });
+.page-link-btn:hover {
+    background: rgba(255, 71, 87, 0.25);
+}
 
-        function seekAudio(value) {
-            music.currentTime = value;
-        }
+.section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #8e8e93;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 20px 0 10px 0;
+}
 
-        const widget = document.getElementById('floating-widget');
-        let isDragging = false, startX, startY;
+.links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
 
-        widget.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].clientX - widget.offsetLeft;
-            startY = e.touches[0].clientY - widget.offsetTop;
-        });
+.link-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.2s ease;
+}
 
-        widget.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            let newX = e.touches[0].clientX - startX;
-            let newY = e.touches[0].clientY - startY;
-            widget.style.left = newX + 'px';
-            widget.style.top = newY + 'px';
-            widget.style.bottom = 'auto';
-            widget.style.right = 'auto';
-        });
+.link-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
 
-        widget.addEventListener('touchend', () => { isDragging = false; });
-    </script>
-</body>
-</html>
+.link-btn.twitch:hover {
+    border-color: #9146ff;
+    color: #9146ff;
+}
+
+.link-btn.kick:hover {
+    border-color: #53fc18;
+    color: #53fc18;
+}
+
+.fame-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.fame-tag {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 12px;
+    border-radius: 20px;
+    color: #8e8e93;
+    text-decoration: none;
+    font-size: 12px;
+    transition: all 0.2s;
+}
+
+.fame-tag:hover {
+    color: #fff;
+    border-color: #ff4757;
+    background: rgba(255, 71, 87, 0.1);
+}
+
+.floating-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.floating-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ff4757;
+    border: none;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+    transition: transform 0.2s;
+}
+
+.floating-btn:hover {
+    transform: scale(1.08);
+}
+
+.player-panel {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    width: 260px;
+    background: rgba(18, 18, 24, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.player-panel.hidden {
+    display: none;
+}
+
+.track-info {
+    text-align: center;
+}
+
+.track-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.track-artist {
+    font-size: 12px;
+    color: #8e8e93;
+}
+
+.orig-link {
+    display: inline-block;
+    font-size: 11px;
+    color: #ff4757;
+    text-decoration: underline;
+    margin-top: 4px;
+    transition: color 0.2s;
+}
+
+.orig-link:hover {
+    color: #ff6b81;
+}
+
+.progress-box {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#progress-bar {
+    width: 100%;
+    accent-color: #ff4757;
+    cursor: pointer;
+}
+
+.time-box {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #8e8e93;
+}
+
+.controls-row {
+    display: flex;
+    justify-content: center;
+}
+
+.ctrl-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.ctrl-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hidden {
+    display: none !important;
+}
