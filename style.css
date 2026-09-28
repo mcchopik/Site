@@ -257,22 +257,19 @@ body {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 71, 87, 0.85);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #ff4757;
+    border: none;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
-    transition: transform 0.2s, background 0.2s;
+    transition: transform 0.2s;
 }
 
 .floating-btn:hover {
     transform: scale(1.08);
-    background: rgba(255, 71, 87, 1);
 }
 
 .player-panel {
