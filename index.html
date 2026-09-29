@@ -18,7 +18,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="header-left">
-                    <h1 class="profile-name">McChopik</h1>
+                    <h1 class="profile-name" style="background: linear-gradient(45deg, #8a2be2, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">McChopik</h1>
                 </div>
                 <div class="lang-switch">
                     <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
@@ -126,37 +126,56 @@
     <script>
         const dict = {
             en: { 
-                age_lbl: "Age", age_val: "14 years old", bday: "Birthday", game: "Favorite Game", 
-                game_title: "Minecraft", langs_lbl: "Languages", langs_val: "UA (native), RU/BY", 
-                mc_server: "Server", mc_launcher: "Launcher", mc_page: "Go to Mine card Page \u2192", 
-                channels: "Channels & Links", main_channel: "Main Channel", 
-                life_channel: "Real Life Channel (Face)", fame: "Hall of Fame",
+                age_lbl: "Age",
+                age_val: "14 years old",
+                bday: "Birthday",
+                game: "Favorite Game", 
+                game_title: "Minecraft",
+                langs_lbl: "Languages",
+                langs_val: "UA (native), RU/BY", 
+                mc_server: "Server",
+                mc_launcher: "Launcher",
+                mc_page: "Go to Mine card Page →", 
+                channels: "Channels & Links",
+                main_channel: "Main Channel", 
+                life_channel: "Real Life Channel (Face)",
+                fame: "Hall of Fame",
                 toast_text: "🔊 Want to turn on background music? Click the icon below.",
                 toast_btn: "Turn on now"
             },
             ua: { 
-                age_lbl: "\u0412\u0456\u043A", age_val: "14 \u0440\u043E\u043A\u0456\u0432", bday: "\u0414\u0435\u043D\u044C \u043D\u0430\u0440\u043E\u0434\u0436\u0435\u043D\u043D\u044F", 
-                game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430", game_title: "Minecraft", 
-                langs_lbl: "\u041C\u043E\u0432\u0438", langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY", 
-                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 \u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0443 \u2192", 
-                channels: "\u041A\u0430\u043D\u0430\u043B\u0438 \u0442\u0430 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F", 
-                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u0438\u0439 \u043A\u0430\u043D\u0430\u043B", 
-                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0437 \u043E\u0431\u043B\u0438\u0447\u0447\u044F\u043C)", 
-                fame: "\u0414\u043E\u0448\u043A\u0430 \u0441\u043B\u0430\u0432\u0438",
+                age_lbl: "Вік",
+                age_val: "14 років",
+                bday: "День народження", 
+                game: "Улюблена гра",
+                game_title: "Minecraft", 
+                langs_lbl: "Мови",
+                langs_val: "UA (рідна), RU/BY", 
+                mc_server: "Сервер",
+                mc_launcher: "Лаунчер", 
+                mc_page: "Перейти на сторінку Майн карточку →", 
+                channels: "Канали та посилання", 
+                main_channel: "Основний канал", 
+                life_channel: "Лайф канал (з обличчям)", 
+                fame: "Дошка слави",
                 toast_text: "🔊 Хочете увімкнути фонову музику? Натисніть на іконку знизу.",
                 toast_btn: "Увімкнути зараз"
             },
             ru: { 
-                age_lbl: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442", age_val: "14 \u043B\u0435\u0442", bday: "\u0414\u0435\u043D\u044C \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F", 
-                game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430", game_title: "Minecraft", 
-                langs_lbl: "\u042F\u0437\u044B\u043A\u0438", langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY", 
-                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
-                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 \u041C\u0430\u0439\u043D \u043A\u0430\u0440\u0442\u0438 \u2192", 
-                channels: "\u041A\u0430\u043D\u0430\u043B\u044B \u0438 \u0441\u0441\u042B\u043B\u043A\u0438", 
-                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u0430\u043D\u0430\u043B", 
-                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0441 \u043B\u0438\u0446\u043E\u043C)", 
-                fame: "\u0414\u043E\u0441\u043A\u0430 \u0441\u043B\u0430\u0432\u044B",
+                age_lbl: "Возраст",
+                age_val: "14 лет",
+                bday: "День рождения", 
+                game: "Любимая игра",
+                game_title: "Minecraft", 
+                langs_lbl: "Языки",
+                langs_val: "UA (родной), RU/BY", 
+                mc_server: "Сервер",
+                mc_launcher: "Лаунчер", 
+                mc_page: "Перейти на страницу Майн карти →", 
+                channels: "Каналы и ссылки", 
+                main_channel: "Основной канал", 
+                life_channel: "Лайф канал (с лицом)", 
+                fame: "Доска славы",
                 toast_text: "🔊 Хотите включить фоновую музыку? Нажмите на иконку снизу.",
                 toast_btn: "Включить сейчас"
             }
