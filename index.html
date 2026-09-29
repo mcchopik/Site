@@ -1,233 +1,301 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Мой Сайт</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    body {
-      background-color: #121212;
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .card {
-      background: #1e1e1e;
-      border-radius: 16px;
-      padding: 20px;
-      max-width: 320px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      border: 1px solid #333;
-      margin: 20px 0;
-    }
-
-    .card-title {
-      font-size: 14px;
-      color: #aaa;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .game-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .game-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      background: #388e3c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-
-    .game-details h3 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .game-details p {
-      margin: 4px 0 0;
-      color: #888;
-      font-size: 13px;
-    }
-
-    .music-toast {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background: #252525;
-      border: 1px solid #444;
-      border-radius: 12px;
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      z-index: 1000;
-      animation: slideIn 0.4s ease-out;
-      max-width: 300px;
-    }
-
-    .music-toast.hidden {
-      display: none;
-    }
-
-    .toast-text {
-      font-size: 13px;
-      line-height: 1.4;
-      color: #ddd;
-    }
-
-    .toast-btn {
-      background: #4CAF50;
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-      margin-top: 6px;
-    }
-
-    .close-toast {
-      background: transparent;
-      border: none;
-      color: #888;
-      font-size: 16px;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-
-    .close-toast:hover {
-      color: #fff;
-    }
-
-    .music-toggle-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #333;
-      color: #fff;
-      border: 2px solid #555;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 18px;
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-
-    .music-toggle-btn.playing {
-      background: #4CAF50;
-      border-color: #4CAF50;
-      box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
-    }
-
-    @keyframes slideIn {
-      from { transform: translateY(100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McChopik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="card">
-    <div class="card-title">Улюблена гра</div>
-    <div class="game-info">
-      <div class="game-icon">
-        <i class="fa-solid fa-cube" style="color: #ffffff;"></i>
-      </div>
-      <div class="game-details">
-        <h3>Minecraft</h3>
-        <p>Sandbox / Survival</p>
-      </div>
+    <audio id="bg-music" src="Music.mp3" loop></audio>
+    <iframe id="bg-frame" src="fon.html"></iframe>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-left">
+                    <h1 class="profile-name">McChopik</h1>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
+                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
+                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                </div>
+            </div>
+
+            <div class="bio-list">
+                <div class="bio-item">
+                    <span class="bio-label" id="lbl-age">Age</span>
+                    <span class="bio-value" id="val-age">14 years old</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label" id="lbl-bday">Birthday</span>
+                    <span class="bio-value">06.04</span>
+                </div>
+                <div class="bio-item clickable" onclick="toggleMcPanel()">
+                    <span class="bio-label" id="lbl-game">Favorite Game</span>
+                    <span class="bio-value"><span id="val-game-title">Minecraft</span> <span class="arrow">▾</span></span>
+                </div>
+
+                <div id="mc-panel" class="sub-panel hidden">
+                    <div class="sub-panel-item">
+                        <span class="bio-label" id="lbl-mc-server">Server</span>
+                        <span class="bio-value"><a href="http://forum.springplus.net" target="_blank">forum.springplus.net</a></span>
+                    </div>
+                    <div class="sub-panel-item">
+                        <span class="bio-label" id="lbl-mc-launcher">Launcher</span>
+                        <span class="bio-value">MojoLauncher</span>
+                    </div>
+                    <a href="/Minecraft" class="page-link-btn" id="lbl-mc-page">Go to Minecraft Page &rarr;</a>
+                </div>
+
+                <div class="bio-item">
+                    <span class="bio-label" id="lbl-langs">Languages</span>
+                    <span class="bio-value" id="val-langs">UA (native), RU/BY</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">PP</span>
+                    <span class="bio-value"><a href="https://t.me/j6nda" target="_blank">@j6nda</a></span>
+                </div>
+            </div>
+
+            <div class="section-title" id="lbl-channels">Channels & Links</div>
+            <div class="links-grid">
+                <a href="https://t.me/McChopikkk" target="_blank" class="link-btn" id="btn-main-channel">Main Channel</a>
+                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="link-btn" id="btn-life-channel">Real Life Channel (Face)</a>
+                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" class="link-btn twitch">Twitch</a>
+                <a href="https://kick.com/mcchopik" target="_blank" class="link-btn kick">Kick</a>
+            </div>
+
+            <div class="section-title" id="lbl-fame">Hall of Fame</div>
+            <div class="fame-list">
+                <a href="https://t.me/aimrite2" target="_blank" class="fame-tag">@aimrite2</a>
+                <a href="https://t.me/GardenYabits" target="_blank" class="fame-tag">@GardenYabits</a>
+                <a href="https://t.me/DC_24V" target="_blank" class="fame-tag">@DC_24V</a>
+                <a href="https://t.me/angel1bigmelon" target="_blank" class="fame-tag">@angel1bigmelon</a>
+                <a href="https://t.me/Good_Dumpling" target="_blank" class="fame-tag">@Good_Dumpling</a>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div id="musicToast" class="music-toast hidden">
-    <div class="toast-content">
-      <div class="toast-text">
-        🔊 Хотите включить фоновую музыку? Нажмите на иконку снизу.
-      </div>
-      <button class="toast-btn" onclick="enableMusicFromToast()">Включить сейчас</button>
+    <div id="musicToast" class="music-toast hidden">
+        <div class="toast-content">
+            <div class="toast-text" id="toast-text">
+                🔊 Хотите включить фоновую музыку? Нажмите на иконку снизу.
+            </div>
+            <button class="toast-btn" id="toast-btn" onclick="enableMusicFromToast()">Включить сейчас</button>
+        </div>
+        <button class="close-toast" onclick="closeToast()">&times;</button>
     </div>
-    <button class="close-toast" onclick="closeToast()">&times;</button>
-  </div>
 
-  <button id="musicToggle" class="music-toggle-btn" onclick="toggleAudio()" title="Включить/выключить музыку">
-    <i id="musicIcon" class="fas fa-music"></i>
-  </button>
+    <div class="floating-widget" id="floating-widget">
+        <button class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+        </button>
 
-  <audio id="bgMusic" loop preload="auto">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-  </audio>
+        <div class="player-panel hidden" id="player-panel">
+            <div class="track-info">
+                <div class="track-title">Спокойный PHONK</div>
+                <div class="track-artist">ФОНК</div>
+                <a href="https://music.youtube.com/watch?v=ZUW7n0hJjxY&si=kdD2pyOzZEQXK-AQ" target="_blank" class="orig-link">Оригинал на YouTube Music</a>
+            </div>
 
-  <script>
-    const audio = document.getElementById('bgMusic');
-    const musicBtn = document.getElementById('musicToggle');
-    const musicIcon = document.getElementById('musicIcon');
-    const musicToast = document.getElementById('musicToast');
+            <div class="progress-box">
+                <input type="range" id="progress-bar" min="0" value="0" step="0.1" oninput="seekAudio(this.value)">
+                <div class="time-box">
+                    <span id="current-time">00:00</span>
+                    <span id="duration-time">00:00</span>
+                </div>
+            </div>
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const hasVisited = localStorage.getItem('site_visited');
-      const isMusicOn = localStorage.getItem('music_enabled') === 'true';
+            <div class="controls-row">
+                <button class="ctrl-btn play-btn" onclick="toggleMusic()">
+                    <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-      if (!hasVisited) {
-        musicToast.classList.remove('hidden');
-        localStorage.setItem('site_visited', 'true');
-      }
+    <script>
+        const dict = {
+            en: { 
+                age_lbl: "Age", age_val: "14 years old", bday: "Birthday", game: "Favorite Game", 
+                game_title: "Minecraft", langs_lbl: "Languages", langs_val: "UA (native), RU/BY", 
+                mc_server: "Server", mc_launcher: "Launcher", mc_page: "Go to Minecraft Page \u2192", 
+                channels: "Channels & Links", main_channel: "Main Channel", 
+                life_channel: "Real Life Channel (Face)", fame: "Hall of Fame",
+                toast_text: "🔊 Want to turn on background music? Click the icon below.",
+                toast_btn: "Turn on now"
+            },
+            ua: { 
+                age_lbl: "\u0412\u0456\u043A", age_val: "14 \u0440\u043E\u043A\u0456\u0432", bday: "\u0414\u0435\u043D\u044C \u043D\u0430\u0440\u043E\u0434\u0436\u0435\u043D\u043D\u044F", 
+                game: "\u0423\u043B\u044E\u0431\u043B\u0435\u043D\u0430 \u0433\u0440\u0430", game_title: "Minecraft", 
+                langs_lbl: "\u041C\u043E\u0432\u0438", langs_val: "UA (\u0440\u0456\u0434\u043D\u0430), RU/BY", 
+                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
+                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u043E\u0440\u0456\u043D\u043A\u0443 Minecraft \u2192", 
+                channels: "\u041A\u0430\u043D\u0430\u043B\u0438 \u0442\u0430 \u043F\u043E\u0441\u0438\u043B\u0430\u043D\u043D\u044F", 
+                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u0438\u0439 \u043A\u0430\u043D\u0430\u043B", 
+                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0437 \u043E\u0431\u043B\u0438\u0447\u0447\u044F\u043C)", 
+                fame: "\u0414\u043E\u0448\u043A\u0430 \u0441\u043B\u0430\u0432\u0438",
+                toast_text: "🔊 Хочете увімкнути фонову музику? Натисніть на іконку знизу.",
+                toast_btn: "Увімкнути зараз"
+            },
+            ru: { 
+                age_lbl: "\u0412\u043E\u0437\u0440\u0430\u0441\u0442", age_val: "14 \u043B\u0435\u0442", bday: "\u0414\u0435\u043D\u044C \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F", 
+                game: "\u041B\u044E\u0431\u0438\u043C\u0430\u044F \u0438\u0433\u0440\u0430", game_title: "Minecraft", 
+                langs_lbl: "\u042F\u0437\u044B\u043A\u0438", langs_val: "UA (\u0440\u043E\u0434\u043D\u043E\u0439), RU/BY", 
+                mc_server: "\u0421\u0435\u0440\u0432\u0435\u0440", mc_launcher: "\u041B\u0430\u0443\u043D\u0447\u0435\u0440", 
+                mc_page: "\u041F\u0435\u0440\u0435\u0439\u0442\u0438 \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0443 Minecraft \u2192", 
+                channels: "\u041A\u0430\u043D\u0430\u043B\u044B \u0438 \u0441\u0441\u042B\u043B\u043A\u0438", 
+                main_channel: "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0439 \u043A\u0430\u043D\u0430\u043B", 
+                life_channel: "\u041B\u0430\u0439\u0444 \u043A\u0430\u043D\u0430\u043B (\u0441 \u043B\u0438\u0446\u043E\u043C)", 
+                fame: "\u0414\u043E\u0441\u043A\u0430 \u0441\u043B\u0430\u0432\u044B",
+                toast_text: "🔊 Хотите включить фоновую музыку? Нажмите на иконку снизу.",
+                toast_btn: "Включить сейчас"
+            }
+        };
 
-      if (isMusicOn) {
-        playAudio();
-      }
-    });
+        function setLang(lang, btn) {
+            document.getElementById('lbl-age').innerText = dict[lang].age_lbl;
+            document.getElementById('val-age').innerText = dict[lang].age_val;
+            document.getElementById('lbl-bday').innerText = dict[lang].bday;
+            document.getElementById('lbl-game').innerText = dict[lang].game;
+            document.getElementById('val-game-title').innerText = dict[lang].game_title;
+            document.getElementById('lbl-langs').innerText = dict[lang].langs_lbl;
+            document.getElementById('val-langs').innerText = dict[lang].langs_val;
+            document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
+            document.getElementById('lbl-mc-launcher').innerText = dict[lang].mc_launcher;
+            document.getElementById('lbl-mc-page').innerText = dict[lang].mc_page;
+            document.getElementById('lbl-channels').innerText = dict[lang].channels;
+            document.getElementById('btn-main-channel').innerText = dict[lang].main_channel;
+            document.getElementById('btn-life-channel').innerText = dict[lang].life_channel;
+            document.getElementById('lbl-fame').innerText = dict[lang].fame;
+            document.getElementById('toast-text').innerText = dict[lang].toast_text;
+            document.getElementById('toast-btn').innerText = dict[lang].toast_btn;
+            
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
 
-    function toggleAudio() {
-      if (audio.paused) {
-        playAudio();
-      } else {
-        pauseAudio();
-      }
-    }
+        function toggleMcPanel() {
+            document.getElementById('mc-panel').classList.toggle('hidden');
+        }
 
-    function playAudio() {
-      audio.play().then(() => {
-        musicBtn.classList.add('playing');
-        musicIcon.className = 'fas fa-volume-up';
-        localStorage.setItem('music_enabled', 'true');
-      }).catch(err => {});
-    }
+        function togglePlayerPanel() {
+            document.getElementById('player-panel').classList.toggle('hidden');
+        }
 
-    function pauseAudio() {
-      audio.pause();
-      musicBtn.classList.remove('playing');
-      musicIcon.className = 'fas fa-music';
-      localStorage.setItem('music_enabled', 'false');
-    }
+        const music = document.getElementById('bg-music');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeElem = document.getElementById('current-time');
+        const durationTimeElem = document.getElementById('duration-time');
+        const musicToast = document.getElementById('musicToast');
 
-    function enableMusicFromToast() {
-      playAudio();
-      closeToast();
-    }
+        window.addEventListener('DOMContentLoaded', () => {
+            const hasVisited = localStorage.getItem('site_visited');
+            const isMusicOn = localStorage.getItem('music_enabled') === 'true';
 
-    function closeToast() {
-      musicToast.classList.add('hidden');
-    }
-  </script>
+            if (!hasVisited) {
+                musicToast.classList.remove('hidden');
+                localStorage.setItem('site_visited', 'true');
+            }
+
+            if (isMusicOn) {
+                playAudio();
+            }
+        });
+
+        function updatePlayIcons() {
+            if (music.paused) {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            } else {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            }
+        }
+
+        function playAudio() {
+            music.play().then(() => {
+                updatePlayIcons();
+                localStorage.setItem('music_enabled', 'true');
+            }).catch(() => {});
+        }
+
+        function pauseAudio() {
+            music.pause();
+            updatePlayIcons();
+            localStorage.setItem('music_enabled', 'false');
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                playAudio();
+            } else {
+                pauseAudio();
+            }
+        }
+
+        function enableMusicFromToast() {
+            playAudio();
+            closeToast();
+        }
+
+        function closeToast() {
+            musicToast.classList.add('hidden');
+        }
+
+        function formatTime(sec) {
+            if (isNaN(sec)) return "00:00";
+            let m = Math.floor(sec / 60);
+            let s = Math.floor(sec % 60);
+            return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+        }
+
+        music.addEventListener('loadedmetadata', () => {
+            progressBar.max = music.duration;
+            durationTimeElem.innerText = formatTime(music.duration);
+        });
+
+        music.addEventListener('timeupdate', () => {
+            progressBar.value = music.currentTime;
+            currentTimeElem.innerText = formatTime(music.currentTime);
+        });
+
+        function seekAudio(value) {
+            music.currentTime = value;
+        }
+
+        const widget = document.getElementById('floating-widget');
+        let isDragging = false, startX, startY;
+
+        widget.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX - widget.offsetLeft;
+            startY = e.touches[0].clientY - widget.offsetTop;
+        });
+
+        widget.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            let newX = e.touches[0].clientX - startX;
+            let newY = e.touches[0].clientY - startY;
+            widget.style.left = newX + 'px';
+            widget.style.top = newY + 'px';
+            widget.style.bottom = 'auto';
+            widget.style.right = 'auto';
+        });
+
+        widget.addEventListener('touchend', () => { isDragging = false; });
+    </script>
 </body>
 </html>
