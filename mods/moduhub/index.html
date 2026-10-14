@@ -91,32 +91,54 @@
                     counter on the screen, a tweak to the game — is a <b>module</b>, published in a
                     separate repository and added without a new build of the mod.
                 </p>
-                <span class="tag">Early skeleton — no modules published yet</span>
+                <span class="tag">1.0-beta-nestapilka — three modules published, no release yet</span>
 
                 <div class="section-title">How it behaves</div>
                 <ul class="points">
                     <li><b>Nothing is installed without being asked.</b> Every module is one button,
                         and pressing it says what the module is, who published it, how large it is, the
-                        full address it comes from, and what it asks for.</li>
+                        full address it comes from, which list it was found in, and what it asks for.</li>
                     <li><b>Nothing is kept that does not match.</b> Each module has a SHA-256 published
-                        with it, and the file is thrown away unless it hashes to it.</li>
-                    <li><b>Nothing can do more than it says.</b> A module declares what it needs — and
-                        the list of what is possible is fixed by the mod, shown to you in your own
-                        language before anything is downloaded.</li>
-                    <li><b>Nothing is code.</b> A module is a description. No jar, no code loaded into
-                        the game, so a repository that is taken over cannot run anything.</li>
+                        with it, and the file is thrown away unless it hashes to it. <b>That hash is the
+                        guarantee:</b> what runs is what the list's author published, byte for byte.</li>
+                    <li><b>What a module says about itself is a declaration.</b> A module declares what
+                        it needs — the list of what can be declared is fixed by the mod, and it is shown
+                        to you in your own language before anything is downloaded. It is not a fence: a
+                        module is code, and no list of words fences code in.</li>
+                    <li><b>A module is a jar.</b> It says what it is inside itself, and it can only be
+                        reached through the small interface the mod hands it. Anything from a list other
+                        than the official one — or a jar off your own disk — is shown with the mod saying
+                        outright that it has nothing to do with the official list and is installed at
+                        your own risk.</li>
+                    <li><b>Switched on and off without restarting.</b> A module is loaded when you
+                        switch it on and what it registered is taken back when you switch it off, so
+                        nothing about it needs the game closed.</li>
+                    <li><b>Grouped by what they are for.</b> Optimisation, on the screen, inventory,
+                        tools, resource packs, chat and sound, other.</li>
                     <li><b>Your language, or English.</b> Module text is written per language; anything
                         missing falls back to English rather than showing a key.</li>
                     <li><b>No hotkeys.</b> Every setting is on the settings screen Mod Menu shows.</li>
+                </ul>
+
+                <div class="section-title">The modules published with it</div>
+                <ul class="points">
+                    <li><b>Inventory cleaner</b> — a button on the inventory screen that throws out
+                        every stack of one item you name.</li>
+                    <li><b>Screenshot sorter</b> — moves screenshots out of their folder into another
+                        one, a few seconds after they are taken.</li>
+                    <li><b>Super stability</b> — turns the settings that cost the most frames down
+                        together, on a preset you choose, and puts your own back when it is switched
+                        off. Made with phones and PojavLauncher in mind.</li>
                 </ul>
 
                 <div class="section-title">Install</div>
                 <p class="note">
                     Put <code>moduhub-*.jar</code> in your <code>mods</code> folder. Fabric Loader
                     0.19.3+, Fabric API and Java 25 are required; Mod Menu is optional and adds the
-                    button that opens the module list. Windows, macOS, Linux and Android launchers
-                    such as PojavLauncher are supported. There is no release yet — the mod is being
-                    built, and the first modules are next.
+                    button that opens the mod's settings. Then <b>Mod Menu → ModuHub → Modules</b>:
+                    read what is on offer and press a module to see what it would do. Windows, macOS,
+                    Linux and Android launchers such as PojavLauncher are supported. There is no
+                    release yet — the mod is built from the <code>beta</code> branch.
                 </p>
                 <div class="row">
                     <a class="page-link-btn" href="https://github.com/mcchopik/moduhub" target="_blank" rel="noopener">The mod on GitHub &rarr;</a>
@@ -131,33 +153,56 @@
                     буст, счётчик на экране, правка поведения игры — это <b>модуль</b>, опубликованный
                     в отдельном репозитории и добавляемый без новой сборки мода.
                 </p>
-                <span class="tag">Ранний каркас — модулей пока нет</span>
+                <span class="tag">1.0-beta-nestapilka — три модуля опубликованы, релиза пока нет</span>
 
                 <div class="section-title">Как он себя ведёт</div>
                 <ul class="points">
                     <li><b>Ничего не ставится без вопроса.</b> Каждый модуль — одна кнопка, и по
                         нажатию вам говорят, что это, кто опубликовал, сколько весит, с какого полного
-                        адреса и что он просит.</li>
+                        адреса, в каком списке найден и что он просит.</li>
                     <li><b>Ничего не остаётся, если не совпало.</b> С каждым модулем публикуется его
-                        SHA-256, и файл отбрасывается, если его хеш не тот.</li>
-                    <li><b>Ничего не может больше, чем заявляет.</b> Модуль объявляет, что ему нужно,
-                        а список возможного задан самим модом и показывается вам вашим языком до
-                        начала загрузки.</li>
-                    <li><b>Ничего не является кодом.</b> Модуль — это описание. Ни jar, ни кода,
-                        загружаемого в игру, поэтому захваченный репозиторий ничего не сможет
-                        выполнить.</li>
+                        SHA-256, и файл отбрасывается, если его хеш не тот. <b>Этот хеш и есть
+                        гарантия:</b> запускается ровно то, что опубликовал издатель списка, байт в
+                        байт.</li>
+                    <li><b>То, что модуль о себе заявляет, — заявление.</b> Модуль объявляет, что ему
+                        нужно; список того, что можно объявить, задан самим модом и показывается вам
+                        вашим языком до начала загрузки. Это не забор: модуль — это код, а код списком
+                        слов не огородить.</li>
+                    <li><b>Модуль — это jar.</b> Он сам говорит, что он такое, и добраться до игры
+                        может только через тот небольшой интерфейс, который ему даёт мод. Всё из списка,
+                        кроме официального, — и любой jar с вашего диска — показывается с прямыми
+                        словами мода, что к официальному списку это отношения не имеет и ставится на
+                        свой страх и риск.</li>
+                    <li><b>Включается и выключается без перезапуска.</b> Модуль загружается, когда вы
+                        его включаете, а то, что он зарегистрировал, забирается, когда вы его
+                        выключаете, — игру закрывать не нужно.</li>
+                    <li><b>Разложены по категориям.</b> Оптимизация, на экране, инвентарь,
+                        инструменты, ресурспаки, чат и звук, разное.</li>
                     <li><b>Ваш язык или английский.</b> Текст модуля написан по языкам; если чего-то
                         нет, показывается английский, а не ключ.</li>
                     <li><b>Горячих клавиш нет.</b> Все настройки — на экране настроек, который
                         показывает Mod Menu.</li>
                 </ul>
 
+                <div class="section-title">Модули, опубликованные вместе с ним</div>
+                <ul class="points">
+                    <li><b>Чистка инвентаря</b> — кнопка на экране инвентаря, которая выбрасывает все
+                        стаки названного вами предмета.</li>
+                    <li><b>Раскладка скриншотов</b> — переносит скриншоты из их папки в другую через
+                        несколько секунд после того, как они сделаны.</li>
+                    <li><b>Супер-стабильность</b> — опускает разом все настройки, которые едят кадры,
+                        на выбранном вами пресете и возвращает ваши обратно, когда его выключают.
+                        Делался с мыслью о телефонах и PojavLauncher.</li>
+                </ul>
+
                 <div class="section-title">Установка</div>
                 <p class="note">
                     Положите <code>moduhub-*.jar</code> в папку <code>mods</code>. Нужны Fabric
                     Loader 0.19.3+, Fabric API и Java 25; Mod Menu необязателен и добавляет кнопку,
-                    открывающую список модулей. Поддерживаются Windows, macOS, Linux и Android-лаунчеры
-                    вроде PojavLauncher. Релиза пока нет — мод делается, следом первые модули.
+                    открывающую настройки мода. Дальше <b>Mod Menu → ModuHub → Модули</b>: читайте,
+                    что предлагают, и нажимайте на модуль, чтобы увидеть, что он сделает. Поддерживаются
+                    Windows, macOS, Linux и Android-лаунчеры вроде PojavLauncher. Релиза пока нет — мод
+                    собирается из ветки <code>beta</code>.
                 </p>
                 <div class="row">
                     <a class="page-link-btn" href="https://github.com/mcchopik/moduhub" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
@@ -172,32 +217,56 @@
                     на екрані, правка поведінки гри — це <b>модуль</b>, опублікований в окремому
                     репозиторії та доданий без нової збірки мода.
                 </p>
-                <span class="tag">Ранній каркас — модулів поки немає</span>
+                <span class="tag">1.0-beta-nestapilka — три модулі опубліковано, релізу ще немає</span>
 
                 <div class="section-title">Як він поводиться</div>
                 <ul class="points">
                     <li><b>Нічого не встановлюється без запитання.</b> Кожен модуль — одна кнопка, і
                         після натискання вам кажуть, що це, хто опублікував, скільки важить, з якої
-                        повної адреси і що він просить.</li>
+                        повної адреси, у якому списку знайдений і що він просить.</li>
                     <li><b>Нічого не залишається, якщо не збіглося.</b> З кожним модулем публікується
-                        його SHA-256, і файл відкидається, якщо його хеш не той.</li>
-                    <li><b>Ніщо не може більше, ніж заявляє.</b> Модуль оголошує, що йому потрібно, а
-                        список можливого заданий самим модом і показується вам вашою мовою до початку
-                        завантаження.</li>
-                    <li><b>Ніщо не є кодом.</b> Модуль — це опис. Ні jar, ні коду, що завантажується в
-                        гру, тож захоплений репозиторій нічого не зможе виконати.</li>
+                        його SHA-256, і файл відкидається, якщо його хеш не той. <b>Цей хеш і є
+                        гарантія:</b> запускається саме те, що опублікував видавець списку, байт за
+                        байтом.</li>
+                    <li><b>Те, що модуль про себе заявляє, — заява.</b> Модуль оголошує, що йому
+                        потрібно; список того, що можна оголосити, заданий самим модом і показується вам
+                        вашою мовою до початку завантаження. Це не паркан: модуль — це код, а код
+                        переліком слів не огородити.</li>
+                    <li><b>Модуль — це jar.</b> Він сам каже, що він таке, і дістатися до гри може
+                        лише через той невеликий інтерфейс, який дає йому мод. Усе зі списку, крім
+                        офіційного, — і будь-який jar з вашого диска — показується з прямими словами
+                        мода, що до офіційного списку це не має відношення і ставиться на свій страх і
+                        ризик.</li>
+                    <li><b>Вмикається й вимикається без перезапуску.</b> Модуль завантажується, коли ви
+                        його вмикаєте, а те, що він зареєстрував, забирається, коли ви його вимикаєте, —
+                        гру закривати не потрібно.</li>
+                    <li><b>Розкладені за категоріями.</b> Оптимізація, на екрані, інвентар,
+                        інструменти, ресурспаки, чат і звук, різне.</li>
                     <li><b>Ваша мова або англійська.</b> Текст модуля написано за мовами; якщо чогось
                         немає, показується англійська, а не ключ.</li>
                     <li><b>Гарячих клавіш немає.</b> Усі налаштування — на екрані налаштувань, який
                         показує Mod Menu.</li>
                 </ul>
 
+                <div class="section-title">Модулі, опубліковані разом із ним</div>
+                <ul class="points">
+                    <li><b>Чищення інвентарю</b> — кнопка на екрані інвентарю, яка викидає всі стаки
+                        названого вами предмета.</li>
+                    <li><b>Розкладання скриншотів</b> — переносить скриншоти з їхньої теки в іншу через
+                        кілька секунд після того, як їх зроблено.</li>
+                    <li><b>Супер-стабільність</b> — опускає разом усі налаштування, які з'їдають кадри,
+                        на вибраному вами пресеті й повертає ваші назад, коли його вимикають. Робився з
+                        думкою про телефони та PojavLauncher.</li>
+                </ul>
+
                 <div class="section-title">Встановлення</div>
                 <p class="note">
                     Покладіть <code>moduhub-*.jar</code> у теку <code>mods</code>. Потрібні Fabric
                     Loader 0.19.3+, Fabric API і Java 25; Mod Menu необов'язковий і додає кнопку, що
-                    відкриває список модулів. Підтримуються Windows, macOS, Linux і Android-лаунчери
-                    на кшталт PojavLauncher. Релізу ще немає — мод робиться, далі перші модулі.
+                    відкриває налаштування мода. Далі <b>Mod Menu → ModuHub → Модулі</b>: читайте, що
+                    пропонують, і натискайте на модуль, щоб побачити, що він зробить. Підтримуються
+                    Windows, macOS, Linux і Android-лаунчери на кшталт PojavLauncher. Релізу ще немає —
+                    мод збирається з гілки <code>beta</code>.
                 </p>
                 <div class="row">
                     <a class="page-link-btn" href="https://github.com/mcchopik/moduhub" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
