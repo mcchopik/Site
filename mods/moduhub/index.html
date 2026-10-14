@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModuHub — modules for Minecraft</title>
+    <meta name="description" content="ModuHub is a client-side Fabric mod for Minecraft 26.2 that is a shell for modules: each one is downloaded only after you agree to it, and checked against a published hash.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { align-items: flex-start; padding: 32px 20px; }
+        .container { max-width: 640px; }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lede { color: #b9b9c2; font-size: 14px; line-height: 1.6; margin-top: 10px; }
+        .row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .row a { flex: 1 1 160px; }
+        .note { color: #8e8e93; font-size: 12.5px; line-height: 1.6; margin-top: 10px; }
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: #ffb020;
+            border: 1px solid rgba(255, 176, 32, .35);
+            background: rgba(255, 176, 32, .12);
+            border-radius: 999px;
+            padding: 3px 10px;
+            margin-top: 12px;
+        }
+        ul.points { margin: 10px 0 0 18px; }
+        ul.points li { color: #cfcfd6; font-size: 13.5px; line-height: 1.65; margin-bottom: 7px; }
+        ul.points b { color: #fff; }
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12.5px;
+            background: rgba(255,255,255,.07);
+            border-radius: 5px;
+            padding: 1px 6px;
+            color: #e6e6ee;
+        }
+        .lang-switch { display: flex; gap: 6px; }
+        .lang-btn {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #b9b9c2;
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        .lang-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+        .lang-btn.active { background: linear-gradient(45deg, #8a2be2, #ff007f); color: #fff; border-color: transparent; }
+        footer { margin-top: 22px; color: #6f6f78; font-size: 12px; line-height: 1.6; }
+        footer a { color: #b9b9c2; }
+        [data-lang] { display: none; }
+        [data-lang].shown { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-left">
+                    <h1 class="page-title">ModuHub</h1>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
+                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
+                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                </div>
+            </div>
+
+            <div data-lang="en" class="shown">
+                <p class="lede">
+                    A client-side Fabric mod for <b>Minecraft 26.2</b> that is a shell for modules.
+                    The mod itself does very little on purpose: what you actually want — a boost, a
+                    counter on the screen, a tweak to the game — is a <b>module</b>, published in a
+                    separate repository and added without a new build of the mod.
+                </p>
+                <span class="tag">Early skeleton — no modules published yet</span>
+
+                <div class="section-title">How it behaves</div>
+                <ul class="points">
+                    <li><b>Nothing is installed without being asked.</b> Every module is one button,
+                        and pressing it says what the module is, who published it, how large it is, the
+                        full address it comes from, and what it asks for.</li>
+                    <li><b>Nothing is kept that does not match.</b> Each module has a SHA-256 published
+                        with it, and the file is thrown away unless it hashes to it.</li>
+                    <li><b>Nothing can do more than it says.</b> A module declares what it needs — and
+                        the list of what is possible is fixed by the mod, shown to you in your own
+                        language before anything is downloaded.</li>
+                    <li><b>Nothing is code.</b> A module is a description. No jar, no code loaded into
+                        the game, so a repository that is taken over cannot run anything.</li>
+                    <li><b>Your language, or English.</b> Module text is written per language; anything
+                        missing falls back to English rather than showing a key.</li>
+                    <li><b>No hotkeys.</b> Every setting is on the settings screen Mod Menu shows.</li>
+                </ul>
+
+                <div class="section-title">Install</div>
+                <p class="note">
+                    Put <code>moduhub-*.jar</code> in your <code>mods</code> folder. Fabric Loader
+                    0.19.3+, Fabric API and Java 25 are required; Mod Menu is optional and adds the
+                    button that opens the module list. Windows, macOS, Linux and Android launchers
+                    such as PojavLauncher are supported. There is no release yet — the mod is being
+                    built, and the first modules are next.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/moduhub" target="_blank" rel="noopener">The mod on GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/moduhub-modules" target="_blank" rel="noopener">The module list &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ru">
+                <p class="lede">
+                    Клиентский мод на Fabric для <b>Minecraft 26.2</b>, который представляет собой
+                    оболочку для модулей. Сам мод намеренно делает очень мало: то, что вам нужно —
+                    буст, счётчик на экране, правка поведения игры — это <b>модуль</b>, опубликованный
+                    в отдельном репозитории и добавляемый без новой сборки мода.
+                </p>
+                <span class="tag">Ранний каркас — модулей пока нет</span>
+
+                <div class="section-title">Как он себя ведёт</div>
+                <ul class="points">
+                    <li><b>Ничего не ставится без вопроса.</b> Каждый модуль — одна кнопка, и по
+                        нажатию вам говорят, что это, кто опубликовал, сколько весит, с какого полного
+                        адреса и что он просит.</li>
+                    <li><b>Ничего не остаётся, если не совпало.</b> С каждым модулем публикуется его
+                        SHA-256, и файл отбрасывается, если его хеш не тот.</li>
+                    <li><b>Ничего не может больше, чем заявляет.</b> Модуль объявляет, что ему нужно,
+                        а список возможного задан самим модом и показывается вам вашим языком до
+                        начала загрузки.</li>
+                    <li><b>Ничего не является кодом.</b> Модуль — это описание. Ни jar, ни кода,
+                        загружаемого в игру, поэтому захваченный репозиторий ничего не сможет
+                        выполнить.</li>
+                    <li><b>Ваш язык или английский.</b> Текст модуля написан по языкам; если чего-то
+                        нет, показывается английский, а не ключ.</li>
+                    <li><b>Горячих клавиш нет.</b> Все настройки — на экране настроек, который
+                        показывает Mod Menu.</li>
+                </ul>
+
+                <div class="section-title">Установка</div>
+                <p class="note">
+                    Положите <code>moduhub-*.jar</code> в папку <code>mods</code>. Нужны Fabric
+                    Loader 0.19.3+, Fabric API и Java 25; Mod Menu необязателен и добавляет кнопку,
+                    открывающую список модулей. Поддерживаются Windows, macOS, Linux и Android-лаунчеры
+                    вроде PojavLauncher. Релиза пока нет — мод делается, следом первые модули.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/moduhub" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/moduhub-modules" target="_blank" rel="noopener">Список модулей &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ua">
+                <p class="lede">
+                    Клієнтський мод на Fabric для <b>Minecraft 26.2</b>, який є оболонкою для
+                    модулів. Сам мод навмисно робить дуже мало: те, що вам потрібно — буст, лічильник
+                    на екрані, правка поведінки гри — це <b>модуль</b>, опублікований в окремому
+                    репозиторії та доданий без нової збірки мода.
+                </p>
+                <span class="tag">Ранній каркас — модулів поки немає</span>
+
+                <div class="section-title">Як він поводиться</div>
+                <ul class="points">
+                    <li><b>Нічого не встановлюється без запитання.</b> Кожен модуль — одна кнопка, і
+                        після натискання вам кажуть, що це, хто опублікував, скільки важить, з якої
+                        повної адреси і що він просить.</li>
+                    <li><b>Нічого не залишається, якщо не збіглося.</b> З кожним модулем публікується
+                        його SHA-256, і файл відкидається, якщо його хеш не той.</li>
+                    <li><b>Ніщо не може більше, ніж заявляє.</b> Модуль оголошує, що йому потрібно, а
+                        список можливого заданий самим модом і показується вам вашою мовою до початку
+                        завантаження.</li>
+                    <li><b>Ніщо не є кодом.</b> Модуль — це опис. Ні jar, ні коду, що завантажується в
+                        гру, тож захоплений репозиторій нічого не зможе виконати.</li>
+                    <li><b>Ваша мова або англійська.</b> Текст модуля написано за мовами; якщо чогось
+                        немає, показується англійська, а не ключ.</li>
+                    <li><b>Гарячих клавіш немає.</b> Усі налаштування — на екрані налаштувань, який
+                        показує Mod Menu.</li>
+                </ul>
+
+                <div class="section-title">Встановлення</div>
+                <p class="note">
+                    Покладіть <code>moduhub-*.jar</code> у теку <code>mods</code>. Потрібні Fabric
+                    Loader 0.19.3+, Fabric API і Java 25; Mod Menu необов'язковий і додає кнопку, що
+                    відкриває список модулів. Підтримуються Windows, macOS, Linux і Android-лаунчери
+                    на кшталт PojavLauncher. Релізу ще немає — мод робиться, далі перші модулі.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/moduhub" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/moduhub-modules" target="_blank" rel="noopener">Список модулів &rarr;</a>
+                </div>
+            </div>
+
+            <footer>
+                <p>
+                    MIT licence, copyright (c) 2026 McChopik — the English text of the licence is the
+                    one that counts. Not affiliated with Mojang, Microsoft or Fabric.
+                </p>
+                <p style="margin-top:8px;">
+                    <a href="/">mcchopik.pp.ua</a> &nbsp;·&nbsp;
+                    <a href="/mods/">All mods</a> &nbsp;·&nbsp;
+                    <a href="https://github.com/mcchopik/moduhub/releases" target="_blank" rel="noopener">Releases</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function setLang(lang, button) {
+            document.querySelectorAll('[data-lang]').forEach(function (block) {
+                block.classList.toggle('shown', block.dataset.lang === lang);
+            });
+            document.querySelectorAll('.lang-btn').forEach(function (other) {
+                other.classList.remove('active');
+            });
+            if (button) button.classList.add('active');
+            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
+            try { localStorage.setItem('moduhub-lang', lang); } catch (e) {}
+        }
+
+        try {
+            var saved = localStorage.getItem('moduhub-lang');
+            if (saved) {
+                var match = document.querySelector('.lang-btn[onclick*="\'' + saved + '\'"]');
+                if (match) setLang(saved, match);
+            }
+        } catch (e) {}
+    </script>
+
+</body>
+</html>

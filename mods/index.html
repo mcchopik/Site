@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mods — McChopik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { align-items: flex-start; padding: 32px 20px; }
+        .container { max-width: 640px; }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 26px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lede { color: #b9b9c2; font-size: 14px; line-height: 1.6; margin-top: 10px; }
+        .mod {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 14px;
+            transition: background .2s, border-color .2s;
+        }
+        .mod:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(138, 43, 226, .5); }
+        .mod h2 { font-size: 17px; font-weight: 600; }
+        .mod p { color: #b9b9c2; font-size: 13px; line-height: 1.6; margin-top: 6px; }
+        .mod .who { color: #8e8e93; font-size: 12px; margin-top: 10px; }
+        footer { margin-top: 24px; color: #6f6f78; font-size: 12px; }
+        footer a { color: #b9b9c2; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <h1 class="page-title">Mods</h1>
+            <p class="lede">
+                Client-side Minecraft mods, for Fabric. Each one is here with what it does, where its
+                code is, and what it does with your computer — which for all of them is nothing but
+                what the page says.
+            </p>
+
+            <a class="mod" href="/mods/moduhub/">
+                <h2>ModuHub &rarr;</h2>
+                <p>
+                    A small shell that modules are added to. The list of modules lives in a separate
+                    repository; each one is downloaded only after you agree to that module, checked
+                    against a published hash, and limited to the abilities it declares.
+                </p>
+                <div class="who">Fabric · Minecraft 26.2 · MIT · early skeleton</div>
+            </a>
+
+            <footer>
+                <p><a href="/">mcchopik.pp.ua</a></p>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>
