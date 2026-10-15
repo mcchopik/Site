@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localpack-bypass — server resource packs, without the wait</title>
+    <meta name="description" content="localpack-bypass is a free, open-source, client-side Fabric mod for Minecraft 26.2 that makes server resource packs painless: a pack you already have is switched on silently, a new one is downloaded, checked and switched on in one step.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { align-items: flex-start; padding: 32px 20px; }
+        .container { max-width: 640px; }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lede { color: #b9b9c2; font-size: 14px; line-height: 1.6; margin-top: 10px; }
+        .row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .row a { flex: 1 1 160px; }
+        .note { color: #8e8e93; font-size: 12.5px; line-height: 1.6; margin-top: 10px; }
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: #ffb020;
+            border: 1px solid rgba(255, 176, 32, .35);
+            background: rgba(255, 176, 32, .12);
+            border-radius: 999px;
+            padding: 3px 10px;
+            margin-top: 12px;
+        }
+        ul.points { margin: 10px 0 0 18px; }
+        ul.points li { color: #cfcfd6; font-size: 13.5px; line-height: 1.65; margin-bottom: 7px; }
+        ul.points b { color: #fff; }
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12.5px;
+            background: rgba(255,255,255,.07);
+            border-radius: 5px;
+            padding: 1px 6px;
+            color: #e6e6ee;
+        }
+        .lang-switch { display: flex; gap: 6px; }
+        .lang-btn {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #b9b9c2;
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        .lang-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+        .lang-btn.active { background: linear-gradient(45deg, #8a2be2, #ff007f); color: #fff; border-color: transparent; }
+        footer { margin-top: 22px; color: #6f6f78; font-size: 12px; line-height: 1.6; }
+        footer a { color: #b9b9c2; }
+        [data-lang] { display: none; }
+        [data-lang].shown { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-left">
+                    <h1 class="page-title">localpack-bypass</h1>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
+                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
+                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                </div>
+            </div>
+
+            <div data-lang="en" class="shown">
+                <p class="lede">
+                    A free, open-source, client-side Fabric mod for <b>Minecraft 26.2</b> that makes
+                    server resource packs painless. Instead of downloading the same pack every time you
+                    join, it compares the SHA-1 of the pack the server sends with the ZIP files already
+                    in your <code>resourcepacks</code> folder. When it finds a match the pack is switched
+                    on silently, so you join without a prompt and without waiting.
+                </p>
+                <span class="tag">0.0.1.2026-alpha-build-beta-release — experimental</span>
+
+                <div class="section-title">How it works</div>
+                <ul class="points">
+                    <li><b>A pack you already have</b> is switched on silently. No prompt, no download.</li>
+                    <li><b>A new or changed pack</b> gives you one screen with <b>Download all resource
+                        packs</b> on it. The packs are saved to
+                        <code>resourcepacks/localpack-&lt;sha1&gt;.zip</code>, checked by SHA-1, switched
+                        on and written into your options — in one step, with the resources reloaded once.</li>
+                    <li><b>Declining leaves the server,</b> the way it does in vanilla.</li>
+                    <li><b>A newer version of a pack</b> switches the older one off. The file stays on
+                        your disk, so going back is instant.</li>
+                    <li><b>Nothing fails silently.</b> A download that did not work, a checksum that did
+                        not match, or a file the game would not switch on is reported on the screen — or
+                        as a notification, if there is no screen to report it on.</li>
+                    <li><b>Your language.</b> The screen and the messages follow the game language; the
+                        mod ships translations for 38 of them.</li>
+                </ul>
+
+                <div class="section-title">Settings (Mod Menu)</div>
+                <ul class="points">
+                    <li><b>Folder for downloaded packs</b> — where packs are kept. Empty means the game's
+                        own <code>resourcepacks</code> folder. Any other folder works, including another
+                        drive or an Android shared folder; packs are then also copied into
+                        <code>resourcepacks</code> before they are switched on, because that is the only
+                        folder the game itself reads.</li>
+                    <li><b>Remember servers you said yes to</b> — a server you have already taken packs
+                        from is not asked about again. The answer is written into the game's own per-server
+                        <i>Server Resource Packs</i> setting as well.</li>
+                    <li><b>Keep packs from other servers</b> — leave it on to keep what you already have;
+                        turn it off to start each server with only that server's packs.</li>
+                    <li><b>Wait before asking</b> — how long to collect a batch before the screen appears.
+                        Servers send all their packs at once, so waiting turns several questions into one.</li>
+                    <li><b>Give up after</b> and <b>Tries</b> — how long one download may take, and how
+                        many times a failed one is retried. A checksum that does not match counts as a
+                        failure, because that is what a half-finished transfer looks like.</li>
+                    <li><b>Keep a record</b> — every pack a server sends is written down: which server,
+                        which address, the checksum, the size, what happened to it and how long it took. It
+                        is a file on your own computer, and nothing is sent anywhere.</li>
+                    <li><b>Downloaded packs</b> — what the mod has downloaded, grouped by the server it
+                        came from, showing whether each is on, off, or gone from the folder. Press one to
+                        switch it on or off, and forget one whose file has disappeared.
+                        <b>Forget everything</b> clears what the mod remembers and never deletes a pack
+                        file.</li>
+                    <li><b>No hotkeys.</b> Everything is on that settings screen.</li>
+                </ul>
+
+                <div class="section-title">Updates</div>
+                <p class="note">
+                    Once a day the mod asks GitHub for the latest release. If it is newer than the build
+                    you are running, the title screen offers to install it: the new jar is downloaded and
+                    its <b>SHA-256 is checked</b> against the <code>update.json</code> published with that
+                    release, the old jar is deleted and the new one moved into <code>mods/</code>, and you
+                    restart the game. On Windows a jar that is loaded cannot be deleted, so a short
+                    generated script waits for the game to exit and does it for you; on Android, Linux and
+                    macOS the running jar is simply replaced. Everything the updater touches is under
+                    <code>mods/</code> and <code>config/localpack-bypass/</code>.
+                </p>
+                <p class="note">
+                    The check is a plain anonymous GitHub API request — no token, no account. The mod has
+                    no telemetry and no server of its own. Skipping a version is remembered, and
+                    <code>-Dlocalpack.bypass.updateCheck=false</code> turns updates off entirely. One
+                    caveat: <code>0.0.1.2026-alpha-build-beta-release</code> sorts <i>below</i> the
+                    earlier <code>0.0.3-beta</code>, so a build numbered that or higher will not be
+                    offered this one automatically and has to be replaced by hand.
+                </p>
+
+                <div class="section-title">Install</div>
+                <p class="note">
+                    Put <code>localpack-bypass-*.jar</code> in your <code>mods</code> folder. Fabric
+                    Loader 0.19.3+, Fabric API and Java 25 are required. Windows, macOS, Linux and Android
+                    launchers such as PojavLauncher are supported — every file the mod touches is resolved
+                    from the launcher's game directory, so no folder has to be set up by hand. Mod Menu is
+                    optional and adds the settings screen described above. It is experimental: it has not
+                    been tested extensively, so use it at your own risk.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/evgenmakarickij-wq/localpack-bypass" target="_blank" rel="noopener">The mod on GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/evgenmakarickij-wq/localpack-bypass/releases" target="_blank" rel="noopener">Releases &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ru">
+                <p class="lede">
+                    Бесплатный открытый клиентский мод на Fabric для <b>Minecraft 26.2</b>, который
+                    избавляет от мучений с серверными ресурспаками. Вместо того чтобы качать один и тот
+                    же пак при каждом входе, он сравнивает SHA-1 пака, который прислал сервер, с ZIP-файлами,
+                    уже лежащими в папке <code>resourcepacks</code>. Если нашлось совпадение, пак тихо
+                    включается, и вы заходите без вопроса и без ожидания.
+                </p>
+                <span class="tag">0.0.1.2026-alpha-build-beta-release — экспериментальный</span>
+
+                <div class="section-title">Как он работает</div>
+                <ul class="points">
+                    <li><b>Пак, который у вас уже есть,</b> включается тихо. Ни вопроса, ни загрузки.</li>
+                    <li><b>Новый или изменившийся пак</b> — один экран с кнопкой <b>Скачать все
+                        ресурспаки</b>. Паки сохраняются в
+                        <code>resourcepacks/localpack-&lt;sha1&gt;.zip</code>, проверяются по SHA-1,
+                        включаются и записываются в ваши настройки — одним шагом, с одной перезагрузкой
+                        ресурсов.</li>
+                    <li><b>Отказ отключает от сервера,</b> как в ванилле.</li>
+                    <li><b>Более новая версия пака</b> выключает старую. Файл остаётся на диске, поэтому
+                        вернуться можно мгновенно.</li>
+                    <li><b>Ничего не проваливается молча.</b> Неудачная загрузка, не совпавшая сумма или
+                        файл, который игра не стала включать, сообщаются на экране — или уведомлением,
+                        если экрана в этот момент нет.</li>
+                    <li><b>Ваш язык.</b> Экран и сообщения идут за языком игры; в моде есть переводы на
+                        38 языков.</li>
+                </ul>
+
+                <div class="section-title">Настройки (Mod Menu)</div>
+                <ul class="points">
+                    <li><b>Папка для скачанных паков</b> — где они лежат. Пусто — значит папка игры
+                        <code>resourcepacks</code>. Подойдёт и любая другая папка, включая другой диск или
+                        общую папку Android; тогда паки перед включением ещё и копируются в
+                        <code>resourcepacks</code>, потому что больше никакую папку игра сама не читает.</li>
+                    <li><b>Помнить серверы, где вы согласились</b> — сервер, от которого вы уже брали паки,
+                        больше не спрашивает. Ответ записывается и в собственную настройку игры
+                        <i>Server Resource Packs</i> для этого сервера.</li>
+                    <li><b>Сохранять паки других серверов</b> — оставьте включённым, чтобы не терять уже
+                        скачанное; выключите, чтобы входить на каждый сервер только с его паками.</li>
+                    <li><b>Ждать перед вопросом</b> — сколько собирать паки перед показом экрана. Сервер
+                        присылает их все сразу, так что ожидание превращает несколько вопросов в один.</li>
+                    <li><b>Сдаваться через</b> и <b>Попытки</b> — сколько может длиться одна загрузка и
+                        сколько раз повторять неудачную. Не совпавшая сумма считается неудачей: именно так
+                        выглядит оборванная передача.</li>
+                    <li><b>Вести запись</b> — каждый пак, присланный сервером, записывается: какой сервер,
+                        какой адрес, сумма, размер, что с ним стало и сколько это заняло. Это файл на вашем
+                        компьютере, и никуда он не отправляется.</li>
+                    <li><b>Скачанные паки</b> — что мод скачал, сгруппировано по серверам, с пометкой,
+                        включён пак, выключен или пропал из папки. Нажатие включает и выключает, а пак,
+                        чей файл исчез, можно забыть. <b>Забыть всё</b> стирает память мода и никогда не
+                        удаляет сами файлы паков.</li>
+                    <li><b>Горячих клавиш нет.</b> Всё на этом экране настроек.</li>
+                </ul>
+
+                <div class="section-title">Обновления</div>
+                <p class="note">
+                    Раз в сутки мод спрашивает у GitHub последний релиз. Если он новее вашей сборки,
+                    титульный экран предлагает его поставить: новый jar скачивается, его <b>SHA-256
+                    сверяется</b> с <code>update.json</code>, опубликованным вместе с релизом, старый jar
+                    удаляется, новый переносится в <code>mods/</code>, и вы перезапускаете игру. В Windows
+                    загруженный jar удалить нельзя, поэтому короткий сгенерированный скрипт дожидается
+                    выхода игры и делает это за вас; в Android, Linux и macOS запущенный jar просто
+                    заменяется. Всё, к чему прикасается апдейтер, лежит в <code>mods/</code> и
+                    <code>config/localpack-bypass/</code>.
+                </p>
+                <p class="note">
+                    Проверка — обычный анонимный запрос к API GitHub: без токена и без аккаунта. У мода нет
+                    ни телеметрии, ни своего сервера. Пропущенная версия запоминается, а
+                    <code>-Dlocalpack.bypass.updateCheck=false</code> выключает обновления совсем. Одна
+                    оговорка: <code>0.0.1.2026-alpha-build-beta-release</code> сортируется <i>ниже</i>
+                    прежней <code>0.0.3-beta</code>, поэтому сборке с такой версией или выше эта не будет
+                    предложена автоматически — её придётся заменить руками.
+                </p>
+
+                <div class="section-title">Установка</div>
+                <p class="note">
+                    Положите <code>localpack-bypass-*.jar</code> в папку <code>mods</code>. Нужны Fabric
+                    Loader 0.19.3+, Fabric API и Java 25. Поддерживаются Windows, macOS, Linux и
+                    Android-лаунчеры вроде PojavLauncher — все файлы мод ищет от игровой папки лаунчера,
+                    так что настраивать папки руками не нужно. Mod Menu необязателен и добавляет описанный
+                    выше экран настроек. Мод экспериментальный: тщательно он не проверялся, так что
+                    пользуйтесь на свой риск.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/evgenmakarickij-wq/localpack-bypass" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/evgenmakarickij-wq/localpack-bypass/releases" target="_blank" rel="noopener">Релизы &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ua">
+                <p class="lede">
+                    Безкоштовний відкритий клієнтський мод на Fabric для <b>Minecraft 26.2</b>, який
+                    позбавляє від мороки із серверними ресурспаками. Замість того щоб завантажувати той
+                    самий пак щоразу при вході, він порівнює SHA-1 пака, який надіслав сервер, із ZIP-файлами,
+                    що вже лежать у теці <code>resourcepacks</code>. Якщо збіг знайдено, пак тихо
+                    вмикається, і ви заходите без запитання й без очікування.
+                </p>
+                <span class="tag">0.0.1.2026-alpha-build-beta-release — експериментальний</span>
+
+                <div class="section-title">Як він працює</div>
+                <ul class="points">
+                    <li><b>Пак, який у вас уже є,</b> вмикається тихо. Ні запитання, ні завантаження.</li>
+                    <li><b>Новий або змінений пак</b> — один екран із кнопкою <b>Завантажити всі
+                        ресурспаки</b>. Паки зберігаються в
+                        <code>resourcepacks/localpack-&lt;sha1&gt;.zip</code>, перевіряються за SHA-1,
+                        вмикаються й записуються у ваші налаштування — одним кроком, з одним перезавантаженням
+                        ресурсів.</li>
+                    <li><b>Відмова від'єднує від сервера,</b> як у ванілі.</li>
+                    <li><b>Новіша версія пака</b> вимикає старішу. Файл залишається на диску, тож повернутися
+                        можна миттєво.</li>
+                    <li><b>Ніщо не зникає мовчки.</b> Невдале завантаження, сума, що не збіглася, або файл,
+                        який гра не стала вмикати, повідомляються на екрані — або сповіщенням, якщо екрана
+                        в цей момент немає.</li>
+                    <li><b>Ваша мова.</b> Екран і повідомлення йдуть за мовою гри; у моді є переклади на
+                        38 мов.</li>
+                </ul>
+
+                <div class="section-title">Налаштування (Mod Menu)</div>
+                <ul class="points">
+                    <li><b>Тека для завантажених паків</b> — де вони лежать. Порожньо — отже тека гри
+                        <code>resourcepacks</code>. Підійде й будь-яка інша тека, зокрема інший диск або
+                        спільна тека Android; тоді паки перед увімкненням ще й копіюються в
+                        <code>resourcepacks</code>, бо більше жодної теки гра сама не читає.</li>
+                    <li><b>Пам'ятати сервери, де ви погодилися</b> — сервер, від якого ви вже брали паки,
+                        більше не запитує. Відповідь записується і у власне налаштування гри
+                        <i>Server Resource Packs</i> для цього сервера.</li>
+                    <li><b>Зберігати паки інших серверів</b> — залиште увімкненим, щоб не втрачати вже
+                        завантажене; вимкніть, щоб заходити на кожен сервер лише з його паками.</li>
+                    <li><b>Чекати перед запитанням</b> — скільки збирати паки перед показом екрана. Сервер
+                        надсилає їх усі одразу, тож очікування перетворює кілька запитань на одне.</li>
+                    <li><b>Здаватися через</b> і <b>Спроби</b> — скільки може тривати одне завантаження і
+                        скільки разів повторювати невдале. Сума, що не збіглася, вважається невдачею: саме
+                        так виглядає обірвана передача.</li>
+                    <li><b>Вести запис</b> — кожен пак, надісланий сервером, записується: який сервер, яка
+                        адреса, сума, розмір, що з ним сталося і скільки це зайняло. Це файл на вашому
+                        комп'ютері, і нікуди він не надсилається.</li>
+                    <li><b>Завантажені паки</b> — що мод завантажив, згруповано за серверами, із позначкою,
+                        увімкнено пак, вимкнено чи він зник із теки. Натискання вмикає й вимикає, а пак,
+                        чий файл зник, можна забути. <b>Забути все</b> стирає пам'ять мода і ніколи не
+                        видаляє самі файли паків.</li>
+                    <li><b>Гарячих клавіш немає.</b> Усе на цьому екрані налаштувань.</li>
+                </ul>
+
+                <div class="section-title">Оновлення</div>
+                <p class="note">
+                    Раз на добу мод питає в GitHub останній реліз. Якщо він новіший за вашу збірку,
+                    титульний екран пропонує його встановити: новий jar завантажується, його <b>SHA-256
+                    звіряється</b> з <code>update.json</code>, опублікованим разом із релізом, старий jar
+                    видаляється, новий переноситься в <code>mods/</code>, і ви перезапускаєте гру. У Windows
+                    завантажений jar видалити не можна, тож короткий згенерований скрипт чекає на вихід гри
+                    і робить це за вас; в Android, Linux і macOS запущений jar просто замінюється. Усе, до
+                    чого торкається апдейтер, лежить у <code>mods/</code> і
+                    <code>config/localpack-bypass/</code>.
+                </p>
+                <p class="note">
+                    Перевірка — звичайний анонімний запит до API GitHub: без токена й без акаунта. У мода
+                    немає ні телеметрії, ні власного сервера. Пропущена версія запам'ятовується, а
+                    <code>-Dlocalpack.bypass.updateCheck=false</code> вимикає оновлення зовсім. Одне
+                    застереження: <code>0.0.1.2026-alpha-build-beta-release</code> сортується <i>нижче</i>
+                    за попередню <code>0.0.3-beta</code>, тож збірці з такою версією або вищою ця не буде
+                    запропонована автоматично — її доведеться замінити руками.
+                </p>
+
+                <div class="section-title">Встановлення</div>
+                <p class="note">
+                    Покладіть <code>localpack-bypass-*.jar</code> у теку <code>mods</code>. Потрібні Fabric
+                    Loader 0.19.3+, Fabric API і Java 25. Підтримуються Windows, macOS, Linux і
+                    Android-лаунчери на кшталт PojavLauncher — усі файли мод шукає від ігрової теки
+                    лаунчера, тож налаштовувати теки руками не потрібно. Mod Menu необов'язковий і додає
+                    описаний вище екран налаштувань. Мод експериментальний: ретельно він не перевірявся,
+                    тож користуйтеся на свій ризик.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/evgenmakarickij-wq/localpack-bypass" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/evgenmakarickij-wq/localpack-bypass/releases" target="_blank" rel="noopener">Релізи &rarr;</a>
+                </div>
+            </div>
+
+            <footer>
+                <p>
+                    MIT licence, copyright (c) 2026 McChopik, Telemine3140 — the English text of the
+                    licence is the one that counts. Not affiliated with Mojang, Microsoft or Fabric.
+                </p>
+                <p style="margin-top:8px;">
+                    <a href="/">mcchopik.pp.ua</a> &nbsp;·&nbsp;
+                    <a href="/mods/">All mods</a> &nbsp;·&nbsp;
+                    <a href="https://github.com/evgenmakarickij-wq/localpack-bypass/issues" target="_blank" rel="noopener">Issues</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function setLang(lang, button) {
+            document.querySelectorAll('[data-lang]').forEach(function (block) {
+                block.classList.toggle('shown', block.dataset.lang === lang);
+            });
+            document.querySelectorAll('.lang-btn').forEach(function (other) {
+                other.classList.remove('active');
+            });
+            if (button) button.classList.add('active');
+            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
+            try { localStorage.setItem('localpack-lang', lang); } catch (e) {}
+        }
+
+        try {
+            var saved = localStorage.getItem('localpack-lang');
+            if (saved) {
+                var match = document.querySelector('.lang-btn[onclick*="\'' + saved + '\'"]');
+                if (match) setLang(saved, match);
+            }
+        } catch (e) {}
+    </script>
+
+</body>
+</html>
