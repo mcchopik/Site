@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft — McChopik</title>
+    <meta name="description" content="My Minecraft card: nickname, account, launcher, what I play and the Discord community I'm on.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { align-items: flex-start; padding: 32px 20px; }
+        .container { max-width: 560px; }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lede { color: #b9b9c2; font-size: 14px; line-height: 1.65; margin-top: 10px; }
+        .mc-hero {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin-top: 18px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+        .skin-box {
+            flex: 0 0 96px;
+            width: 96px;
+            height: 144px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 30%, rgba(138, 43, 226, .25), rgba(0,0,0,.15));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .skin-box img { height: 132px; width: auto; image-rendering: pixelated; }
+        .skin-fallback {
+            display: none;
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 26px;
+            color: #fff;
+            margin-bottom: 26px;
+        }
+        .mc-name { font-size: 20px; font-weight: 700; }
+        .mc-sub { color: #8e8e93; font-size: 13px; margin-top: 2px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .4px;
+            text-transform: uppercase;
+            color: #c084fc;
+            border: 1px solid rgba(138, 43, 226, .4);
+            background: rgba(138, 43, 226, .15);
+            border-radius: 999px;
+            padding: 3px 10px;
+        }
+        .tag.green { color: #53fc18; border-color: rgba(83, 252, 24, .35); background: rgba(83, 252, 24, .12); }
+        .tag.blue { color: #66c0f4; border-color: rgba(102, 192, 244, .35); background: rgba(102, 192, 244, .12); }
+        .row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .row a { flex: 1 1 160px; }
+        .discord-btn {
+            display: block;
+            text-align: center;
+            background: rgba(88, 101, 242, 0.18);
+            border: 1px solid rgba(88, 101, 242, 0.45);
+            color: #aab4ff;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .discord-btn:hover { background: rgba(88, 101, 242, 0.3); border-color: rgba(88, 101, 242, 0.8); }
+        .discord-btn small { display: block; font-weight: 500; color: #8e8e93; font-size: 11px; margin-top: 3px; }
+        ul.points { margin: 10px 0 0 18px; }
+        ul.points li { color: #cfcfd6; font-size: 13.5px; line-height: 1.65; margin-bottom: 7px; }
+        ul.points b { color: #fff; }
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12.5px;
+            background: rgba(255,255,255,.07);
+            border-radius: 5px;
+            padding: 1px 6px;
+            color: #e6e6ee;
+        }
+        .note { color: #8e8e93; font-size: 12.5px; line-height: 1.6; margin-top: 10px; }
+        footer { margin-top: 22px; color: #6f6f78; font-size: 12px; line-height: 1.6; }
+        footer a { color: #b9b9c2; }
+        [data-lang] { display: none; }
+        [data-lang].shown { display: block; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-left">
+                    <h1 class="page-title">Minecraft</h1>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
+                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
+                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                </div>
+            </div>
+
+            <div class="mc-hero">
+                <div class="skin-box">
+                    <img id="skin-body" src="https://mc-heads.net/body/McChopik/right/132" alt="McChopik Minecraft skin">
+                    <div class="skin-fallback" id="skin-fallback">M</div>
+                </div>
+                <div class="mc-meta">
+                    <div class="mc-name">McChopik</div>
+                    <div class="mc-sub" data-lang-name>Minecraft Java Edition · 26.2</div>
+                    <div class="tags">
+                        <span class="tag" data-lang-account>Offline account</span>
+                        <span class="tag blue">MojoLauncher</span>
+                        <span class="tag green">Fabric</span>
+                    </div>
+                </div>
+            </div>
+
+            <div data-lang="en" class="shown">
+                <p class="lede" style="margin-top:16px;">
+                    I play Minecraft Java Edition with Fabric and hang out on <b>ShyMiners</b>.
+                    The Discord invite below is the place to find me and the community.
+                </p>
+                <a class="discord-btn" href="https://discord.gg/shyminers" target="_blank" rel="noopener">
+                    Join ShyMiners on Discord
+                    <small>discord.gg/shyminers</small>
+                </a>
+
+                <div class="section-title">What I play</div>
+                <ul class="points">
+                    <li><b>Survival and building</b> — the main reason I open the game.</li>
+                    <li><b>PvP now and then</b> — more for fun than for stats.</li>
+                    <li><b>Client-side mods</b> — I make small Fabric mods and use them myself.</li>
+                </ul>
+
+                <div class="section-title">Setup</div>
+                <ul class="points">
+                    <li><b>Account:</b> offline, launched with <b>MojoLauncher</b>.</li>
+                    <li><b>Game:</b> Minecraft 26.2, Java 25.</li>
+                    <li><b>Loader:</b> Fabric with Fabric API.</li>
+                    <li><b>Where:</b> ShyMiners — <a href="https://discord.gg/shyminers" target="_blank" rel="noopener" style="color:#aab4ff;">discord.gg/shyminers</a>.</li>
+                </ul>
+
+                <div class="section-title">Mods</div>
+                <p class="note">
+                    My client-side Fabric mods live on the <a href="/mods/" style="color:#b9b9c2;">mods page</a>.
+                    <a href="https://github.com/mcchopik/jinfo" target="_blank" rel="noopener" style="color:#b9b9c2;">JInfo</a>
+                    is the profile mod I'm working on right now.
+                </p>
+
+                <div class="row">
+                    <a class="page-link-btn" href="/mods/">All mods &rarr;</a>
+                    <a class="page-link-btn" href="/" style="background: rgba(255,255,255,.06); color:#b9b9c2;">Back to profile &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ru">
+                <p class="lede" style="margin-top:16px;">
+                    Играю в Minecraft Java Edition на Fabric и тусуюсь на <b>ShyMiners</b>.
+                    Дискорд ниже — место, где меня найти и где живёт сообщество.
+                </p>
+                <a class="discord-btn" href="https://discord.gg/shyminers" target="_blank" rel="noopener">
+                    Зайти в ShyMiners в Discord
+                    <small>discord.gg/shyminers</small>
+                </a>
+
+                <div class="section-title">Во что играю</div>
+                <ul class="points">
+                    <li><b>Выживание и стройка</b> — главная причина открыть игру.</li>
+                    <li><b>Иногда PvP</b> — больше ради веселья, чем ради статов.</li>
+                    <li><b>Клиентские моды</b> — делаю небольшие моды на Fabric и сам ими пользуюсь.</li>
+                </ul>
+
+                <div class="section-title">Сетап</div>
+                <ul class="points">
+                    <li><b>Аккаунт:</b> offline, запуск через <b>MojoLauncher</b>.</li>
+                    <li><b>Игра:</b> Minecraft 26.2, Java 25.</li>
+                    <li><b>Загрузчик:</b> Fabric + Fabric API.</li>
+                    <li><b>Где:</b> ShyMiners — <a href="https://discord.gg/shyminers" target="_blank" rel="noopener" style="color:#aab4ff;">discord.gg/shyminers</a>.</li>
+                </ul>
+
+                <div class="section-title">Моды</div>
+                <p class="note">
+                    Мои клиентские моды на Fabric — на <a href="/mods/" style="color:#b9b9c2;">странице модов</a>.
+                    <a href="https://github.com/mcchopik/jinfo" target="_blank" rel="noopener" style="color:#b9b9c2;">JInfo</a>
+                    — мод с профилями, над которым я сейчас работаю.
+                </p>
+
+                <div class="row">
+                    <a class="page-link-btn" href="/mods/">Все моды &rarr;</a>
+                    <a class="page-link-btn" href="/" style="background: rgba(255,255,255,.06); color:#b9b9c2;">Назад в профиль &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ua">
+                <p class="lede" style="margin-top:16px;">
+                    Граю в Minecraft Java Edition на Fabric і тусуюся на <b>ShyMiners</b>.
+                    Дискорд нижче — місце, де мене знайти й де живе спільнота.
+                </p>
+                <a class="discord-btn" href="https://discord.gg/shyminers" target="_blank" rel="noopener">
+                    Зайти в ShyMiners у Discord
+                    <small>discord.gg/shyminers</small>
+                </a>
+
+                <div class="section-title">У що граю</div>
+                <ul class="points">
+                    <li><b>Виживання й будівництво</b> — головна причина відкрити гру.</li>
+                    <li><b>Іноді PvP</b> — більше заради веселощів, ніж заради статів.</li>
+                    <li><b>Клієнтські моди</b> — роблю невеликі моди на Fabric і сам ними користуюся.</li>
+                </ul>
+
+                <div class="section-title">Сетап</div>
+                <ul class="points">
+                    <li><b>Акаунт:</b> offline, запуск через <b>MojoLauncher</b>.</li>
+                    <li><b>Гра:</b> Minecraft 26.2, Java 25.</li>
+                    <li><b>Завантажувач:</b> Fabric + Fabric API.</li>
+                    <li><b>Де:</b> ShyMiners — <a href="https://discord.gg/shyminers" target="_blank" rel="noopener" style="color:#aab4ff;">discord.gg/shyminers</a>.</li>
+                </ul>
+
+                <div class="section-title">Моди</div>
+                <p class="note">
+                    Мої клієнтські моди на Fabric — на <a href="/mods/" style="color:#b9b9c2;">сторінці модів</a>.
+                    <a href="https://github.com/mcchopik/jinfo" target="_blank" rel="noopener" style="color:#b9b9c2;">JInfo</a>
+                    — мод із профілями, над яким я зараз працюю.
+                </p>
+
+                <div class="row">
+                    <a class="page-link-btn" href="/mods/">Усі моди &rarr;</a>
+                    <a class="page-link-btn" href="/" style="background: rgba(255,255,255,.06); color:#b9b9c2;">Назад у профіль &rarr;</a>
+                </div>
+            </div>
+
+            <footer>
+                <p>
+                    Not affiliated with Mojang, Microsoft or Fabric.
+                </p>
+                <p style="margin-top:8px;">
+                    <a href="/">mcchopik.pp.ua</a> &nbsp;·&nbsp;
+                    <a href="/mods/">All mods</a> &nbsp;·&nbsp;
+                    <a href="https://discord.gg/shyminers" target="_blank" rel="noopener">Discord</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function setLang(lang, button) {
+            document.querySelectorAll('[data-lang]').forEach(function (block) {
+                block.classList.toggle('shown', block.dataset.lang === lang);
+            });
+            document.querySelectorAll('.lang-btn').forEach(function (other) {
+                other.classList.remove('active');
+            });
+            if (button) button.classList.add('active');
+            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
+            try { localStorage.setItem('mc-lang', lang); } catch (e) {}
+        }
+
+        try {
+            var saved = localStorage.getItem('mc-lang');
+            if (saved) {
+                var match = document.querySelector('.lang-btn[onclick*="\'' + saved + '\'"]');
+                if (match) setLang(saved, match);
+            }
+        } catch (e) {}
+
+        var skin = document.getElementById('skin-body');
+        if (skin) {
+            skin.addEventListener('error', function () {
+                skin.style.display = 'none';
+                var fallback = document.getElementById('skin-fallback');
+                if (fallback) fallback.style.display = 'flex';
+            });
+        }
+    </script>
+
+</body>
+</html>
