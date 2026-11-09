@@ -32,32 +32,24 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
         }
-        .skin-box {
-            flex: 0 0 96px;
-            width: 96px;
-            height: 144px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
+        .skin-stage {
+            position: relative;
+            flex: 0 0 150px;
+            width: 150px;
+            height: 210px;
             background: radial-gradient(circle at 50% 30%, rgba(138, 43, 226, .25), rgba(0,0,0,.15));
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
         }
-        .skin-box img { height: 132px; width: auto; image-rendering: pixelated; }
+        .skin-stage canvas { display: block; width: 150px; height: 210px; }
         .skin-fallback {
             display: none;
-            width: 64px;
-            height: 64px;
-            border-radius: 14px;
-            background: linear-gradient(45deg, #8a2be2, #ff007f);
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 26px;
-            color: #fff;
-            margin-bottom: 26px;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+            padding: 8px;
         }
         .mc-name { font-size: 20px; font-weight: 700; }
         .mc-sub { color: #8e8e93; font-size: 13px; margin-top: 2px; }
@@ -128,15 +120,14 @@
             </div>
 
             <div class="mc-hero">
-                <div class="skin-box">
-                    <img id="skin-body" src="https://mc-heads.net/body/McChopik/right/132" alt="McChopik Minecraft skin">
-                    <div class="skin-fallback" id="skin-fallback">M</div>
+                <div class="skin-stage">
+                    <canvas id="skin-canvas" width="150" height="210"></canvas>
+                    <img class="skin-fallback" id="skin-fallback" src="/Minecraft/skin.png" alt="McChopik Minecraft skin">
                 </div>
                 <div class="mc-meta">
                     <div class="mc-name">McChopik</div>
                     <div class="mc-sub" data-lang-name>Minecraft Java Edition · 26.2</div>
                     <div class="tags">
-                        <span class="tag" data-lang-account>Offline account</span>
                         <span class="tag blue">MojoLauncher</span>
                         <span class="tag green">Fabric</span>
                     </div>
@@ -156,13 +147,12 @@
                 <div class="section-title">What I play</div>
                 <ul class="points">
                     <li><b>Survival and building</b> — the main reason I open the game.</li>
-                    <li><b>PvP now and then</b> — more for fun than for stats.</li>
                     <li><b>Client-side mods</b> — I make small Fabric mods and use them myself.</li>
                 </ul>
 
                 <div class="section-title">Setup</div>
                 <ul class="points">
-                    <li><b>Account:</b> offline, launched with <b>MojoLauncher</b>.</li>
+                    <li><b>Launcher:</b> <b>MojoLauncher</b>.</li>
                     <li><b>Game:</b> Minecraft 26.2, Java 25.</li>
                     <li><b>Loader:</b> Fabric with Fabric API.</li>
                     <li><b>Where:</b> ShyMiners — <a href="https://discord.gg/shyminers" target="_blank" rel="noopener" style="color:#aab4ff;">discord.gg/shyminers</a>.</li>
@@ -194,13 +184,12 @@
                 <div class="section-title">Во что играю</div>
                 <ul class="points">
                     <li><b>Выживание и стройка</b> — главная причина открыть игру.</li>
-                    <li><b>Иногда PvP</b> — больше ради веселья, чем ради статов.</li>
                     <li><b>Клиентские моды</b> — делаю небольшие моды на Fabric и сам ими пользуюсь.</li>
                 </ul>
 
                 <div class="section-title">Сетап</div>
                 <ul class="points">
-                    <li><b>Аккаунт:</b> offline, запуск через <b>MojoLauncher</b>.</li>
+                    <li><b>Запуск:</b> <b>MojoLauncher</b>.</li>
                     <li><b>Игра:</b> Minecraft 26.2, Java 25.</li>
                     <li><b>Загрузчик:</b> Fabric + Fabric API.</li>
                     <li><b>Где:</b> ShyMiners — <a href="https://discord.gg/shyminers" target="_blank" rel="noopener" style="color:#aab4ff;">discord.gg/shyminers</a>.</li>
@@ -232,13 +221,12 @@
                 <div class="section-title">У що граю</div>
                 <ul class="points">
                     <li><b>Виживання й будівництво</b> — головна причина відкрити гру.</li>
-                    <li><b>Іноді PvP</b> — більше заради веселощів, ніж заради статів.</li>
                     <li><b>Клієнтські моди</b> — роблю невеликі моди на Fabric і сам ними користуюся.</li>
                 </ul>
 
                 <div class="section-title">Сетап</div>
                 <ul class="points">
-                    <li><b>Акаунт:</b> offline, запуск через <b>MojoLauncher</b>.</li>
+                    <li><b>Запуск:</b> <b>MojoLauncher</b>.</li>
                     <li><b>Гра:</b> Minecraft 26.2, Java 25.</li>
                     <li><b>Завантажувач:</b> Fabric + Fabric API.</li>
                     <li><b>Де:</b> ShyMiners — <a href="https://discord.gg/shyminers" target="_blank" rel="noopener" style="color:#aab4ff;">discord.gg/shyminers</a>.</li>
@@ -270,6 +258,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/skinview3d@3.0.1/bundles/skinview3d.bundle.js"></script>
     <script>
         function setLang(lang, button) {
             document.querySelectorAll('[data-lang]').forEach(function (block) {
@@ -291,13 +280,32 @@
             }
         } catch (e) {}
 
-        var skin = document.getElementById('skin-body');
-        if (skin) {
-            skin.addEventListener('error', function () {
-                skin.style.display = 'none';
-                var fallback = document.getElementById('skin-fallback');
-                if (fallback) fallback.style.display = 'flex';
-            });
+        function showSkinFallback() {
+            var canvas = document.getElementById('skin-canvas');
+            var fallback = document.getElementById('skin-fallback');
+            if (canvas) canvas.style.display = 'none';
+            if (fallback) fallback.style.display = 'block';
+        }
+
+        try {
+            if (!window.skinview3d) {
+                showSkinFallback();
+            } else {
+                var viewer = new skinview3d.SkinViewer({
+                    canvas: document.getElementById('skin-canvas'),
+                    width: 150,
+                    height: 210,
+                    skin: '/Minecraft/skin.png'
+                });
+                viewer.autoRotate = true;
+                viewer.autoRotateSpeed = 0.5;
+                if (viewer.controls) {
+                    viewer.controls.enableZoom = false;
+                    viewer.controls.enablePan = false;
+                }
+            }
+        } catch (e) {
+            showSkinFallback();
         }
     </script>
 
