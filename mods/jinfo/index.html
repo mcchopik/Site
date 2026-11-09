@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JInfo — player profiles for Minecraft</title>
+    <meta name="description" content="JInfo is a free, open-source, client-side Fabric mod for Minecraft 26.2 that gives every player a short profile with services and links. Works for both licensed and offline accounts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { align-items: flex-start; padding: 32px 20px; }
+        .container { max-width: 640px; }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lede { color: #b9b9c2; font-size: 14px; line-height: 1.6; margin-top: 10px; }
+        .row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .row a { flex: 1 1 160px; }
+        .note { color: #8e8e93; font-size: 12.5px; line-height: 1.6; margin-top: 10px; }
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            color: #ffb020;
+            border: 1px solid rgba(255, 176, 32, .35);
+            background: rgba(255, 176, 32, .12);
+            border-radius: 999px;
+            padding: 3px 10px;
+            margin-top: 12px;
+        }
+        ul.points { margin: 10px 0 0 18px; }
+        ul.points li { color: #cfcfd6; font-size: 13.5px; line-height: 1.65; margin-bottom: 7px; }
+        ul.points b { color: #fff; }
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12.5px;
+            background: rgba(255,255,255,.07);
+            border-radius: 5px;
+            padding: 1px 6px;
+            color: #e6e6ee;
+        }
+        .lang-switch { display: flex; gap: 6px; }
+        .lang-btn {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #b9b9c2;
+            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, color .2s;
+        }
+        .lang-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+        .lang-btn.active { background: linear-gradient(45deg, #8a2be2, #ff007f); color: #fff; border-color: transparent; }
+        footer { margin-top: 22px; color: #6f6f78; font-size: 12px; line-height: 1.6; }
+        footer a { color: #b9b9c2; }
+        [data-lang] { display: none; }
+        [data-lang].shown { display: block; }
+    </style>
+</head>
+<body>
+
+    <iframe id="bg-frame" src="/fon.html"></iframe>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-left">
+                    <h1 class="page-title">JInfo</h1>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
+                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
+                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                </div>
+            </div>
+
+            <div data-lang="en" class="shown">
+                <p class="lede">
+                    A free, open-source, client-side Fabric mod for <b>Minecraft 26.2</b> that gives
+                    every player a small profile: up to <b>500 characters</b>, 10 lines and 6 links,
+                    stored in a Cloudflare Worker + D1. Works for both licensed and offline accounts,
+                    and needs no game server of its own.
+                </p>
+                <span class="tag">0.1beta — beta</span>
+
+                <div class="section-title">How it works</div>
+                <ul class="points">
+                    <li><b>Shift + Right-click a player</b> — a compact card with the head from their
+                        skin. Hover the head to read the formatted profile; click it to open the full
+                        card. Link previews are never clickable.</li>
+                    <li><b>Full profile screen</b> — avatar, nickname, the whole text and one button per
+                        service in that service's colour. Clicking a button first asks
+                        <i>“Open link? Domain: …”</i> with the full URL; links are never opened
+                        automatically.</li>
+                    <li><b>Two editors</b> — <code>/jinfo edit</code> in game (colours, styles, services,
+                        live preview) and <code>/jinfo web</code> in your browser on
+                        <code>127.0.0.1</code> with a one-time token.</li>
+                    <li><b>Commands</b> — <code>/jinfo help</code>, <code>edit</code>, <code>web</code>,
+                        <code>set</code>, <code>me</code>, <code>view &lt;nick&gt;</code>,
+                        <code>clear</code>, <code>settings</code>, <code>update</code>. The key
+                        <b>P</b> opens your own profile.</li>
+                    <li><b>Both account types</b> — licensed UUID v4 is confirmed through Mojang
+                        (joinServer + hasJoined); an offline UUID v3 is confirmed by an Ed25519 key
+                        that stays on your computer. Offline profiles are marked as unverified.</li>
+                    <li><b>Safe links</b> — only https. <code>javascript:</code>, <code>file:</code>,
+                        localhost, IP addresses and <code>user@host</code> are rejected; built-in
+                        services must match their domain list; shorteners and punycode are flagged in
+                        the confirmation window. Control, zero-width and bidi characters are stripped.</li>
+                    <li><b>Reports</b> — one report per person per profile per day.</li>
+                    <li><b>Your language</b> — English, Russian and Ukrainian.</li>
+                </ul>
+
+                <div class="section-title">Updates</div>
+                <p class="note">
+                    On join the mod asks GitHub for the latest release and tells you in chat if a newer
+                    one exists; <code>/jinfo update</code> checks on demand. Each release publishes an
+                    <code>update.json</code> with the version, file name and SHA-256. Downloading and
+                    installing is left to you — the message links to the release.
+                </p>
+
+                <div class="section-title">Install</div>
+                <p class="note">
+                    Put <code>jinfo-*.jar</code> in your <code>mods</code> folder. Fabric Loader
+                    0.20.1+, Fabric API and Java 25 are required. The mod is client-side, so a server
+                    does not need it. It is a beta: expect rough edges.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo" target="_blank" rel="noopener">The mod on GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases" target="_blank" rel="noopener">Releases &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ru">
+                <p class="lede">
+                    Бесплатный открытый клиентский мод на Fabric для <b>Minecraft 26.2</b>, который
+                    даёт каждому игроку небольшой профиль: до <b>500 символов</b>, 10 строк и 6 ссылок,
+                    который хранится в Cloudflare Worker + D1. Работает и с лицензионными, и с offline
+                    аккаунтами, своего игрового сервера не требует.
+                </p>
+                <span class="tag">0.1beta — бета</span>
+
+                <div class="section-title">Как он работает</div>
+                <ul class="points">
+                    <li><b>Shift + ПКМ по игроку</b> — компактная карточка с головой из скина.
+                        Наведи на голову, чтобы прочитать оформленный профиль; клик открывает полную
+                        карточку. Ссылки в подсказке не кликабельны.</li>
+                    <li><b>Полный экран профиля</b> — аватар, ник, весь текст и по кнопке на каждый
+                        сервис в его цвете. Клик сначала спрашивает <i>«Открыть ссылку? Домен: …»</i>
+                        с полной ссылкой; сами ссылки никогда не открываются.</li>
+                    <li><b>Два редактора</b> — <code>/jinfo edit</code> в игре (цвета, стили, сервисы,
+                        живой предпросмотр) и <code>/jinfo web</code> в браузере на
+                        <code>127.0.0.1</code> с одноразовым токеном.</li>
+                    <li><b>Команды</b> — <code>/jinfo help</code>, <code>edit</code>, <code>web</code>,
+                        <code>set</code>, <code>me</code>, <code>view &lt;ник&gt;</code>,
+                        <code>clear</code>, <code>settings</code>, <code>update</code>. Клавиша
+                        <b>P</b> открывает свой профиль.</li>
+                    <li><b>Оба типа аккаунтов</b> — лицензионный UUID v4 подтверждается через Mojang
+                        (joinServer + hasJoined); offline UUID v3 — ключом Ed25519, который остаётся
+                        на вашем компьютере. Offline-профили помечаются как неподтверждённые.</li>
+                    <li><b>Безопасные ссылки</b> — только https. <code>javascript:</code>,
+                        <code>file:</code>, localhost, IP-адреса и <code>user@host</code> отклоняются;
+                        для встроенных сервисов домен обязан совпадать со списком; сокращатели и
+                        punycode помечаются в окне подтверждения. Управляющие, невидимые и
+                        bidi-символы вырезаются.</li>
+                    <li><b>Жалобы</b> — одна жалоба на человека на профиль в сутки.</li>
+                    <li><b>Ваш язык</b> — английский, русский и украинский.</li>
+                </ul>
+
+                <div class="section-title">Обновления</div>
+                <p class="note">
+                    При входе мод спрашивает у GitHub последний релиз и пишет в чат, если вышла
+                    версия новее; <code>/jinfo update</code> проверяет по запросу. С каждым релизом
+                    публикуется <code>update.json</code> с версией, именем файла и SHA-256. Скачивание
+                    и установка остаются за вами — в сообщении есть ссылка на релиз.
+                </p>
+
+                <div class="section-title">Установка</div>
+                <p class="note">
+                    Положите <code>jinfo-*.jar</code> в папку <code>mods</code>. Нужны Fabric Loader
+                    0.20.1+, Fabric API и Java 25. Мод клиентский, серверу он не нужен. Это бета:
+                    возможны шероховатости.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases" target="_blank" rel="noopener">Релизы &rarr;</a>
+                </div>
+            </div>
+
+            <div data-lang="ua">
+                <p class="lede">
+                    Безкоштовний відкритий клієнтський мод на Fabric для <b>Minecraft 26.2</b>, який
+                    дає кожному гравцю невеликий профіль: до <b>500 символів</b>, 10 рядків і 6
+                    посилань, що зберігається в Cloudflare Worker + D1. Працює і з ліцензійними, і з
+                    offline акаунтами, власного ігрового сервера не потребує.
+                </p>
+                <span class="tag">0.1beta — бета</span>
+
+                <div class="section-title">Як він працює</div>
+                <ul class="points">
+                    <li><b>Shift + ПКМ по гравцю</b> — компактна картка з головою зі скіна. Наведи на
+                        голову, щоб прочитати оформлений профіль; клік відкриває повну картку.
+                        Посилання в підказці не клікабельні.</li>
+                    <li><b>Повний екран профілю</b> — аватар, нік, увесь текст і по кнопці на кожен
+                        сервіс у його кольорі. Клік спершу питає <i>«Відкрити посилання? Домен: …»</i>
+                        з повним посиланням; самі посилання ніколи не відкриваються.</li>
+                    <li><b>Два редактори</b> — <code>/jinfo edit</code> у грі (кольори, стилі, сервіси,
+                        живий попередній перегляд) і <code>/jinfo web</code> у браузері на
+                        <code>127.0.0.1</code> з одноразовим токеном.</li>
+                    <li><b>Команди</b> — <code>/jinfo help</code>, <code>edit</code>, <code>web</code>,
+                        <code>set</code>, <code>me</code>, <code>view &lt;нік&gt;</code>,
+                        <code>clear</code>, <code>settings</code>, <code>update</code>. Клавіша
+                        <b>P</b> відкриває власний профіль.</li>
+                    <li><b>Обидва типи акаунтів</b> — ліцензійний UUID v4 підтверджується через Mojang
+                        (joinServer + hasJoined); offline UUID v3 — ключем Ed25519, який залишається
+                        на вашому комп'ютері. Offline-профілі позначені як непідтверджені.</li>
+                    <li><b>Безпечні посилання</b> — лише https. <code>javascript:</code>,
+                        <code>file:</code>, localhost, IP-адреси та <code>user@host</code> відхиляються;
+                        для вбудованих сервісів домен мусить збігатися зі списком; скорочувачі та
+                        punycode позначаються у вікні підтвердження. Керуючі, невидимі та bidi-символи
+                        вирізаються.</li>
+                    <li><b>Скарги</b> — одна скарга на людину на профіль за добу.</li>
+                    <li><b>Ваша мова</b> — англійська, російська та українська.</li>
+                </ul>
+
+                <div class="section-title">Оновлення</div>
+                <p class="note">
+                    При вході мод питає в GitHub останній реліз і пише в чат, якщо вийшла новіша
+                    версія; <code>/jinfo update</code> перевіряє на запит. З кожним релізом
+                    публікується <code>update.json</code> з версією, іменем файла та SHA-256.
+                    Завантаження й установка залишаються за вами — у повідомленні є посилання на реліз.
+                </p>
+
+                <div class="section-title">Встановлення</div>
+                <p class="note">
+                    Покладіть <code>jinfo-*.jar</code> у теку <code>mods</code>. Потрібні Fabric
+                    Loader 0.20.1+, Fabric API і Java 25. Мод клієнтський, серверу він не потрібен.
+                    Це бета: можливі шорсткості.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo" target="_blank" rel="noopener">Мод на GitHub &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases" target="_blank" rel="noopener">Релізи &rarr;</a>
+                </div>
+            </div>
+
+            <footer>
+                <p>
+                    MIT licence, copyright (c) 2026 McChopik — the English text of the licence is the
+                    one that counts. Not affiliated with Mojang, Microsoft or Fabric.
+                </p>
+                <p style="margin-top:8px;">
+                    <a href="/">mcchopik.pp.ua</a> &nbsp;·&nbsp;
+                    <a href="/mods/">All mods</a> &nbsp;·&nbsp;
+                    <a href="https://github.com/mcchopik/jinfo/issues" target="_blank" rel="noopener">Issues</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        function setLang(lang, button) {
+            document.querySelectorAll('[data-lang]').forEach(function (block) {
+                block.classList.toggle('shown', block.dataset.lang === lang);
+            });
+            document.querySelectorAll('.lang-btn').forEach(function (other) {
+                other.classList.remove('active');
+            });
+            if (button) button.classList.add('active');
+            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
+            try { localStorage.setItem('jinfo-lang', lang); } catch (e) {}
+        }
+
+        try {
+            var saved = localStorage.getItem('jinfo-lang');
+            if (saved) {
+                var match = document.querySelector('.lang-btn[onclick*="\'' + saved + '\'"]');
+                if (match) setLang(saved, match);
+            }
+        } catch (e) {}
+    </script>
+
+</body>
+</html>
