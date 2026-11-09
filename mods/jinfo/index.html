@@ -93,23 +93,25 @@
                     stored in a Cloudflare Worker + D1. Works for both licensed and offline accounts,
                     and needs no game server of its own.
                 </p>
-                <span class="tag">0.1beta — beta</span>
+                <span class="tag">0.2beta — beta</span>
 
                 <div class="section-title">How it works</div>
                 <ul class="points">
                     <li><b>Shift + Right-click a player</b> — a compact card with the head from their
                         skin. Hover the head to read the formatted profile; click it to open the full
                         card. Link previews are never clickable.</li>
-                    <li><b>Full profile screen</b> — avatar, nickname, the whole text and one button per
-                        service in that service's colour. Clicking a button first asks
+                    <li><b>Full profile screen</b> — a rotatable 3D skin (hat, jacket, sleeve and pants
+                        layer toggles), nickname, the whole text, your photo and one button per service
+                        in that service's colour. Clicking a button first asks
                         <i>“Open link? Domain: …”</i> with the full URL; links are never opened
                         automatically.</li>
                     <li><b>Two editors</b> — <code>/jinfo edit</code> in game (colours, styles, services,
                         live preview) and <code>/jinfo web</code> in your browser on
                         <code>127.0.0.1</code> with a one-time token.</li>
-                    <li><b>Your own photo</b> — <code>{avatar} https://…/photo.png</code> or
-                        <code>/jinfo photo &lt;url&gt;</code> puts a direct image link in place of
-                        the skin head in the card, full profile and web preview.</li>
+                    <li><b>Your own photo</b> — <code>{photo} https://…/photo.png</code> or
+                        <code>/jinfo photo &lt;url&gt;</code> adds a direct image link to the profile
+                        information in the full profile and web preview; the card head always stays
+                        the player's skin.</li>
                     <li><b>Templates and preview</b> — four ready-made profiles (streamer, developer,
                         gamer, simple) via <code>/jinfo template &lt;id&gt;</code> or the
                         “Templates” button, and <code>/jinfo preview [nick]</code> shows a profile
@@ -159,22 +161,24 @@
                     который хранится в Cloudflare Worker + D1. Работает и с лицензионными, и с offline
                     аккаунтами, своего игрового сервера не требует.
                 </p>
-                <span class="tag">0.1beta — бета</span>
+                <span class="tag">0.2beta — бета</span>
 
                 <div class="section-title">Как он работает</div>
                 <ul class="points">
                     <li><b>Shift + ПКМ по игроку</b> — компактная карточка с головой из скина.
                         Наведи на голову, чтобы прочитать оформленный профиль; клик открывает полную
                         карточку. Ссылки в подсказке не кликабельны.</li>
-                    <li><b>Полный экран профиля</b> — аватар, ник, весь текст и по кнопке на каждый
-                        сервис в его цвете. Клик сначала спрашивает <i>«Открыть ссылку? Домен: …»</i>
+                    <li><b>Полный экран профиля</b> — 3D-скин с вращением мышью (слои шляпы, куртки,
+                        рукавов и штанов включаются кнопками), ник, весь текст, фото и по кнопке на
+                        каждый сервис в его цвете. Клик сначала спрашивает <i>«Открыть ссылку? Домен: …»</i>
                         с полной ссылкой; сами ссылки никогда не открываются.</li>
                     <li><b>Два редактора</b> — <code>/jinfo edit</code> в игре (цвета, стили, сервисы,
                         живой предпросмотр) и <code>/jinfo web</code> в браузере на
                         <code>127.0.0.1</code> с одноразовым токеном.</li>
-                    <li><b>Своё фото</b> — <code>{avatar} https://…/photo.png</code> или
-                        <code>/jinfo photo &lt;url&gt;</code> ставит прямую ссылку на картинку
-                        вместо головы скина в карточке, профиле и веб-просмотре.</li>
+                    <li><b>Своё фото</b> — <code>{photo} https://…/photo.png</code> или
+                        <code>/jinfo photo &lt;url&gt;</code> добавляет прямую ссылку на картинку
+                        к информации профиля в полном экране и веб-просмотре; голова в карточке
+                        всегда остаётся скином игрока.</li>
                     <li><b>Шаблоны и предпросмотр</b> — четыре готовых профиля (стример, разработчик,
                         геймер, простой) в <code>/jinfo template &lt;id&gt;</code> или кнопкой
                         «Шаблоны», а <code>/jinfo preview [ник]</code> показывает профиль так, как
@@ -225,22 +229,24 @@
                     посилань, що зберігається в Cloudflare Worker + D1. Працює і з ліцензійними, і з
                     offline акаунтами, власного ігрового сервера не потребує.
                 </p>
-                <span class="tag">0.1beta — бета</span>
+                <span class="tag">0.2beta — бета</span>
 
                 <div class="section-title">Як він працює</div>
                 <ul class="points">
                     <li><b>Shift + ПКМ по гравцю</b> — компактна картка з головою зі скіна. Наведи на
                         голову, щоб прочитати оформлений профіль; клік відкриває повну картку.
                         Посилання в підказці не клікабельні.</li>
-                    <li><b>Повний екран профілю</b> — аватар, нік, увесь текст і по кнопці на кожен
-                        сервіс у його кольорі. Клік спершу питає <i>«Відкрити посилання? Домен: …»</i>
+                    <li><b>Повний екран профілю</b> — 3D-скін з обертанням мишею (шари капелюха,
+                        куртки, рукавів і штанів вмикаються кнопками), нік, увесь текст, фото і по
+                        кнопці на кожен сервіс у його кольорі. Клік спершу питає <i>«Відкрити посилання? Домен: …»</i>
                         з повним посиланням; самі посилання ніколи не відкриваються.</li>
                     <li><b>Два редактори</b> — <code>/jinfo edit</code> у грі (кольори, стилі, сервіси,
                         живий попередній перегляд) і <code>/jinfo web</code> у браузері на
                         <code>127.0.0.1</code> з одноразовим токеном.</li>
-                    <li><b>Власне фото</b> — <code>{avatar} https://…/photo.png</code> або
-                        <code>/jinfo photo &lt;url&gt;</code> ставить пряме посилання на картинку
-                        замість голови скіна в картці, профілі та веб-перегляді.</li>
+                    <li><b>Власне фото</b> — <code>{photo} https://…/photo.png</code> або
+                        <code>/jinfo photo &lt;url&gt;</code> додає пряме посилання на картинку
+                        до інформації профілю в повному екрані та веб-перегляді; голова в картці
+                        завжди залишається скіном гравця.</li>
                     <li><b>Шаблони й попередній перегляд</b> — чотири готові профілі (стрімер,
                         розробник, геймер, простий) у <code>/jinfo template &lt;id&gt;</code> або
                         кнопкою «Шаблони», а <code>/jinfo preview [нік]</code> показує профіль так,
