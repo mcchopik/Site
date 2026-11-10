@@ -93,7 +93,7 @@
                     stored in a Cloudflare Worker + D1. Works for both licensed and offline accounts,
                     and needs no game server of its own.
                 </p>
-                <span class="tag">0.2.1beta — beta</span>
+                <span class="tag">0.3beta — beta</span>
 
                 <div class="section-title">How it works</div>
                 <ul class="points">
@@ -105,6 +105,10 @@
                         in that service's colour. Clicking a button first asks
                         <i>“Open link? Domain: …”</i> with the full URL; links are never opened
                         automatically.</li>
+                    <li><b>Skin in your profile</b> — settings (Mod Menu or <code>/jinfo settings</code>)
+                        let you use your current skin, an https URL or a local PNG, pick classic/slim
+                        and preview it in 3D. Other players see that skin in the card and full screen;
+                        auto mode stays compatible with other skin mods.</li>
                     <li><b>Two editors</b> — <code>/jinfo edit</code> in game (colours, styles, services,
                         live preview) and <code>/jinfo web</code> in your browser on
                         <code>127.0.0.1</code> with a one-time token.</li>
@@ -134,6 +138,19 @@
                         Shift+right-click gesture, in-game editor, web editor and your profile.</li>
                 </ul>
 
+                <div class="section-title">No mod? Use a server component</div>
+                <p class="note">
+                    The same repository has a <b>Fabric server mod</b> (<code>server</code> branch)
+                    and a <b>Paper plugin</b> (<code>paper</code> branch). Both start a small web
+                    server (default port <code>8765</code>) where anyone can browse profiles and
+                    skins in a browser, without installing the client mod. Admin commands are
+                    available under <code>/jinfo</code>.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases/tag/server-v0.1.0" target="_blank" rel="noopener">Fabric server &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases/tag/paper-v0.1.0" target="_blank" rel="noopener">Paper plugin &rarr;</a>
+                </div>
+
                 <div class="section-title">Updates</div>
                 <p class="note">
                     On join the mod asks GitHub for the latest release and tells you in chat if a newer
@@ -161,7 +178,7 @@
                     который хранится в Cloudflare Worker + D1. Работает и с лицензионными, и с offline
                     аккаунтами, своего игрового сервера не требует.
                 </p>
-                <span class="tag">0.2.1beta — бета</span>
+                <span class="tag">0.3beta — бета</span>
 
                 <div class="section-title">Как он работает</div>
                 <ul class="points">
@@ -172,6 +189,11 @@
                         рукавов и штанов включаются кнопками), ник, весь текст, фото и по кнопке на
                         каждый сервис в его цвете. Клик сначала спрашивает <i>«Открыть ссылку? Домен: …»</i>
                         с полной ссылкой; сами ссылки никогда не открываются.</li>
+                    <li><b>Скин в профиле</b> — в настройках (Mod Menu или
+                        <code>/jinfo settings</code>) можно выбрать текущий скин, https-ссылку
+                        или локальный PNG, модель classic/slim и посмотреть 3D-предпросмотр.
+                        Другие игроки видят этот скин в карточке и полном экране; режим «авто»
+                        совместим с другими скин-модами.</li>
                     <li><b>Два редактора</b> — <code>/jinfo edit</code> в игре (цвета, стили, сервисы,
                         живой предпросмотр) и <code>/jinfo web</code> в браузере на
                         <code>127.0.0.1</code> с одноразовым токеном.</li>
@@ -202,6 +224,19 @@
                         жест Shift+ПКМ, редактор в игре, веб-редактор и свой профиль.</li>
                 </ul>
 
+                <div class="section-title">Без мода? Есть серверные компоненты</div>
+                <p class="note">
+                    В этом же репозитории есть <b>Fabric-сервер</b> (ветка <code>server</code>) и
+                    <b>Paper-плагин</b> (ветка <code>paper</code>). Оба поднимают небольшой
+                    веб-сервер (порт по умолчанию <code>8765</code>), где любой может смотреть
+                    профили и скины в браузере — без клиентского мода. Админ-команды доступны
+                    через <code>/jinfo</code>.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases/tag/server-v0.1.0" target="_blank" rel="noopener">Fabric-сервер &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases/tag/paper-v0.1.0" target="_blank" rel="noopener">Paper-плагин &rarr;</a>
+                </div>
+
                 <div class="section-title">Обновления</div>
                 <p class="note">
                     При входе мод спрашивает у GitHub последний релиз и пишет в чат, если вышла
@@ -229,7 +264,7 @@
                     посилань, що зберігається в Cloudflare Worker + D1. Працює і з ліцензійними, і з
                     offline акаунтами, власного ігрового сервера не потребує.
                 </p>
-                <span class="tag">0.2.1beta — бета</span>
+                <span class="tag">0.3beta — бета</span>
 
                 <div class="section-title">Як він працює</div>
                 <ul class="points">
@@ -240,6 +275,11 @@
                         куртки, рукавів і штанів вмикаються кнопками), нік, увесь текст, фото і по
                         кнопці на кожен сервіс у його кольорі. Клік спершу питає <i>«Відкрити посилання? Домен: …»</i>
                         з повним посиланням; самі посилання ніколи не відкриваються.</li>
+                    <li><b>Скін у профілі</b> — у налаштуваннях (Mod Menu або
+                        <code>/jinfo settings</code>) можна вибрати поточний скін, https-посилання
+                        або локальний PNG, модель classic/slim і подивитися 3D-перегляд.
+                        Інші гравці бачать цей скін у картці та повному екрані; режим «авто»
+                        сумісний з іншими скін-модами.</li>
                     <li><b>Два редактори</b> — <code>/jinfo edit</code> у грі (кольори, стилі, сервіси,
                         живий попередній перегляд) і <code>/jinfo web</code> у браузері на
                         <code>127.0.0.1</code> з одноразовим токеном.</li>
@@ -269,6 +309,19 @@
                     <li><b>Mod Menu</b> — необов'язкова кнопка налаштувань у списку модів: мова,
                         жест Shift+ПКМ, редактор у грі, веб-редактор і власний профіль.</li>
                 </ul>
+
+                <div class="section-title">Без мода? Є серверні компоненти</div>
+                <p class="note">
+                    У цьому ж репозиторії є <b>Fabric-сервер</b> (гілка <code>server</code>) і
+                    <b>Paper-плагін</b> (гілка <code>paper</code>). Обидва піднімають невеликий
+                    веб-сервер (порт за замовчуванням <code>8765</code>), де будь-хто може
+                    переглядати профілі та скіни в браузері — без клієнтського мода. Адмін-команди
+                    доступні через <code>/jinfo</code>.
+                </p>
+                <div class="row">
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases/tag/server-v0.1.0" target="_blank" rel="noopener">Fabric-сервер &rarr;</a>
+                    <a class="page-link-btn" href="https://github.com/mcchopik/jinfo/releases/tag/paper-v0.1.0" target="_blank" rel="noopener">Paper-плагін &rarr;</a>
+                </div>
 
                 <div class="section-title">Оновлення</div>
                 <p class="note">
