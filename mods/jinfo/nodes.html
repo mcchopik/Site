@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JInfo — node status</title>
+    <meta name="description" content="Aggregate JInfo user counts by storage node. No profile data is shown.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body { align-items: flex-start; padding: 32px 20px; }
+        .container { max-width: 640px; }
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 30px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .lede { color: #b9b9c2; font-size: 14px; line-height: 1.6; margin-top: 10px; }
+        .total-card {
+            margin-top: 22px;
+            padding: 22px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 14px;
+            background: rgba(255,255,255,.04);
+            text-align: center;
+        }
+        .total-label {
+            color: #8e8e93;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+        .total-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            line-height: 1.1;
+            margin-top: 6px;
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nodes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .node {
+            padding: 16px 14px;
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 12px;
+            background: rgba(255,255,255,.035);
+        }
+        .node-name { color: #fff; font-size: 14px; font-weight: 600; }
+        .node-region {
+            color: #77777f;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            margin-top: 3px;
+        }
+        .node-count {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: #fff;
+            margin-top: 12px;
+        }
+        .node-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #8e8e93;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #555;
+        }
+        .dot.ok { background: #55ff55; box-shadow: 0 0 8px rgba(85,255,85,.6); }
+        .dot.bad { background: #ff5555; box-shadow: 0 0 8px rgba(255,85,85,.6); }
+        .note { color: #8e8e93; font-size: 12.5px; line-height: 1.6; margin-top: 14px; }
+        .error {
+            color: #ff8a8a;
+            font-size: 13px;
+            margin-top: 16px;
+            display: none;
+        }
+        footer { margin-top: 22px; color: #6f6f78; font-size: 12px; line-height: 1.6; }
+        footer a { color: #b9b9c2; }
+        @media (max-width: 540px) {
+            .nodes { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="bg-frame" src="/fon.html"></iframe>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <div class="header-left">
+                    <h1 class="page-title">JInfo</h1>
+                </div>
+                <a class="lang-btn" href="index.html">Back</a>
+            </div>
+
+            <p class="lede">
+                Aggregate user counts across the JInfo storage nodes. Only counts are shown —
+                no profiles, nicknames or other user data.
+                <br>
+                Загальна кількість користувачів на вузлах JInfo. Показані лише цифри, без профілів.
+            </p>
+
+            <div class="total-card">
+                <div class="total-label">Total users / Усього користувачів</div>
+                <div class="total-value" id="total">—</div>
+            </div>
+
+            <div class="nodes" id="nodes">
+                <div class="node">
+                    <div class="node-name">Europe</div>
+                    <div class="node-region">eeur</div>
+                    <div class="node-count">—</div>
+                    <div class="node-status"><span class="dot"></span> loading</div>
+                </div>
+                <div class="node">
+                    <div class="node-name">North America</div>
+                    <div class="node-region">wnam</div>
+                    <div class="node-count">—</div>
+                    <div class="node-status"><span class="dot"></span> loading</div>
+                </div>
+                <div class="node">
+                    <div class="node-name">Asia Pacific</div>
+                    <div class="node-region">apac</div>
+                    <div class="node-count">—</div>
+                    <div class="node-status"><span class="dot"></span> loading</div>
+                </div>
+            </div>
+
+            <p class="note">
+                New profiles are written to the node closest to the player. Lookups check the
+                nearest node first and then continue through the other nodes until the profile is found.
+            </p>
+            <p class="note" id="updated"></p>
+            <p class="error" id="error">Could not load node statistics. Retrying automatically.</p>
+
+            <footer>
+                <p>
+                    <a href="index.html">JInfo</a> &nbsp;·&nbsp;
+                    <a href="/">mcchopik.pp.ua</a> &nbsp;·&nbsp;
+                    <a href="https://github.com/mcchopik/jinfo/issues" target="_blank" rel="noopener">Issues</a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        var API = 'https://mcprofiles.mcchopik.workers.dev/stats';
+
+        function render(data) {
+            var total = document.getElementById('total');
+            var nodes = document.getElementById('nodes');
+            var error = document.getElementById('error');
+            var updated = document.getElementById('updated');
+            total.textContent = Number(data.total || 0).toLocaleString();
+            nodes.innerHTML = '';
+            (data.nodes || []).forEach(function (node) {
+                var card = document.createElement('div');
+                card.className = 'node';
+                var name = document.createElement('div');
+                name.className = 'node-name';
+                name.textContent = node.label || node.id;
+                var region = document.createElement('div');
+                region.className = 'node-region';
+                region.textContent = node.id;
+                var count = document.createElement('div');
+                count.className = 'node-count';
+                count.textContent = Number(node.count || 0).toLocaleString();
+                var status = document.createElement('div');
+                status.className = 'node-status';
+                var dot = document.createElement('span');
+                dot.className = 'dot ' + (node.ok ? 'ok' : 'bad');
+                status.appendChild(dot);
+                status.appendChild(document.createTextNode(node.ok ? 'online' : 'offline'));
+                card.appendChild(name);
+                card.appendChild(region);
+                card.appendChild(count);
+                card.appendChild(status);
+                nodes.appendChild(card);
+            });
+            error.style.display = 'none';
+            updated.textContent = 'Updated ' + new Date().toLocaleTimeString();
+        }
+
+        function load() {
+            fetch(API, { cache: 'no-store' })
+                .then(function (response) {
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    return response.json();
+                })
+                .then(render)
+                .catch(function () {
+                    document.getElementById('error').style.display = 'block';
+                });
+        }
+
+        load();
+        setInterval(load, 30000);
+    </script>
+</body>
+</html>
