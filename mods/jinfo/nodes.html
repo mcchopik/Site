@@ -73,6 +73,20 @@
             color: #fff;
             margin-top: 12px;
         }
+        .node-metrics {
+            display: flex;
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .metric { display: flex; flex-direction: column; gap: 2px; }
+        .metric-label {
+            color: #77777f;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .7px;
+            text-transform: uppercase;
+        }
+        .metric-value { color: #cfcfd6; font-size: 12px; font-variant-numeric: tabular-nums; }
         .node-status {
             display: inline-flex;
             align-items: center;
@@ -117,14 +131,12 @@
             </div>
 
             <p class="lede">
-                Aggregate user counts across the JInfo storage nodes. Only counts are shown —
-                no profiles, nicknames or other user data.
-                <br>
-                Загальна кількість користувачів на вузлах JInfo. Показані лише цифри, без профілів.
+                Aggregate user counts and latency across the JInfo storage nodes. Only counts and
+                timings are shown — no profiles, nicknames or other user data.
             </p>
 
             <div class="total-card">
-                <div class="total-label">Total users / Усього користувачів</div>
+                <div class="total-label">Total users</div>
                 <div class="total-value" id="total">—</div>
             </div>
 
@@ -133,18 +145,48 @@
                     <div class="node-name">Europe</div>
                     <div class="node-region">eeur</div>
                     <div class="node-count">—</div>
+                    <div class="node-metrics">
+                        <div class="metric metric-d1">
+                            <span class="metric-label">D1</span>
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric metric-rtt">
+                            <span class="metric-label">RTT</span>
+                            <span class="metric-value">—</span>
+                        </div>
+                    </div>
                     <div class="node-status"><span class="dot"></span> loading</div>
                 </div>
                 <div class="node">
                     <div class="node-name">North America</div>
                     <div class="node-region">wnam</div>
                     <div class="node-count">—</div>
+                    <div class="node-metrics">
+                        <div class="metric metric-d1">
+                            <span class="metric-label">D1</span>
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric metric-rtt">
+                            <span class="metric-label">RTT</span>
+                            <span class="metric-value">—</span>
+                        </div>
+                    </div>
                     <div class="node-status"><span class="dot"></span> loading</div>
                 </div>
                 <div class="node">
                     <div class="node-name">Asia Pacific</div>
                     <div class="node-region">apac</div>
                     <div class="node-count">—</div>
+                    <div class="node-metrics">
+                        <div class="metric metric-d1">
+                            <span class="metric-label">D1</span>
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric metric-rtt">
+                            <span class="metric-label">RTT</span>
+                            <span class="metric-value">—</span>
+                        </div>
+                    </div>
                     <div class="node-status"><span class="dot"></span> loading</div>
                 </div>
             </div>
@@ -152,6 +194,10 @@
             <p class="note">
                 New profiles are written to the node closest to the player. Lookups check the
                 nearest node first and then continue through the other nodes until the profile is found.
+            </p>
+            <p class="note">
+                D1 is the database query time measured by the Worker. RTT is the browser round-trip
+                time to the Worker and includes the D1 query. Values refresh every 30 seconds.
             </p>
             <p class="note" id="updated"></p>
             <p class="error" id="error">Could not load node statistics. Retrying automatically.</p>
@@ -167,7 +213,22 @@
     </div>
 
     <script>
-        var API = 'https://mcprofiles.mcchopik.workers.dev/stats';
+        var API_BASE = 'https://mcprofiles.mcchopik.workers.dev';
+        var API = API_BASE + '/stats';
+
+        function metricCard(label, value, kind) {
+            var box = document.createElement('div');
+            box.className = 'metric metric-' + kind;
+            var name = document.createElement('span');
+            name.className = 'metric-label';
+            name.textContent = label;
+            var val = document.createElement('span');
+            val.className = 'metric-value';
+            val.textContent = value;
+            box.appendChild(name);
+            box.appendChild(val);
+            return box;
+        }
 
         function render(data) {
             var total = document.getElementById('total');
@@ -179,6 +240,7 @@
             (data.nodes || []).forEach(function (node) {
                 var card = document.createElement('div');
                 card.className = 'node';
+                card.setAttribute('data-node', node.id);
                 var name = document.createElement('div');
                 name.className = 'node-name';
                 name.textContent = node.label || node.id;
@@ -188,6 +250,10 @@
                 var count = document.createElement('div');
                 count.className = 'node-count';
                 count.textContent = Number(node.count || 0).toLocaleString();
+                var metrics = document.createElement('div');
+                metrics.className = 'node-metrics';
+                metrics.appendChild(metricCard('D1', node.ping != null ? node.ping + ' ms' : '—', 'd1'));
+                metrics.appendChild(metricCard('RTT', '…', 'rtt'));
                 var status = document.createElement('div');
                 status.className = 'node-status';
                 var dot = document.createElement('span');
@@ -197,11 +263,35 @@
                 card.appendChild(name);
                 card.appendChild(region);
                 card.appendChild(count);
+                card.appendChild(metrics);
                 card.appendChild(status);
                 nodes.appendChild(card);
             });
             error.style.display = 'none';
             updated.textContent = 'Updated ' + new Date().toLocaleTimeString();
+            measurePings(data.nodes || []);
+        }
+
+        function measurePings(list) {
+            list.forEach(function (node) {
+                var started = performance.now();
+                fetch(API_BASE + '/ping/' + encodeURIComponent(node.id), { cache: 'no-store' })
+                    .then(function (response) { return response.json(); })
+                    .then(function (data) {
+                        var card = document.querySelector('[data-node="' + node.id + '"]');
+                        if (!card) return;
+                        var rtt = Math.round(performance.now() - started);
+                        var d1 = card.querySelector('.metric-d1 .metric-value');
+                        var rttValue = card.querySelector('.metric-rtt .metric-value');
+                        d1.textContent = data.ping != null ? data.ping + ' ms' : '—';
+                        rttValue.textContent = rtt + ' ms';
+                    })
+                    .catch(function () {
+                        var card = document.querySelector('[data-node="' + node.id + '"]');
+                        if (!card) return;
+                        card.querySelector('.metric-rtt .metric-value').textContent = '—';
+                    });
+            });
         }
 
         function load() {
