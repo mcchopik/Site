@@ -110,6 +110,31 @@
             margin-top: 16px;
             display: none;
         }
+        .stats-actions { display: flex; gap: 8px; margin-top: 14px; }
+        .stats-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+            color: #b9b9c2;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background .2s, color .2s, border-color .2s;
+        }
+        .stats-btn:hover { background: rgba(255,255,255,.12); color: #fff; border-color: rgba(138,43,226,.6); }
+        .stats-btn.accent {
+            background: linear-gradient(45deg, #8a2be2, #ff007f);
+            border-color: transparent;
+            color: #fff;
+        }
+        .stats-btn.accent:hover { filter: brightness(1.12); }
         footer { margin-top: 22px; color: #6f6f78; font-size: 12px; line-height: 1.6; }
         footer a { color: #b9b9c2; }
         @media (max-width: 540px) {
@@ -127,7 +152,7 @@
                 <div class="header-left">
                     <h1 class="page-title">JInfo</h1>
                 </div>
-                <a class="lang-btn" href="index.html">Back</a>
+                <a class="stats-btn" style="flex:0 0 auto;padding:6px 12px;" href="index.html">Back</a>
             </div>
 
             <p class="lede">
@@ -200,6 +225,9 @@
                 time to the Worker and includes the D1 query. Values refresh every 30 seconds.
             </p>
             <p class="note" id="updated"></p>
+            <div class="stats-actions">
+                <button class="stats-btn accent" id="refresh" type="button">Refresh now</button>
+            </div>
             <p class="error" id="error">Could not load node statistics. Retrying automatically.</p>
 
             <footer>
@@ -305,6 +333,10 @@
                     document.getElementById('error').style.display = 'block';
                 });
         }
+
+        document.getElementById('refresh').addEventListener('click', function () {
+            load();
+        });
 
         load();
         setInterval(load, 30000);
