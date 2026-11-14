@@ -36,22 +36,7 @@
     }
 
     if (reduceMotion) {
-        if (window.customElements) {
-            window.customElements.whenDefined('lottie-player').then(function () {
-                document.querySelectorAll('lottie-player').forEach(function (player) {
-                    if (typeof player.stop === 'function') player.stop();
-                });
-            }).catch(function () {});
-        }
         return;
-    }
-
-    if (window.customElements) {
-        window.customElements.whenDefined('lottie-player').then(function () {
-            document.querySelectorAll('lottie-player').forEach(function (player) {
-                if (typeof player.play === 'function') player.play();
-            });
-        }).catch(function () {});
     }
 
     if (!window.gsap) return;

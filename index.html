@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="effects.css">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" defer></script>
-    <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="effects.js" defer></script>
@@ -27,19 +25,9 @@
     <div class="container">
         <main class="card" data-tilt>
             <div class="card-header">
-                <div class="identity-block" data-gsap-intro>
-                    <div class="profile-visual" aria-hidden="true">
-                        <lottie-player class="profile-orbit" src="/assets/profile-orbit.json" background="transparent" speed="1" loop></lottie-player>
-                        <span class="profile-core">MC</span>
-                    </div>
-                    <div class="header-left">
-                        <div class="profile-status">
-                            <span class="status-dot"></span>
-                            <span id="profile-status">Online</span>
-                        </div>
-                        <h1 class="profile-name animista-focus-in">McChopik</h1>
-                        <p class="profile-role" id="profile-role">Minecraft player · mod creator</p>
-                    </div>
+                <div class="header-left" data-gsap-intro>
+                    <h1 class="profile-name animista-focus-in">McChopik</h1>
+                    <p class="profile-role" id="profile-role">Minecraft player · mod creator</p>
                 </div>
                 <div class="lang-switch" data-gsap-intro role="group" aria-label="Language">
                     <button type="button" class="lang-btn" onclick="setLang('ua', this)">UA</button>
@@ -60,7 +48,6 @@
                 <button type="button" class="bio-item clickable game-toggle" onclick="toggleMcPanel()" aria-expanded="false" aria-controls="mc-panel">
                     <span class="bio-label" id="lbl-game">Favorite Game</span>
                     <span class="bio-value bio-value-with-icon">
-                        <lord-icon class="game-icon" src="https://cdn.lordicon.com/caxgkjgi.json" trigger="hover" colors="primary:#c9a7ff,secondary:#ff3d9a" aria-hidden="true"></lord-icon>
                         <span id="val-game-title">Minecraft</span>
                         <span class="arrow" aria-hidden="true">▾</span>
                     </span>
@@ -92,19 +79,15 @@
             <div class="section-title" id="lbl-channels" data-aos="fade-right">Channels &amp; Links</div>
             <div class="links-grid" data-aos="fade-up" data-aos-delay="70">
                 <a href="https://t.me/McChopikkk" target="_blank" rel="noopener" class="link-btn hvr-float-shadow">
-                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#45e6ff" aria-hidden="true"></lord-icon>
                     <span id="btn-main-channel">Main Channel</span>
                 </a>
                 <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" rel="noopener" class="link-btn hvr-float-shadow">
-                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#ff3d9a" aria-hidden="true"></lord-icon>
                     <span id="btn-life-channel">Real Life Channel (Face)</span>
                 </a>
                 <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" rel="noopener" class="link-btn twitch hvr-float-shadow">
-                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#9146ff" aria-hidden="true"></lord-icon>
                     <span>Twitch</span>
                 </a>
                 <a href="https://kick.com/mcchopik" target="_blank" rel="noopener" class="link-btn kick hvr-float-shadow">
-                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#53fc18" aria-hidden="true"></lord-icon>
                     <span>Kick</span>
                 </a>
             </div>
@@ -118,9 +101,6 @@
                 <a href="https://t.me/Good_Dumpling" target="_blank" rel="noopener" class="fame-tag hvr-grow">@Good_Dumpling</a>
             </div>
 
-            <p class="motion-credit" data-aos="fade-in">
-                Animated icons by <a href="https://lordicon.com/" target="_blank" rel="noopener">Lordicon.com</a>
-            </p>
         </main>
     </div>
 
@@ -136,14 +116,17 @@
 
     <div class="floating-widget" id="floating-widget">
         <button type="button" class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()" aria-label="Open music player" aria-expanded="false" aria-controls="player-panel">
-            <lord-icon class="music-icon" src="https://cdn.lordicon.com/mtokncfo.json" trigger="loop-on-hover" colors="primary:#ffffff,secondary:#45e6ff" aria-hidden="true"></lord-icon>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
         </button>
 
         <div class="player-panel hidden animate__animated animate__fadeInUp animate__faster" id="player-panel">
             <div class="track-info">
-                <div class="track-title">Спокойный PHONK</div>
-                <div class="track-artist">ФОНК</div>
-                <a href="https://music.youtube.com/watch?v=ZUW7n0hJjxY&si=kdD2pyOzZEQXK-AQ" target="_blank" rel="noopener" class="orig-link">Оригинал на YouTube Music</a>
+                <div class="track-title">Meditation Impromptu 01</div>
+                <div class="track-artist">Kevin MacLeod</div>
+                <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100163" target="_blank" rel="noopener" class="orig-link">Источник: Incompetech</a>
+                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener" class="track-license">CC BY 4.0</a>
             </div>
 
             <div class="progress-box">
@@ -166,7 +149,6 @@
     <script>
         const dict = {
             en: { 
-                status: "Online",
                 role: "Minecraft player · mod creator",
                 age_lbl: "Age",
                 age_val: "14 years old",
@@ -187,7 +169,6 @@
                 toast_btn: "Turn on now"
             },
             ua: { 
-                status: "Онлайн",
                 role: "Гравець Minecraft · автор модів",
                 age_lbl: "Вік",
                 age_val: "14 років",
@@ -208,7 +189,6 @@
                 toast_btn: "Увімкнути зараз"
             },
             ru: { 
-                status: "Онлайн",
                 role: "Игрок Minecraft · автор модов",
                 age_lbl: "Возраст",
                 age_val: "14 лет",
@@ -231,7 +211,6 @@
         };
 
         function setLang(lang, btn) {
-            document.getElementById('profile-status').innerText = dict[lang].status;
             document.getElementById('profile-role').innerText = dict[lang].role;
             document.getElementById('lbl-age').innerText = dict[lang].age_lbl;
             document.getElementById('val-age').innerText = dict[lang].age_val;

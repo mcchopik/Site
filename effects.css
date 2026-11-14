@@ -74,77 +74,12 @@ body::before {
 }
 
 .home-page .container {
+    max-width: 430px;
     margin: auto;
 }
 
 .home-page .card {
-    padding: 26px;
-}
-
-.identity-block {
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.profile-visual {
-    position: relative;
-    width: 76px;
-    height: 76px;
-    flex: 0 0 76px;
-    display: grid;
-    place-items: center;
-    border-radius: 24px;
-    background: radial-gradient(circle at 35% 25%, rgba(155, 92, 255, 0.2), rgba(5, 7, 15, 0.76));
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    box-shadow: inset 0 0 24px rgba(155, 92, 255, 0.12);
-}
-
-.profile-orbit {
-    position: absolute;
-    inset: -7px;
-    width: calc(100% + 14px);
-    height: calc(100% + 14px);
-    pointer-events: none;
-}
-
-.profile-core {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    place-items: center;
-    width: 46px;
-    height: 46px;
-    border-radius: 16px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    color: #fff;
-    background: linear-gradient(135deg, rgba(155, 92, 255, 0.96), rgba(255, 61, 154, 0.92));
-    box-shadow: 0 8px 24px rgba(155, 92, 255, 0.34);
-}
-
-.profile-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 3px;
-    color: #a9f7cf;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-}
-
-.status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #59f59e;
-    box-shadow: 0 0 10px rgba(89, 245, 158, 0.8);
-    animation: status-pulse 2s ease-in-out infinite;
+    padding: 22px;
 }
 
 .profile-role {
@@ -222,12 +157,6 @@ body::before {
     gap: 5px;
 }
 
-.game-icon {
-    width: 24px;
-    height: 24px;
-    margin: -5px 1px -5px 0;
-}
-
 .game-toggle .arrow {
     display: inline-block;
     transition: transform 240ms ease;
@@ -277,32 +206,9 @@ body::before {
     transform: translateX(120%);
 }
 
-.link-icon {
-    width: 23px;
-    height: 23px;
-    flex: 0 0 auto;
-}
-
 .fame-tag {
     position: relative;
     overflow: hidden;
-}
-
-.motion-credit {
-    margin-top: 18px;
-    color: #686875;
-    font-size: 10px;
-    text-align: center;
-}
-
-.motion-credit a {
-    color: #8e8e9a;
-    text-underline-offset: 2px;
-}
-
-.music-icon {
-    width: 28px;
-    height: 28px;
 }
 
 .floating-btn {
@@ -336,6 +242,14 @@ body::before {
     background: rgba(15, 15, 24, 0.84);
 }
 
+.track-license {
+    display: inline-block;
+    margin-left: 5px;
+    color: #8e8e93;
+    font-size: 10px;
+    text-underline-offset: 2px;
+}
+
 /* Animista text-focus-in, adapted from animista.net. */
 .animista-focus-in {
     animation: text-focus-in 760ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
@@ -348,17 +262,6 @@ body::before {
     }
     100% {
         filter: blur(0);
-        opacity: 1;
-    }
-}
-
-@keyframes status-pulse {
-    0%, 100% {
-        transform: scale(0.82);
-        opacity: 0.62;
-    }
-    50% {
-        transform: scale(1.15);
         opacity: 1;
     }
 }
@@ -407,34 +310,16 @@ body::before {
 
 @media (max-width: 520px) {
     .home-page {
-        padding: 14px;
+        padding: 20px;
     }
 
     .home-page .card {
-        padding: 19px;
+        padding: 18px;
         border-radius: 18px;
     }
 
     .home-page .card-header {
         gap: 12px;
-    }
-
-    .profile-visual {
-        width: 60px;
-        height: 60px;
-        flex-basis: 60px;
-        border-radius: 19px;
-    }
-
-    .profile-core {
-        width: 38px;
-        height: 38px;
-        border-radius: 13px;
-        font-size: 11px;
-    }
-
-    .identity-block {
-        gap: 10px;
     }
 
     .home-page .lang-switch {
@@ -451,10 +336,6 @@ body::before {
         max-width: 130px;
     }
 
-    .links-grid {
-        grid-template-columns: 1fr;
-    }
-
     .music-toast {
         right: 14px;
         bottom: 76px;
@@ -465,18 +346,6 @@ body::before {
     .floating-widget {
         right: 14px;
         bottom: 14px;
-    }
-}
-
-@media (max-width: 360px) {
-    .home-page .card-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .home-page .lang-switch {
-        align-self: flex-end;
-        margin-top: -4px;
     }
 }
 
