@@ -102,6 +102,12 @@
                 transform: translate(-70%, -30%) scale(1);
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .blob {
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -114,4 +120,3 @@
 
 </body>
 </html>
-

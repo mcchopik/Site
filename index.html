@@ -4,30 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McChopik</title>
+    <meta name="description" content="McChopik — Minecraft player, mod creator and streamer.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="effects.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" defer></script>
+    <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="effects.js" defer></script>
 </head>
-<body>
+<body class="home-page">
 
-    <audio id="bg-music" src="Music.mp3" loop></audio>
-    <iframe id="bg-frame" src="fon.html"></iframe>
+    <audio id="bg-music" src="Music.mp3" preload="metadata" loop></audio>
+    <iframe id="bg-frame" src="fon.html" title="Animated background" aria-hidden="true"></iframe>
 
     <div class="container">
-        <div class="card">
+        <main class="card" data-tilt>
             <div class="card-header">
-                <div class="header-left">
-                    <h1 class="profile-name" style="background: linear-gradient(45deg, #8a2be2, #ff007f); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">McChopik</h1>
+                <div class="identity-block" data-gsap-intro>
+                    <div class="profile-visual" aria-hidden="true">
+                        <lottie-player class="profile-orbit" src="/assets/profile-orbit.json" background="transparent" speed="1" loop></lottie-player>
+                        <span class="profile-core">MC</span>
+                    </div>
+                    <div class="header-left">
+                        <div class="profile-status">
+                            <span class="status-dot"></span>
+                            <span id="profile-status">Online</span>
+                        </div>
+                        <h1 class="profile-name animista-focus-in">McChopik</h1>
+                        <p class="profile-role" id="profile-role">Minecraft player · mod creator</p>
+                    </div>
                 </div>
-                <div class="lang-switch">
-                    <button class="lang-btn" onclick="setLang('ua', this)">UA</button>
-                    <button class="lang-btn" onclick="setLang('ru', this)">RU</button>
-                    <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                <div class="lang-switch" data-gsap-intro role="group" aria-label="Language">
+                    <button type="button" class="lang-btn" onclick="setLang('ua', this)">UA</button>
+                    <button type="button" class="lang-btn" onclick="setLang('ru', this)">RU</button>
+                    <button type="button" class="lang-btn active" onclick="setLang('en', this)">EN</button>
                 </div>
             </div>
 
-            <div class="bio-list">
+            <div class="bio-list" data-aos="fade-up" data-aos-delay="80">
                 <div class="bio-item">
                     <span class="bio-label" id="lbl-age">Age</span>
                     <span class="bio-value" id="val-age">14 years old</span>
@@ -36,10 +57,14 @@
                     <span class="bio-label" id="lbl-bday">Birthday</span>
                     <span class="bio-value">06.04</span>
                 </div>
-                <div class="bio-item clickable" onclick="toggleMcPanel()">
+                <button type="button" class="bio-item clickable game-toggle" onclick="toggleMcPanel()" aria-expanded="false" aria-controls="mc-panel">
                     <span class="bio-label" id="lbl-game">Favorite Game</span>
-                    <span class="bio-value"><span id="val-game-title">Minecraft</span> <span class="arrow">▾</span></span>
-                </div>
+                    <span class="bio-value bio-value-with-icon">
+                        <lord-icon class="game-icon" src="https://cdn.lordicon.com/caxgkjgi.json" trigger="hover" colors="primary:#c9a7ff,secondary:#ff3d9a" aria-hidden="true"></lord-icon>
+                        <span id="val-game-title">Minecraft</span>
+                        <span class="arrow" aria-hidden="true">▾</span>
+                    </span>
+                </button>
 
                 <div id="mc-panel" class="sub-panel hidden">
                     <div class="sub-panel-item">
@@ -50,8 +75,8 @@
                         <span class="bio-label" id="lbl-mc-launcher">Launcher</span>
                         <span class="bio-value">MojoLauncher</span>
                     </div>
-                    <a href="/Minecraft/" class="page-link-btn" id="lbl-mc-page">Go to Mine card Page &rarr;</a>
-                    <a href="/mods/" class="page-link-btn" id="lbl-mods-page" style="background: rgba(138, 43, 226, 0.15); color: #c084fc; margin-top: 8px;">Mods &rarr;</a>
+                    <a href="/Minecraft/" class="page-link-btn uiverse-button" id="lbl-mc-page">Go to Mine card Page &rarr;</a>
+                    <a href="/mods/" class="page-link-btn uiverse-button mods-link" id="lbl-mods-page">Mods &rarr;</a>
                 </div>
 
                 <div class="bio-item">
@@ -60,51 +85,65 @@
                 </div>
                 <div class="bio-item">
                     <span class="bio-label">PP</span>
-                    <span class="bio-value"><a href="https://t.me/j6nda" target="_blank">@j6nda</a></span>
+                    <span class="bio-value"><a href="https://t.me/j6nda" target="_blank" rel="noopener">@j6nda</a></span>
                 </div>
             </div>
 
-            <div class="section-title" id="lbl-channels">Channels & Links</div>
-            <div class="links-grid">
-                <a href="https://t.me/McChopikkk" target="_blank" class="link-btn" id="btn-main-channel">Main Channel</a>
-                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" class="link-btn" id="btn-life-channel">Real Life Channel (Face)</a>
-                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" class="link-btn twitch">Twitch</a>
-                <a href="https://kick.com/mcchopik" target="_blank" class="link-btn kick">Kick</a>
+            <div class="section-title" id="lbl-channels" data-aos="fade-right">Channels &amp; Links</div>
+            <div class="links-grid" data-aos="fade-up" data-aos-delay="70">
+                <a href="https://t.me/McChopikkk" target="_blank" rel="noopener" class="link-btn hvr-float-shadow">
+                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#45e6ff" aria-hidden="true"></lord-icon>
+                    <span id="btn-main-channel">Main Channel</span>
+                </a>
+                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" rel="noopener" class="link-btn hvr-float-shadow">
+                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#ff3d9a" aria-hidden="true"></lord-icon>
+                    <span id="btn-life-channel">Real Life Channel (Face)</span>
+                </a>
+                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" rel="noopener" class="link-btn twitch hvr-float-shadow">
+                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#9146ff" aria-hidden="true"></lord-icon>
+                    <span>Twitch</span>
+                </a>
+                <a href="https://kick.com/mcchopik" target="_blank" rel="noopener" class="link-btn kick hvr-float-shadow">
+                    <lord-icon class="link-icon" src="https://cdn.lordicon.com/hmqxevgf.json" trigger="hover" colors="primary:#ffffff,secondary:#53fc18" aria-hidden="true"></lord-icon>
+                    <span>Kick</span>
+                </a>
             </div>
 
-            <div class="section-title" id="lbl-fame">Hall of Fame</div>
-            <div class="fame-list">
-                <a href="https://t.me/aimrite2" target="_blank" class="fame-tag">@aimrite2</a>
-                <a href="https://t.me/GardenYabits" target="_blank" class="fame-tag">@GardenYabits</a>
-                <a href="https://t.me/DC_24V" target="_blank" class="fame-tag">@DC_24V</a>
-                <a href="https://t.me/angel1bigmelon" target="_blank" class="fame-tag">@angel1bigmelon</a>
-                <a href="https://t.me/Good_Dumpling" target="_blank" class="fame-tag">@Good_Dumpling</a>
+            <div class="section-title" id="lbl-fame" data-aos="fade-right">Hall of Fame</div>
+            <div class="fame-list" data-aos="fade-up" data-aos-delay="70">
+                <a href="https://t.me/aimrite2" target="_blank" rel="noopener" class="fame-tag hvr-grow">@aimrite2</a>
+                <a href="https://t.me/GardenYabits" target="_blank" rel="noopener" class="fame-tag hvr-grow">@GardenYabits</a>
+                <a href="https://t.me/DC_24V" target="_blank" rel="noopener" class="fame-tag hvr-grow">@DC_24V</a>
+                <a href="https://t.me/angel1bigmelon" target="_blank" rel="noopener" class="fame-tag hvr-grow">@angel1bigmelon</a>
+                <a href="https://t.me/Good_Dumpling" target="_blank" rel="noopener" class="fame-tag hvr-grow">@Good_Dumpling</a>
             </div>
-        </div>
+
+            <p class="motion-credit" data-aos="fade-in">
+                Animated icons by <a href="https://lordicon.com/" target="_blank" rel="noopener">Lordicon.com</a>
+            </p>
+        </main>
     </div>
 
-    <div id="musicToast" class="music-toast hidden">
+    <div id="musicToast" class="music-toast hidden animate__animated animate__fadeInUp animate__faster" role="status">
         <div class="toast-content">
             <div class="toast-text" id="toast-text">
                 🔊 Want to turn on background music? Click the icon below.
             </div>
-            <button class="toast-btn" id="toast-btn" onclick="enableMusicFromToast()">Turn on now</button>
+            <button type="button" class="toast-btn" id="toast-btn" onclick="enableMusicFromToast()">Turn on now</button>
         </div>
-        <button class="close-toast" onclick="closeToast()">&times;</button>
+        <button type="button" class="close-toast" onclick="closeToast()" aria-label="Close music message">&times;</button>
     </div>
 
     <div class="floating-widget" id="floating-widget">
-        <button class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-            </svg>
+        <button type="button" class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()" aria-label="Open music player" aria-expanded="false" aria-controls="player-panel">
+            <lord-icon class="music-icon" src="https://cdn.lordicon.com/mtokncfo.json" trigger="loop-on-hover" colors="primary:#ffffff,secondary:#45e6ff" aria-hidden="true"></lord-icon>
         </button>
 
-        <div class="player-panel hidden" id="player-panel">
+        <div class="player-panel hidden animate__animated animate__fadeInUp animate__faster" id="player-panel">
             <div class="track-info">
                 <div class="track-title">Спокойный PHONK</div>
                 <div class="track-artist">ФОНК</div>
-                <a href="https://music.youtube.com/watch?v=ZUW7n0hJjxY&si=kdD2pyOzZEQXK-AQ" target="_blank" class="orig-link">Оригинал на YouTube Music</a>
+                <a href="https://music.youtube.com/watch?v=ZUW7n0hJjxY&si=kdD2pyOzZEQXK-AQ" target="_blank" rel="noopener" class="orig-link">Оригинал на YouTube Music</a>
             </div>
 
             <div class="progress-box">
@@ -116,7 +155,7 @@
             </div>
 
             <div class="controls-row">
-                <button class="ctrl-btn play-btn" onclick="toggleMusic()">
+                <button type="button" class="ctrl-btn play-btn" onclick="toggleMusic()" aria-label="Play or pause music">
                     <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
@@ -127,6 +166,8 @@
     <script>
         const dict = {
             en: { 
+                status: "Online",
+                role: "Minecraft player · mod creator",
                 age_lbl: "Age",
                 age_val: "14 years old",
                 bday: "Birthday",
@@ -146,6 +187,8 @@
                 toast_btn: "Turn on now"
             },
             ua: { 
+                status: "Онлайн",
+                role: "Гравець Minecraft · автор модів",
                 age_lbl: "Вік",
                 age_val: "14 років",
                 bday: "День народження", 
@@ -165,6 +208,8 @@
                 toast_btn: "Увімкнути зараз"
             },
             ru: { 
+                status: "Онлайн",
+                role: "Игрок Minecraft · автор модов",
                 age_lbl: "Возраст",
                 age_val: "14 лет",
                 bday: "День рождения", 
@@ -186,6 +231,8 @@
         };
 
         function setLang(lang, btn) {
+            document.getElementById('profile-status').innerText = dict[lang].status;
+            document.getElementById('profile-role').innerText = dict[lang].role;
             document.getElementById('lbl-age').innerText = dict[lang].age_lbl;
             document.getElementById('val-age').innerText = dict[lang].age_val;
             document.getElementById('lbl-bday').innerText = dict[lang].bday;
@@ -206,14 +253,33 @@
             
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
         }
 
         function toggleMcPanel() {
-            document.getElementById('mc-panel').classList.toggle('hidden');
+            const panel = document.getElementById('mc-panel');
+            const toggle = document.querySelector('.game-toggle');
+            const willOpen = panel.classList.contains('hidden');
+            panel.classList.toggle('hidden');
+            toggle.classList.toggle('expanded', willOpen);
+            toggle.setAttribute('aria-expanded', String(willOpen));
+            if (willOpen && window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                window.gsap.fromTo(panel, { opacity: 0, height: 0 }, {
+                    opacity: 1,
+                    height: 'auto',
+                    duration: 0.38,
+                    ease: 'power2.out',
+                    clearProps: 'height,opacity'
+                });
+            }
         }
 
         function togglePlayerPanel() {
-            document.getElementById('player-panel').classList.toggle('hidden');
+            const panel = document.getElementById('player-panel');
+            const button = document.getElementById('floating-btn');
+            const willOpen = panel.classList.contains('hidden');
+            panel.classList.toggle('hidden');
+            button.setAttribute('aria-expanded', String(willOpen));
         }
 
         const music = document.getElementById('bg-music');
