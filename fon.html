@@ -7,116 +7,69 @@
     <style>
         * {
             margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        body, html {
+        html,
+        body,
+        .background {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #050811; /* Глибокий темний фон */
         }
 
-        /* Контейнер з загальним ефектом лавової лампи */
-        .lava-container {
+        body {
+            background: #050811;
+        }
+
+        .background {
             position: relative;
-            width: 100%;
-            height: 100%;
-            filter: blur(80px); /* Сильне розмиття для м'яких градієнтів */
+            contain: strict;
+            background:
+                radial-gradient(circle at 20% 15%, rgba(0, 114, 255, 0.2), transparent 42%),
+                radial-gradient(circle at 80% 85%, rgba(0, 230, 118, 0.16), transparent 44%);
         }
 
-        /* Загальні стилі для кульок */
         .blob {
             position: absolute;
+            width: min(70vmax, 900px);
+            height: min(70vmax, 900px);
             border-radius: 50%;
-            opacity: 0.85;
-            mix-blend-mode: screen;
+            opacity: 0.32;
+            will-change: transform;
         }
 
-        /* Синя кулька */
-        .blob-blue {
-            width: 380px;
-            height: 380px;
-            background: radial-gradient(circle, #0072ff 0%, #00c6ff 100%);
-            top: 20%;
-            left: 20%;
-            animation: moveBlue 18s ease-in-out infinite alternate;
+        .blue {
+            top: -38%;
+            left: -22%;
+            background: radial-gradient(circle, #0072ff 0%, rgba(0, 198, 255, 0.55) 38%, transparent 70%);
+            animation: drift-blue 22s ease-in-out infinite alternate;
         }
 
-        /* Зелена кулька */
-        .blob-green {
-            width: 420px;
-            height: 420px;
-            background: radial-gradient(circle, #00f2fe 0%, #4facfe 100%);
-            bottom: 15%;
-            right: 15%;
-            background: radial-gradient(circle, #00e676 0%, #1de9b6 100%);
-            animation: moveGreen 22s ease-in-out infinite alternate;
+        .green {
+            right: -24%;
+            bottom: -42%;
+            background: radial-gradient(circle, #00e676 0%, rgba(29, 233, 182, 0.5) 38%, transparent 70%);
+            animation: drift-green 26s ease-in-out infinite alternate;
         }
 
-        /* Третя додаткова кулька для плавного змішування кольорів */
-        .blob-teal {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #00b4db 0%, #0083b0 100%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: moveTeal 15s ease-in-out infinite alternate;
+        @keyframes drift-blue {
+            to { transform: translate3d(18vw, 20vh, 0) scale(1.12); }
         }
 
-        /* Анімації руху кульок */
-        @keyframes moveBlue {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(120px, 150px) scale(1.2);
-            }
-            100% {
-                transform: translate(-80px, 220px) scale(0.9);
-            }
-        }
-
-        @keyframes moveGreen {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(-140px, -120px) scale(1.25);
-            }
-            100% {
-                transform: translate(100px, -200px) scale(0.85);
-            }
-        }
-
-        @keyframes moveTeal {
-            0% {
-                transform: translate(-50%, -50%) scale(0.9);
-            }
-            50% {
-                transform: translate(-30%, -70%) scale(1.15);
-            }
-            100% {
-                transform: translate(-70%, -30%) scale(1);
-            }
+        @keyframes drift-green {
+            to { transform: translate3d(-16vw, -18vh, 0) scale(1.1); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .blob {
-                animation: none !important;
-            }
+            .blob { animation: none; }
         }
     </style>
 </head>
 <body>
-
-    <div class="lava-container">
-        <div class="blob blob-blue"></div>
-        <div class="blob blob-green"></div>
-        <div class="blob blob-teal"></div>
+    <div class="background">
+        <div class="blob blue"></div>
+        <div class="blob green"></div>
     </div>
-
 </body>
 </html>

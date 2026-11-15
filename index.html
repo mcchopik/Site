@@ -3,40 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>McChopik</title>
     <meta name="description" content="McChopik — Minecraft player, mod creator and streamer.">
+    <title>McChopik</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="effects.css">
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="effects.js" defer></script>
+    <script src="home.js" defer></script>
 </head>
 <body class="home-page">
-
-    <audio id="bg-music" src="Music.mp3" preload="metadata" loop></audio>
     <iframe id="bg-frame" src="fon.html" title="Animated background" aria-hidden="true"></iframe>
 
     <div class="container">
-        <main class="card" data-tilt>
+        <main class="card">
             <div class="card-header">
-                <div class="header-left" data-gsap-intro>
+                <div class="header-left" data-reveal>
                     <h1 class="profile-name animista-focus-in">McChopik</h1>
                     <p class="profile-role" id="profile-role">Minecraft player · mod creator</p>
                 </div>
-                <div class="lang-switch" data-gsap-intro role="group" aria-label="Language">
-                    <button type="button" class="lang-btn" onclick="setLang('ua', this)">UA</button>
-                    <button type="button" class="lang-btn" onclick="setLang('ru', this)">RU</button>
-                    <button type="button" class="lang-btn active" onclick="setLang('en', this)">EN</button>
+                <div class="lang-switch" data-reveal role="group" aria-label="Language">
+                    <button type="button" class="lang-btn" data-language="ua" aria-pressed="false">UA</button>
+                    <button type="button" class="lang-btn" data-language="ru" aria-pressed="false">RU</button>
+                    <button type="button" class="lang-btn active" data-language="en" aria-pressed="true">EN</button>
                 </div>
             </div>
 
-            <div class="bio-list" data-aos="fade-up" data-aos-delay="80">
+            <div class="bio-list" data-reveal>
                 <div class="bio-item">
                     <span class="bio-label" id="lbl-age">Age</span>
                     <span class="bio-value" id="val-age">14 years old</span>
@@ -45,7 +39,7 @@
                     <span class="bio-label" id="lbl-bday">Birthday</span>
                     <span class="bio-value">06.04</span>
                 </div>
-                <button type="button" class="bio-item clickable game-toggle" onclick="toggleMcPanel()" aria-expanded="false" aria-controls="mc-panel">
+                <button type="button" class="bio-item clickable game-toggle" id="game-toggle" aria-expanded="false" aria-controls="mc-panel">
                     <span class="bio-label" id="lbl-game">Favorite Game</span>
                     <span class="bio-value bio-value-with-icon">
                         <span id="val-game-title">Minecraft</span>
@@ -53,7 +47,7 @@
                     </span>
                 </button>
 
-                <div id="mc-panel" class="sub-panel hidden">
+                <div id="mc-panel" class="sub-panel" hidden>
                     <div class="sub-panel-item">
                         <span class="bio-label" id="lbl-mc-server">Server</span>
                         <span class="bio-value"><a href="https://discord.gg/shyminers" target="_blank" rel="noopener">discord.gg/shyminers</a></span>
@@ -76,295 +70,27 @@
                 </div>
             </div>
 
-            <div class="section-title" id="lbl-channels" data-aos="fade-right">Channels &amp; Links</div>
-            <div class="links-grid" data-aos="fade-up" data-aos-delay="70">
-                <a href="https://t.me/McChopikkk" target="_blank" rel="noopener" class="link-btn hvr-float-shadow">
+            <div class="section-title" id="lbl-channels" data-reveal>Channels &amp; Links</div>
+            <div class="links-grid" data-reveal>
+                <a href="https://t.me/MrChopik" target="_blank" rel="noopener" class="link-btn">
                     <span id="btn-main-channel">Main Channel</span>
                 </a>
-                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" rel="noopener" class="link-btn hvr-float-shadow">
+                <a href="https://t.me/+2tiXBJzBgEtiMGE6" target="_blank" rel="noopener" class="link-btn">
                     <span id="btn-life-channel">Real Life Channel (Face)</span>
                 </a>
-                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" rel="noopener" class="link-btn twitch hvr-float-shadow">
-                    <span>Twitch</span>
-                </a>
-                <a href="https://kick.com/mcchopik" target="_blank" rel="noopener" class="link-btn kick hvr-float-shadow">
-                    <span>Kick</span>
-                </a>
+                <a href="https://www.twitch.tv/mcchopik?sr=a" target="_blank" rel="noopener" class="link-btn twitch">Twitch</a>
+                <a href="https://kick.com/mcchopik" target="_blank" rel="noopener" class="link-btn kick">Kick</a>
             </div>
 
-            <div class="section-title" id="lbl-fame" data-aos="fade-right">Hall of Fame</div>
-            <div class="fame-list" data-aos="fade-up" data-aos-delay="70">
-                <a href="https://t.me/aimrite2" target="_blank" rel="noopener" class="fame-tag hvr-grow">@aimrite2</a>
-                <a href="https://t.me/GardenYabits" target="_blank" rel="noopener" class="fame-tag hvr-grow">@GardenYabits</a>
-                <a href="https://t.me/DC_24V" target="_blank" rel="noopener" class="fame-tag hvr-grow">@DC_24V</a>
-                <a href="https://t.me/angel1bigmelon" target="_blank" rel="noopener" class="fame-tag hvr-grow">@angel1bigmelon</a>
-                <a href="https://t.me/Good_Dumpling" target="_blank" rel="noopener" class="fame-tag hvr-grow">@Good_Dumpling</a>
+            <div class="section-title" id="lbl-fame" data-reveal>Hall of Fame</div>
+            <div class="fame-list" data-reveal>
+                <a href="https://t.me/aimrite2" target="_blank" rel="noopener" class="fame-tag">@aimrite2</a>
+                <a href="https://t.me/GardenYabits" target="_blank" rel="noopener" class="fame-tag">@GardenYabits</a>
+                <a href="https://t.me/DC_24V" target="_blank" rel="noopener" class="fame-tag">@DC_24V</a>
+                <a href="https://t.me/angel1bigmelon" target="_blank" rel="noopener" class="fame-tag">@angel1bigmelon</a>
+                <a href="https://t.me/Good_Dumpling" target="_blank" rel="noopener" class="fame-tag">@Good_Dumpling</a>
             </div>
-
         </main>
     </div>
-
-    <div id="musicToast" class="music-toast hidden animate__animated animate__fadeInUp animate__faster" role="status">
-        <div class="toast-content">
-            <div class="toast-text" id="toast-text">
-                🔊 Want to turn on background music? Click the icon below.
-            </div>
-            <button type="button" class="toast-btn" id="toast-btn" onclick="enableMusicFromToast()">Turn on now</button>
-        </div>
-        <button type="button" class="close-toast" onclick="closeToast()" aria-label="Close music message">&times;</button>
-    </div>
-
-    <div class="floating-widget" id="floating-widget">
-        <button type="button" class="floating-btn" id="floating-btn" onclick="togglePlayerPanel()" aria-label="Open music player" aria-expanded="false" aria-controls="player-panel">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-            </svg>
-        </button>
-
-        <div class="player-panel hidden animate__animated animate__fadeInUp animate__faster" id="player-panel">
-            <div class="track-info">
-                <div class="track-title">Meditation Impromptu 01</div>
-                <div class="track-artist">Kevin MacLeod</div>
-                <a href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100163" target="_blank" rel="noopener" class="orig-link">Источник: Incompetech</a>
-                <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener" class="track-license">CC BY 4.0</a>
-            </div>
-
-            <div class="progress-box">
-                <input type="range" id="progress-bar" min="0" value="0" step="0.1" oninput="seekAudio(this.value)">
-                <div class="time-box">
-                    <span id="current-time">00:00</span>
-                    <span id="duration-time">00:00</span>
-                </div>
-            </div>
-
-            <div class="controls-row">
-                <button type="button" class="ctrl-btn play-btn" onclick="toggleMusic()" aria-label="Play or pause music">
-                    <svg id="play-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    <svg id="pause-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" class="hidden"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const dict = {
-            en: { 
-                role: "Minecraft player · mod creator",
-                age_lbl: "Age",
-                age_val: "14 years old",
-                bday: "Birthday",
-                game: "Favorite Game", 
-                game_title: "Minecraft",
-                langs_lbl: "Languages",
-                langs_val: "UA (native), RU/BY", 
-                mc_server: "Discord",
-                mc_launcher: "Launcher",
-                mc_page: "Go to Mine card Page →", 
-                mods_page: "Mods →",
-                channels: "Channels & Links",
-                main_channel: "Main Channel", 
-                life_channel: "Real Life Channel (Face)",
-                fame: "Hall of Fame",
-                toast_text: "🔊 Want to turn on background music? Click the icon below.",
-                toast_btn: "Turn on now"
-            },
-            ua: { 
-                role: "Гравець Minecraft · автор модів",
-                age_lbl: "Вік",
-                age_val: "14 років",
-                bday: "День народження", 
-                game: "Улюблена гра",
-                game_title: "Minecraft", 
-                langs_lbl: "Мови",
-                langs_val: "UA (рідна), RU/BY", 
-                mc_server: "Discord",
-                mc_launcher: "Лаунчер", 
-                mc_page: "Перейти на сторінку Майн карточки →", 
-                mods_page: "Моди →",
-                channels: "Канали та посилання", 
-                main_channel: "Основний канал", 
-                life_channel: "Лайф канал (з обличчям)", 
-                fame: "Дошка слави",
-                toast_text: "🔊 Хочете увімкнути фонову музику? Натисніть на іконку знизу.",
-                toast_btn: "Увімкнути зараз"
-            },
-            ru: { 
-                role: "Игрок Minecraft · автор модов",
-                age_lbl: "Возраст",
-                age_val: "14 лет",
-                bday: "День рождения", 
-                game: "Любимая игра",
-                game_title: "Minecraft", 
-                langs_lbl: "Языки",
-                langs_val: "UA (родной), RU/BY", 
-                mc_server: "Discord",
-                mc_launcher: "Лаунчер", 
-                mc_page: "Перейти на страницу Майн карти →", 
-                mods_page: "Моды →",
-                channels: "Каналы и ссылки", 
-                main_channel: "Основной канал", 
-                life_channel: "Лайф канал (с лицом)", 
-                fame: "Доска славы",
-                toast_text: "🔊 Хотите включить фоновую музыку? Нажмите на иконку снизу.",
-                toast_btn: "Включить сейчас"
-            }
-        };
-
-        function setLang(lang, btn) {
-            document.getElementById('profile-role').innerText = dict[lang].role;
-            document.getElementById('lbl-age').innerText = dict[lang].age_lbl;
-            document.getElementById('val-age').innerText = dict[lang].age_val;
-            document.getElementById('lbl-bday').innerText = dict[lang].bday;
-            document.getElementById('lbl-game').innerText = dict[lang].game;
-            document.getElementById('val-game-title').innerText = dict[lang].game_title;
-            document.getElementById('lbl-langs').innerText = dict[lang].langs_lbl;
-            document.getElementById('val-langs').innerText = dict[lang].langs_val;
-            document.getElementById('lbl-mc-server').innerText = dict[lang].mc_server;
-            document.getElementById('lbl-mc-launcher').innerText = dict[lang].mc_launcher;
-            document.getElementById('lbl-mc-page').innerText = dict[lang].mc_page;
-            document.getElementById('lbl-mods-page').innerText = dict[lang].mods_page;
-            document.getElementById('lbl-channels').innerText = dict[lang].channels;
-            document.getElementById('btn-main-channel').innerText = dict[lang].main_channel;
-            document.getElementById('btn-life-channel').innerText = dict[lang].life_channel;
-            document.getElementById('lbl-fame').innerText = dict[lang].fame;
-            document.getElementById('toast-text').innerText = dict[lang].toast_text;
-            document.getElementById('toast-btn').innerText = dict[lang].toast_btn;
-            
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.documentElement.lang = lang === 'ua' ? 'uk' : lang;
-        }
-
-        function toggleMcPanel() {
-            const panel = document.getElementById('mc-panel');
-            const toggle = document.querySelector('.game-toggle');
-            const willOpen = panel.classList.contains('hidden');
-            panel.classList.toggle('hidden');
-            toggle.classList.toggle('expanded', willOpen);
-            toggle.setAttribute('aria-expanded', String(willOpen));
-            if (willOpen && window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                window.gsap.fromTo(panel, { opacity: 0, height: 0 }, {
-                    opacity: 1,
-                    height: 'auto',
-                    duration: 0.38,
-                    ease: 'power2.out',
-                    clearProps: 'height,opacity'
-                });
-            }
-        }
-
-        function togglePlayerPanel() {
-            const panel = document.getElementById('player-panel');
-            const button = document.getElementById('floating-btn');
-            const willOpen = panel.classList.contains('hidden');
-            panel.classList.toggle('hidden');
-            button.setAttribute('aria-expanded', String(willOpen));
-        }
-
-        const music = document.getElementById('bg-music');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
-        const progressBar = document.getElementById('progress-bar');
-        const currentTimeElem = document.getElementById('current-time');
-        const durationTimeElem = document.getElementById('duration-time');
-        const musicToast = document.getElementById('musicToast');
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const hasVisited = localStorage.getItem('site_visited');
-            const isMusicOn = localStorage.getItem('music_enabled') === 'true';
-
-            if (!hasVisited) {
-                musicToast.classList.remove('hidden');
-                localStorage.setItem('site_visited', 'true');
-            }
-
-            if (isMusicOn) {
-                playAudio();
-            }
-        });
-
-        function updatePlayIcons() {
-            if (music.paused) {
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-            } else {
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            }
-        }
-
-        function playAudio() {
-            music.play().then(() => {
-                updatePlayIcons();
-                localStorage.setItem('music_enabled', 'true');
-            }).catch(() => {});
-        }
-
-        function pauseAudio() {
-            music.pause();
-            updatePlayIcons();
-            localStorage.setItem('music_enabled', 'false');
-        }
-
-        function toggleMusic() {
-            if (music.paused) {
-                playAudio();
-            } else {
-                pauseAudio();
-            }
-        }
-
-        function enableMusicFromToast() {
-            playAudio();
-            closeToast();
-        }
-
-        function closeToast() {
-            musicToast.classList.add('hidden');
-        }
-
-        function formatTime(sec) {
-            if (isNaN(sec)) return "00:00";
-            let m = Math.floor(sec / 60);
-            let s = Math.floor(sec % 60);
-            return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
-        }
-
-        music.addEventListener('loadedmetadata', () => {
-            progressBar.max = music.duration;
-            durationTimeElem.innerText = formatTime(music.duration);
-        });
-
-        music.addEventListener('timeupdate', () => {
-            progressBar.value = music.currentTime;
-            currentTimeElem.innerText = formatTime(music.currentTime);
-        });
-
-        function seekAudio(value) {
-            music.currentTime = value;
-        }
-
-        const widget = document.getElementById('floating-widget');
-        let isDragging = false, startX, startY;
-
-        widget.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].clientX - widget.offsetLeft;
-            startY = e.touches[0].clientY - widget.offsetTop;
-        });
-
-        widget.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            let newX = e.touches[0].clientX - startX;
-            let newY = e.touches[0].clientY - startY;
-            widget.style.left = newX + 'px';
-            widget.style.top = newY + 'px';
-            widget.style.bottom = 'auto';
-            widget.style.right = 'auto';
-        });
-
-        widget.addEventListener('touchend', () => { isDragging = false; });
-    </script>
 </body>
 </html>

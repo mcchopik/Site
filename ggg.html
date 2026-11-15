@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест скорости</title>
+</head>
+<body>
+    <h1>Тест скорости</h1>
+    <p>Пинг измеряется HTTP-запросами. Трафик теста подбирается под скорость соединения.</p>
+    <button type="button" id="start">Начать тест</button>
+    <pre id="result">Готово к запуску.</pre>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var startButton = document.getElementById('start');
+            var result = document.getElementById('result');
+            var lines = [];
+
+            function print(text) {
+                lines.push(text);
+                result.textContent = lines.join('\n');
+            }
+
+            function addNonce(url) {
+                return url + (url.includes('?') ? '&' : '?') + 'r=' + Date.now() + Math.random();
+            }
+
+            async function timedFetch(url, options, timeout) {
+                var controller = new AbortController();
+                var timer = setTimeout(function () {
+                    controller.abort();
+                }, timeout);
+                var started = performance.now();
+
+                try {
+                    var response = await fetch(addNonce(url), Object.assign({}, options, {
+                        signal: controller.signal,
+                        cache: 'no-store'
+                    }));
+                    return {
+                        response: response,
+                        milliseconds: performance.now() - started
+                    };
+                } finally {
+                    clearTimeout(timer);
+                }
+            }
+
+            function median(values) {
+                var sorted = values.slice().sort(function (a, b) { return a - b; });
+                var middle = Math.floor(sorted.length / 2);
+                return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+            }
+
+            function jitter(values) {
+                var average = values.reduce(function (sum, value) { return sum + value; }, 0) / values.length;
+                var variance = values.reduce(function (sum, value) {
+                    return sum + Math.pow(value - average, 2);
+                }, 0) / values.length;
+                return Math.sqrt(variance);
+            }
+
+            async function testPing(name, url) {
+                await timedFetch(url, { mode: 'no-cors' }, 10000);
+                var samples = [];
+
+                for (var index = 0; index < 5; index += 1) {
+                    var sample = await timedFetch(url, { mode: 'no-cors' }, 10000);
+                    samples.push(sample.milliseconds);
+                }
+
+                print(name + ': ' + median(samples).toFixed(1) + ' мс, разброс ' + jitter(samples).toFixed(1) + ' мс');
+            }
+
+            function toMbps(bytes, milliseconds) {
+                return bytes * 8 / (milliseconds / 1000) / 1000000;
+            }
+
+            function formatSpeed(mbps) {
+                return mbps.toFixed(2) + ' Мбит/с (' + (mbps / 8).toFixed(2) + ' МБ/с)';
+            }
+
+            async function download(bytes) {
+                var controller = new AbortController();
+                var timer = setTimeout(function () {
+                    controller.abort();
+                }, 60000);
+                var started = performance.now();
+
+                try {
+                    var response = await fetch(addNonce('https://speed.cloudflare.com/__down?bytes=' + bytes), {
+                        mode: 'cors',
+                        cache: 'no-store',
+                        signal: controller.signal
+                    });
+                    if (!response.ok) throw new Error('HTTP ' + response.status);
+                    var data = await response.arrayBuffer();
+                    return {
+                        bytes: data.byteLength,
+                        milliseconds: performance.now() - started
+                    };
+                } finally {
+                    clearTimeout(timer);
+                }
+            }
+
+            async function testDownload() {
+                await download(20000);
+                var probe = await download(100000);
+                var probeSpeed = toMbps(probe.bytes, probe.milliseconds);
+
+                if (probe.milliseconds >= 2000) {
+                    print('Скачивание: ' + formatSpeed(probeSpeed));
+                    return probeSpeed;
+                }
+
+                var target = Math.max(500000, Math.min(25000000, Math.round(probeSpeed * 1000000 / 8 * 4)));
+                var sample = await download(target);
+                var speed = toMbps(sample.bytes, sample.milliseconds);
+                print('Скачивание: ' + formatSpeed(speed));
+                return speed;
+            }
+
+            async function upload(bytes) {
+                var body = new Uint8Array(bytes);
+                var measurement = await timedFetch(
+                    'https://speed.cloudflare.com/__up',
+                    { method: 'POST', mode: 'cors', body: body },
+                    60000
+                );
+
+                if (!measurement.response.ok) throw new Error('HTTP ' + measurement.response.status);
+                return {
+                    bytes: bytes,
+                    milliseconds: measurement.milliseconds
+                };
+            }
+
+            async function testUpload() {
+                await upload(1000);
+                var probe = await upload(50000);
+                var probeSpeed = toMbps(probe.bytes, probe.milliseconds);
+
+                if (probe.milliseconds >= 2000) {
+                    print('Отправка: ' + formatSpeed(probeSpeed));
+                    return;
+                }
+
+                var target = Math.max(100000, Math.min(8000000, Math.round(probeSpeed * 1000000 / 8 * 3)));
+                var sample = await upload(target);
+                print('Отправка: ' + formatSpeed(toMbps(sample.bytes, sample.milliseconds)));
+            }
+
+            async function runTest() {
+                lines = [];
+                startButton.disabled = true;
+                print('Проверка пинга...');
+
+                try {
+                    await testPing('google.com', 'https://www.google.com/generate_204');
+                } catch (error) {
+                    print('google.com: ошибка');
+                }
+
+                try {
+                    await testPing('mcchopik.pp.ua', 'https://mcchopik.pp.ua/ping.txt');
+                } catch (error) {
+                    print('mcchopik.pp.ua: ошибка');
+                }
+
+                print('Проверка скорости через Cloudflare...');
+
+                try {
+                    await testDownload();
+                } catch (error) {
+                    print('Скачивание: ошибка');
+                }
+
+                try {
+                    await testUpload();
+                } catch (error) {
+                    print('Отправка: ошибка');
+                }
+
+                print('Тест завершён.');
+                startButton.disabled = false;
+            }
+
+            startButton.addEventListener('click', runTest);
+        }());
+    </script>
+</body>
+</html>
