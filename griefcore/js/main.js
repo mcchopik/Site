@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const data = new FormData(loginForm);
             try {
-                await sendAuth('/api/login', {
+                await sendAuth('api/login', {
                     identifier: data.get('identifier').trim(),
                     password: data.get('password'),
                 });
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const data = new FormData(registerForm);
             try {
-                await sendAuth('/api/register', {
+                await sendAuth('api/register', {
                     username: data.get('username').trim(),
                     email: data.get('email').trim(),
                     password: data.get('password'),
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const authLink = document.querySelector('.nav-menu .auth-btn');
     if (authLink) {
-        fetch('/api/me')
+        fetch('api/me')
             .then((response) => (response.ok ? response.json() : null))
             .then((data) => {
                 if (!data || !data.user) return;
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 authLink.href = '#';
                 authLink.addEventListener('click', async (event) => {
                     event.preventDefault();
-                    await fetch('/api/logout', { method: 'POST' });
+                    await fetch('api/logout', { method: 'POST' });
                     window.location.reload();
                 });
             })
