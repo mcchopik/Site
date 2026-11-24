@@ -10,6 +10,10 @@ export function json(data, status = 200, headers = {}) {
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'Cache-Control': 'no-store',
+            'Access-Control-Allow-Origin': 'https://mcchopik.pp.ua',
+            'Access-Control-Allow-Credentials': 'true',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             ...headers,
         },
     });
@@ -85,11 +89,11 @@ export async function hashPassword(password) {
     const salt = crypto.getRandomValues(new Uint8Array(16));
     const material = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
     const bits = await crypto.subtle.deriveBits(
-        { name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 210000 },
+        { name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 100000 },
         material,
         256
     );
-    return `pbkdf2$210000$${toBase64(salt)}$${toBase64(new Uint8Array(bits))}`;
+    return `pbkdf2$100000$${toBase64(salt)}$${toBase64(new Uint8Array(bits))}`;
 }
 
 export async function verifyPassword(password, stored) {
@@ -126,11 +130,9 @@ export function readToken(request) {
 }
 
 export function sessionCookie(request, token) {
-    const secure = new URL(request.url).protocol === 'https:' ? '; Secure' : '';
-    return `${COOKIE_NAME}=${encodeURIComponent(token)}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${SESSION_TTL}${secure}`;
+    return `${COOKIE_NAME}=${encodeURIComponent(token)}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL}`;
 }
 
 export function clearCookie(request) {
-    const secure = new URL(request.url).protocol === 'https:' ? '; Secure' : '';
-    return `${COOKIE_NAME}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0${secure}`;
+    return `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=0`;
 }

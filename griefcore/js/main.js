@@ -54,9 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const apiBase = 'https://griefcore-site.pages.dev';
+
     async function sendAuth(url, body) {
-        const response = await fetch(url, {
+        const response = await fetch(apiBase + url, {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         });
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const authLink = document.querySelector('.nav-menu .auth-btn');
     if (authLink) {
-        fetch('api/me')
+        fetch(apiBase + '/api/me', { credentials: 'include' })
             .then((response) => (response.ok ? response.json() : null))
             .then((data) => {
                 if (!data || !data.user) return;
@@ -112,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 authLink.href = '#';
                 authLink.addEventListener('click', async (event) => {
                     event.preventDefault();
-                    await fetch('api/logout', { method: 'POST' });
+                    await fetch(apiBase + '/api/logout', { method: 'POST', credentials: 'include' });
                     window.location.reload();
                 });
             })
