@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход и регистрация — GriefCore</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo-link">
+            <img src="/assets/logo.png" alt="GC Logo" class="logo">
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="/">Главная</a>
+            <a href="/team">Команда</a>
+            <a href="/rules">Правила</a>
+            <a href="/kontact-us">Контакты</a>
+            <a href="/play">Как играть</a>
+            <a href="/info">Информация</a>
+            <a href="/socials">Мы в соцсетях</a>
+            <a href="/donate">Донат</a>
+            <a href="/login" class="auth-btn current">Войти / Регистрация</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Аккаунт GriefCore</h2>
+        <div class="info auth-wrap">
+            <div class="auth-tabs">
+                <button type="button" class="auth-tab active" data-tab="login">Вход</button>
+                <button type="button" class="auth-tab" data-tab="register">Регистрация</button>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <label>Логин или Email
+                    <input type="text" name="identifier" required autocomplete="username" placeholder="логин или email">
+                </label>
+                <label>Пароль
+                    <input type="password" name="password" required autocomplete="current-password" placeholder="пароль">
+                </label>
+                <button type="submit" class="auth-submit">Войти</button>
+            </form>
+            <form id="registerForm" class="auth-form hidden">
+                <label>Логин
+                    <input type="text" name="username" required minlength="3" maxlength="24" pattern="[A-Za-z0-9_-]+" autocomplete="username" placeholder="от 3 до 24 символов">
+                </label>
+                <label>Email
+                    <input type="email" name="email" required autocomplete="email" placeholder="you@example.com">
+                </label>
+                <label>Пароль
+                    <input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="минимум 8 символов">
+                </label>
+                <button type="submit" class="auth-submit">Создать аккаунт</button>
+            </form>
+            <div id="authMessage" class="auth-message" role="status"></div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

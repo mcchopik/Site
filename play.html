@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Как играть — GriefCore</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+</head>
+<body>
+
+    <header>
+        <a href="/" class="logo-link">
+            <img src="/assets/logo.png" alt="GC Logo" class="logo">
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+            <a href="/">Главная</a>
+            <a href="/team">Команда</a>
+            <a href="/rules">Правила</a>
+            <a href="/kontact-us">Контакты</a>
+            <a href="/play" class="current">Как играть</a>
+            <a href="/info">Информация</a>
+            <a href="/socials">Мы в соцсетях</a>
+            <a href="/donate">Донат</a>
+            <a href="/login" class="auth-btn">Войти / Регистрация</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2 data-aos="fade-up">Как начать играть</h2>
+        <div class="info" data-aos="fade-up" data-aos-delay="100">
+            <div class="status-badge" data-aos="zoom-in" style="margin-bottom: 15px;">СЕРВЕР ПОКА НЕ ОТКРЫТ</div>
+            <p class="subtitle">IP-адрес сервера:</p>
+            <div class="server-ip" id="serverIp">mc.griefcore.lt</div>
+            <button class="copy-ip" type="button" id="copyIp">Скопировать IP</button>
+            <p class="subtitle">Подключайтесь через Java или Bedrock Edition. Следите за новостями в Telegram: GriefKore.</p>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
