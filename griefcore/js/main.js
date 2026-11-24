@@ -63,9 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         });
-        const data = await response.json().catch(() => ({}));
+        const text = await response.text();
+        let data = {};
+        try {
+            data = JSON.parse(text);
+        } catch (error) {
+            data = {};
+        }
         if (!response.ok) {
-            throw new Error(data.error || 'Ошибка запроса');
+            throw new Error(`${response.status} ${response.statusText}: ${data.error || text.slice(0, 300)}`);
         }
         return data;
     }
@@ -81,9 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 window.location.href = '/';
             } catch (error) {
-                authMessage.textContent = error instanceof TypeError
-                    ? 'Нет связи с сервером. Используйте https://griefcore-site.pages.dev/login.html'
-                    : error.message;
+                authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
                 authMessage.classList.add('error');
             }
         });
@@ -101,9 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 window.location.href = '/';
             } catch (error) {
-                authMessage.textContent = error instanceof TypeError
-                    ? 'Нет связи с сервером. Используйте https://griefcore-site.pages.dev/login.html'
-                    : error.message;
+                authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
                 authMessage.classList.add('error');
             }
         });
