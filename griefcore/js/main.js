@@ -67,15 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify(body),
         });
-        const text = await response.text();
-        let data = {};
-        try {
-            data = JSON.parse(text);
-        } catch (error) {
-            data = {};
-        }
+        const data = await response.json().catch(() => ({}));
         if (!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}: ${data.error || text.slice(0, 300)}`);
+            throw new Error(data.error || 'Ошибка запроса');
         }
         return data;
     }
@@ -92,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('gc_session', result.token);
                 window.location.href = 'index.html';
             } catch (error) {
-                authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
+                authMessage.textContent = error.message;
                 authMessage.classList.add('error');
             }
         });
@@ -111,23 +105,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('gc_session', result.token);
                 window.location.href = 'index.html';
             } catch (error) {
-                authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
+                authMessage.textContent = error.message;
                 authMessage.classList.add('error');
             }
-        });
-    }
-
-    const testConnection = document.getElementById('testConnection');
-    if (testConnection) {
-        testConnection.addEventListener('click', async () => {
-            if (!authMessage) return;
-            try {
-                await sendAuth('/api/__test_404', {});
-                authMessage.textContent = 'Ошибка не получена';
-            } catch (error) {
-                authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
-            }
-            authMessage.classList.add('error');
         });
     }
 
