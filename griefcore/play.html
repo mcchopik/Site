@@ -37,11 +37,27 @@
     <main>
         <h2 data-aos="fade-up">Как начать играть</h2>
         <div class="info" data-aos="fade-up" data-aos-delay="100">
-            <div class="status-badge" data-aos="zoom-in" style="margin-bottom: 15px;">СЕРВЕР ПОКА НЕ ОТКРЫТ</div>
-            <p class="subtitle">IP-адрес сервера:</p>
-            <div class="server-ip" id="serverIp">mc.griefcore.lt</div>
-            <button class="copy-ip" type="button" id="copyIp">Скопировать IP</button>
-            <p class="subtitle">Подключайтесь через Java или Bedrock Edition. Следите за новостями в Telegram: GriefKore.</p>
+            <div class="card-list">
+                <div class="card-item" data-aos="fade-up">
+                    <h3>1. Запустите Minecraft</h3>
+                    <p>Откройте любой удобный лаунчер (TLauncher, Prism, Official Launcher и др.) и выберите версию игры, поддерживаемую сервером (рекомендуемая 1.16.5–1.20.x).</p>
+                </div>
+                <div class="card-item" data-aos="fade-up">
+                    <h3>2. Перейдите в сетевую игру</h3>
+                    <p>В главном меню нажмите «Сетевая игра» (Multiplayer), а затем кнопку «Добавить» (Add Server).</p>
+                </div>
+                <div class="card-item" data-aos="fade-up">
+                    <h3>3. Введите адрес сервера</h3>
+                    <p>В поле «Адрес сервера» введите <strong>mc.griefcore.lt</strong> и сохраните настройки.</p>
+                    <div class="server-ip" id="serverIp">mc.griefcore.lt</div>
+                    <button class="copy-ip" type="button" id="copyIp">Скопировать IP</button>
+                </div>
+                <div class="card-item" data-aos="fade-up">
+                    <h3>4. Регистрация в игре</h3>
+                    <p>После подключения откройте чат (клавиша T) и зарегистрируйтесь с помощью команды:</p>
+                    <div class="command">/register [пароль] [повтор_пароля]</div>
+                </div>
+            </div>
         </div>
     </main>
 

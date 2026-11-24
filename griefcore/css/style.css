@@ -356,6 +356,75 @@ h2 {
     color: #ff6666;
 }
 
+.card-item a {
+    color: #ffaa00;
+    text-decoration: none;
+}
+
+.card-item a:hover {
+    text-decoration: underline;
+}
+
+.team-photo {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 140, 0, 0.4);
+    margin-bottom: 10px;
+}
+
+.team-role {
+    color: #ffaa00;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.team-section {
+    color: #ffaa00;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.command {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 140, 0, 0.4);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    color: #ffaa00;
+    font-family: monospace;
+    font-size: 1.05rem;
+    word-break: break-all;
+}
+
+.donate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.donate-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.donate-icon {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(255, 140, 0, 0.4));
+}
+
 @media (max-width: 600px) {
     header {
         padding: 15px 20px;
