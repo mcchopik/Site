@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     identifier: data.get('identifier').trim(),
                     password: data.get('password'),
                 });
-                window.location.href = '/';
+                window.location.href = 'index.html';
             } catch (error) {
                 authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
                 authMessage.classList.add('error');
@@ -103,11 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     email: data.get('email').trim(),
                     password: data.get('password'),
                 });
-                window.location.href = '/';
+                window.location.href = 'index.html';
             } catch (error) {
                 authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
                 authMessage.classList.add('error');
             }
+        });
+    }
+
+    const testConnection = document.getElementById('testConnection');
+    if (testConnection) {
+        testConnection.addEventListener('click', async () => {
+            if (!authMessage) return;
+            try {
+                await sendAuth('/api/__test_404', {});
+                authMessage.textContent = 'Ошибка не получена';
+            } catch (error) {
+                authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
+            }
+            authMessage.classList.add('error');
         });
     }
 
