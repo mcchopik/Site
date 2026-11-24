@@ -57,10 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const apiBase = 'https://griefcore-site.pages.dev';
 
     async function sendAuth(url, body) {
-        const response = await fetch(apiBase + url, {
+        const path = url.startsWith('/') ? url : '/' + url;
+        const token = localStorage.getItem('gc_session');
+        const response = await fetch(apiBase + path, {
             method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            },
             body: JSON.stringify(body),
         });
         const text = await response.text();
@@ -81,10 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const data = new FormData(loginForm);
             try {
-                await sendAuth('api/login', {
+                const result = await sendAuth('/api/login', {
                     identifier: data.get('identifier').trim(),
                     password: data.get('password'),
                 });
+                localStorage.setItem('gc_session', result.token);
                 window.location.href = 'index.html';
             } catch (error) {
                 authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
@@ -98,11 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const data = new FormData(registerForm);
             try {
-                await sendAuth('api/register', {
+                const result = await sendAuth('/api/register', {
                     username: data.get('username').trim(),
                     email: data.get('email').trim(),
                     password: data.get('password'),
                 });
+                localStorage.setItem('gc_session', result.token);
                 window.location.href = 'index.html';
             } catch (error) {
                 authMessage.textContent = String(error && error.stack ? error.stack : (error && error.message ? error.message : error));
@@ -127,7 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const authLink = document.querySelector('.nav-menu .auth-btn');
     if (authLink) {
-        fetch(apiBase + '/api/me', { credentials: 'include' })
+        const savedToken = localStorage.getItem('gc_session');
+        fetch(apiBase + '/api/me', {
+            headers: savedToken ? { Authorization: `Bearer ${savedToken}` } : {},
+        })
             .then((response) => (response.ok ? response.json() : null))
             .then((data) => {
                 if (!data || !data.user) return;
@@ -135,7 +144,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 authLink.href = '#';
                 authLink.addEventListener('click', async (event) => {
                     event.preventDefault();
-                    await fetch(apiBase + '/api/logout', { method: 'POST', credentials: 'include' });
+                    const token = localStorage.getItem('gc_session');
+                    await fetch(apiBase + '/api/logout', {
+                        method: 'POST',
+                        headers: token ? { Authorization: `Bearer ${token}` } : {},
+                    });
+                    localStorage.removeItem('gc_session');
                     window.location.reload();
                 });
             })

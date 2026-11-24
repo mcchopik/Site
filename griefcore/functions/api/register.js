@@ -5,7 +5,6 @@ import {
     hashPassword,
     json,
     randomToken,
-    sessionCookie,
     tokenHash,
 } from './_auth.js';
 
@@ -73,9 +72,5 @@ export async function onRequestPost({ request, env }) {
         .bind(await tokenHash(token), userId, Math.floor(Date.now() / 1000) + SESSION_TTL)
         .run();
 
-    return json(
-        { ok: true, user: { username, email } },
-        200,
-        { 'Set-Cookie': sessionCookie(request, token) }
-    );
+    return json({ ok: true, token, user: { username, email } });
 }

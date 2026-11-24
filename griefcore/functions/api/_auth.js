@@ -12,7 +12,7 @@ export function json(data, status = 200, headers = {}) {
             'Cache-Control': 'no-store',
             'Access-Control-Allow-Origin': 'https://mcchopik.pp.ua',
             'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             ...headers,
         },
@@ -124,6 +124,10 @@ export async function tokenHash(token) {
 }
 
 export function readToken(request) {
+    const authorization = request.headers.get('Authorization') || '';
+    if (authorization.startsWith('Bearer ')) {
+        return authorization.slice(7);
+    }
     const cookies = request.headers.get('Cookie') || '';
     const match = cookies.match(new RegExp(`(?:^|;\\s*)${COOKIE_NAME}=([^;]+)`));
     return match ? decodeURIComponent(match[1]) : null;

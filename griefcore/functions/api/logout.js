@@ -1,4 +1,4 @@
-import { clearCookie, json, readToken, tokenHash } from './_auth.js';
+import { json, readToken, tokenHash } from './_auth.js';
 
 export async function onRequestPost({ request, env }) {
     if (!env.DB) {
@@ -12,5 +12,5 @@ export async function onRequestPost({ request, env }) {
             .run();
     }
 
-    return json({ ok: true }, 200, { 'Set-Cookie': clearCookie(request) });
+    return json({ ok: true });
 }

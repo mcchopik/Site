@@ -7,7 +7,7 @@ export async function onRequest({ request, next }) {
             headers: {
                 'Access-Control-Allow-Origin': request.headers.get('Origin') || '*',
                 'Access-Control-Allow-Credentials': 'true',
-                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
                 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             },
         });

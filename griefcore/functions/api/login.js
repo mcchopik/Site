@@ -4,7 +4,6 @@ import {
     decrypt,
     json,
     randomToken,
-    sessionCookie,
     tokenHash,
     verifyPassword,
 } from './_auth.js';
@@ -48,15 +47,12 @@ export async function onRequestPost({ request, env }) {
         .bind(await tokenHash(token), user.id, Math.floor(Date.now() / 1000) + SESSION_TTL)
         .run();
 
-    return json(
-        {
-            ok: true,
-            user: {
-                username: await decrypt(secret, user.username),
-                email: await decrypt(secret, user.email),
-            },
+    return json({
+        ok: true,
+        token,
+        user: {
+            username: await decrypt(secret, user.username),
+            email: await decrypt(secret, user.email),
         },
-        200,
-        { 'Set-Cookie': sessionCookie(request, token) }
-    );
+    });
 }
