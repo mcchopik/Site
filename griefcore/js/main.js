@@ -81,7 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 window.location.href = '/';
             } catch (error) {
-                authMessage.textContent = error.message;
+                authMessage.textContent = error instanceof TypeError
+                    ? 'Нет связи с сервером. Используйте https://griefcore-site.pages.dev/login.html'
+                    : error.message;
                 authMessage.classList.add('error');
             }
         });
@@ -99,7 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 window.location.href = '/';
             } catch (error) {
-                authMessage.textContent = error.message;
+                authMessage.textContent = error instanceof TypeError
+                    ? 'Нет связи с сервером. Используйте https://griefcore-site.pages.dev/login.html'
+                    : error.message;
                 authMessage.classList.add('error');
             }
         });
