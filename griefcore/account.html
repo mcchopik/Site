@@ -64,11 +64,23 @@
                 <button type="button" class="link-btn" id="accountLogout">Выйти из аккаунта</button>
                 <div id="accountMessage" class="auth-message" role="status"></div>
             </div>
+
+            <div id="adminPanel" class="account-actions hidden">
+                <h3>Панель администратора</h3>
+                <form id="userSearchForm" class="auth-form">
+                    <label>Ник, логин или email
+                        <input type="text" name="q" placeholder="поиск аккаунта">
+                    </label>
+                    <button type="submit" class="auth-submit">Найти</button>
+                </form>
+                <div id="adminResults" class="card-list"></div>
+                <div id="adminMessage" class="auth-message" role="status"></div>
+            </div>
         </div>
     </main>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/main.js?v=8"></script>
+    <script src="js/main.js?v=9"></script>
 </body>
 </html>

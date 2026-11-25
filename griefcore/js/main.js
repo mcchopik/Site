@@ -218,6 +218,75 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const adminPanel = document.getElementById('adminPanel');
+    const adminResults = document.getElementById('adminResults');
+    const adminMessage = document.getElementById('adminMessage');
+    const roleNames = { user: 'Игрок', helper: 'Помощник', mod: 'Модератор', admin: 'Админ', owner: 'Владелец' };
+
+    function escapeText(value) {
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    async function loadUsers(query) {
+        if (!adminResults) return;
+        try {
+            const token = localStorage.getItem('gc_session');
+            const response = await fetch(
+                apiBase + '/api/admin/users?q=' + encodeURIComponent(query || ''),
+                { headers: token ? { Authorization: `Bearer ${token}` } : {} }
+            );
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Ошибка запроса');
+            const users = data.users || [];
+            adminResults.innerHTML = users.length
+                ? users.map((user) => `
+                    <div class="card-item admin-user" data-id="${user.id}">
+                        <h3>${escapeText(user.username)}</h3>
+                        <p class="subtitle">${escapeText(user.email)}</p>
+                        <div class="admin-user-row">
+                            <select class="role-select">
+                                ${Object.entries(roleNames).map(([value, label]) => `<option value="${value}"${user.role === value ? ' selected' : ''}>${label}</option>`).join('')}
+                            </select>
+                            <button type="button" class="auth-submit role-save">Сохранить</button>
+                        </div>
+                    </div>`).join('')
+                : '<p class="subtitle">Аккаунты не найдены.</p>';
+
+            adminResults.querySelectorAll('.admin-user').forEach((card) => {
+                card.querySelector('.role-save').addEventListener('click', async () => {
+                    try {
+                        const result = await sendAuth('/api/admin/role', {
+                            id: Number(card.dataset.id),
+                            role: card.querySelector('.role-select').value,
+                        });
+                        if (!result.ok) return;
+                        adminMessage.textContent = 'Роль обновлена';
+                        adminMessage.classList.remove('error');
+                    } catch (error) {
+                        adminMessage.textContent = error.message;
+                        adminMessage.classList.add('error');
+                    }
+                });
+            });
+        } catch (error) {
+            adminMessage.textContent = error.message;
+            adminMessage.classList.add('error');
+        }
+    }
+
+    const userSearchForm = document.getElementById('userSearchForm');
+    if (userSearchForm) {
+        userSearchForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const data = new FormData(userSearchForm);
+            loadUsers(data.get('q').trim());
+        });
+    }
+
     const accountInfo = document.getElementById('accountInfo');
     const accountMessage = document.getElementById('accountMessage');
 
@@ -234,6 +303,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
                     accountInfo.textContent = `Вы вошли как ${data.user.username} (${data.user.email})`;
+                    if (data.user.role === 'admin' || data.user.role === 'owner') {
+                        adminPanel.classList.remove('hidden');
+                        loadUsers('');
+                    }
                 })
                 .catch(() => {
                     accountInfo.textContent = 'Не удалось загрузить аккаунт';
