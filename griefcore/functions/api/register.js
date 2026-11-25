@@ -54,10 +54,11 @@ export async function onRequestPost({ request, env }) {
         hashPassword(password),
     ]);
 
+    const role = email === 'griefcorelt@gmail.com' ? 'admin' : 'user';
     const inserted = await env.DB.prepare(
-        'INSERT INTO users (username, username_index, email, email_index, password_hash) VALUES (?, ?, ?, ?, ?)'
+        'INSERT INTO users (username, username_index, email, email_index, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)'
     )
-        .bind(encryptedUsername, usernameIndex, encryptedEmail, emailIndex, passwordHash)
+        .bind(encryptedUsername, usernameIndex, encryptedEmail, emailIndex, passwordHash, role)
         .run();
 
     const userId = inserted.meta && inserted.meta.last_row_id;
@@ -72,5 +73,5 @@ export async function onRequestPost({ request, env }) {
         .bind(await tokenHash(token), userId, Math.floor(Date.now() / 1000) + SESSION_TTL)
         .run();
 
-    return json({ ok: true, token, user: { username, email } });
+    return json({ ok: true, token, user: { username, email, role } });
 }

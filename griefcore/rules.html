@@ -37,7 +37,7 @@
     <main>
         <h2 data-aos="fade-up">Правила сервера</h2>
         <div class="info" data-aos="fade-up" data-aos-delay="100">
-            <div class="card-list">
+            <div class="card-list" id="rulesList">
                 <div class="card-item" data-aos="fade-up">
                     <h3>1. Общие правила</h3>
                     <p>1.1. Играя на сервере, вы автоматически соглашаетесь с данным сводом правил.</p>
@@ -49,11 +49,25 @@
                     <p>2.2. Запрещена реклама сторонних проектов и ресурсов.</p>
                 </div>
             </div>
+
+            <div id="adminRules" class="account-actions hidden">
+                <h3>Добавить правило (админ)</h3>
+                <form id="ruleForm" class="auth-form">
+                    <label>Заголовок
+                        <input type="text" name="title" required maxlength="200" placeholder="3. Новый раздел">
+                    </label>
+                    <label>Текст
+                        <textarea name="body" required rows="4" maxlength="5000" placeholder="3.1. ..."></textarea>
+                    </label>
+                    <button type="submit" class="auth-submit">Добавить правило</button>
+                </form>
+                <div id="rulesMessage" class="auth-message" role="status"></div>
+            </div>
         </div>
     </main>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/main.js?v=7"></script>
+    <script src="js/main.js?v=8"></script>
 </body>
 </html>

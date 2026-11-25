@@ -11,7 +11,7 @@ export async function onRequestGet({ request, env }) {
     }
 
     const row = await env.DB.prepare(
-        `SELECT users.username, users.email
+        `SELECT users.username, users.email, users.role
          FROM sessions
          JOIN users ON users.id = sessions.user_id
          WHERE sessions.token_hash = ? AND sessions.expires_at > ?`
@@ -27,6 +27,7 @@ export async function onRequestGet({ request, env }) {
         user: {
             username: await decrypt(env.AUTH_SECRET, row.username),
             email: await decrypt(env.AUTH_SECRET, row.email),
+            role: row.role || 'user',
         },
     });
 }

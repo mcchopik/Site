@@ -31,7 +31,7 @@ export async function onRequestPost({ request, env }) {
     const index = await blindIndex(secret, identifier);
 
     const user = await env.DB.prepare(
-        'SELECT id, username, email, password_hash FROM users WHERE username_index = ? OR email_index = ?'
+        'SELECT id, username, email, password_hash, role FROM users WHERE username_index = ? OR email_index = ?'
     )
         .bind(index, index)
         .first();
@@ -53,6 +53,7 @@ export async function onRequestPost({ request, env }) {
         user: {
             username: await decrypt(secret, user.username),
             email: await decrypt(secret, user.email),
+            role: user.role || 'user',
         },
     });
 }

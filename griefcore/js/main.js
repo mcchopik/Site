@@ -137,6 +137,87 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(() => {});
     }
 
+    const rulesList = document.getElementById('rulesList');
+    if (rulesList) {
+        const rulesMessage = document.getElementById('rulesMessage');
+        let isAdmin = false;
+
+        const escapeHtml = (value) => String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+
+        async function loadRules() {
+            try {
+                const response = await fetch(apiBase + '/api/rules');
+                const data = await response.json();
+                const rules = data.rules || [];
+                rulesList.innerHTML = rules.length
+                    ? rules.map((rule) => `
+                        <div class="card-item" data-aos="fade-up">
+                            <h3>${escapeHtml(rule.title)}</h3>
+                            <p>${escapeHtml(rule.body).replace(/\n/g, '<br>')}</p>
+                            ${isAdmin ? `<button type="button" class="link-btn rule-delete" data-id="${rule.id}">Удалить</button>` : ''}
+                        </div>`).join('')
+                    : '<p class="subtitle">Правил пока нет.</p>';
+                rulesList.querySelectorAll('.rule-delete').forEach((button) => {
+                    button.addEventListener('click', async () => {
+                        try {
+                            await sendAuth('/api/rules', { action: 'delete', id: Number(button.dataset.id) });
+                            await loadRules();
+                        } catch (error) {
+                            rulesMessage.textContent = error.message;
+                            rulesMessage.classList.add('error');
+                        }
+                    });
+                });
+            } catch (error) {
+                rulesMessage.textContent = error.message;
+                rulesMessage.classList.add('error');
+            }
+        }
+
+        const savedToken = localStorage.getItem('gc_session');
+        if (savedToken) {
+            fetch(apiBase + '/api/me', { headers: { Authorization: `Bearer ${savedToken}` } })
+                .then((response) => (response.ok ? response.json() : null))
+                .then((data) => {
+                    if (data && data.user && data.user.role === 'admin') {
+                        isAdmin = true;
+                        document.getElementById('adminRules').classList.remove('hidden');
+                    }
+                    return loadRules();
+                })
+                .catch(() => loadRules());
+        } else {
+            loadRules();
+        }
+
+        const ruleForm = document.getElementById('ruleForm');
+        if (ruleForm) {
+            ruleForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const data = new FormData(ruleForm);
+                try {
+                    const result = await sendAuth('/api/rules', {
+                        title: data.get('title').trim(),
+                        body: data.get('body').trim(),
+                    });
+                    if (result.ok) {
+                        rulesMessage.textContent = 'Правило добавлено';
+                        rulesMessage.classList.remove('error');
+                        ruleForm.reset();
+                        await loadRules();
+                    }
+                } catch (error) {
+                    rulesMessage.textContent = error.message;
+                    rulesMessage.classList.add('error');
+                }
+            });
+        }
+    }
+
     const accountInfo = document.getElementById('accountInfo');
     const accountMessage = document.getElementById('accountMessage');
 

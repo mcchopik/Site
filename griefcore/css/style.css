@@ -342,8 +342,26 @@ h2 {
     gap: 14px;
 }
 
-.auth-form.hidden {
+.auth-form.hidden,
+.hidden {
     display: none;
+}
+
+.auth-form textarea {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    color: #ffffff;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.auth-form textarea:focus {
+    outline: none;
+    border-color: #ffaa00;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.25);
 }
 
 .auth-form label {

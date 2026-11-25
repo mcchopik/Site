@@ -139,7 +139,7 @@ export async function sessionUser(request, env) {
         return null;
     }
     return env.DB.prepare(
-        `SELECT users.id, users.password_hash, users.email_index
+        `SELECT users.id, users.password_hash, users.email_index, users.role
          FROM sessions
          JOIN users ON users.id = sessions.user_id
          WHERE sessions.token_hash = ? AND sessions.expires_at > ?`

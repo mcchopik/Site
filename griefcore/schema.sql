@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT NOT NULL,
     email_index TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
+    role TEXT NOT NULL DEFAULT 'user',
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -15,4 +16,17 @@ CREATE TABLE IF NOT EXISTS sessions (
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS rules (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+
+INSERT INTO rules (title, body) SELECT '1. Общие правила', '1.1. Играя на сервере, вы автоматически соглашаетесь с данным сводом правил.
+1.2. Незнание правил не освобождает от ответственности.' WHERE NOT EXISTS (SELECT 1 FROM rules WHERE title = '1. Общие правила');
+
+INSERT INTO rules (title, body) SELECT '2. Чат и общение', '2.1. Запрещен спам, флуд и капс в глобальном чате.
+2.2. Запрещена реклама сторонних проектов и ресурсов.' WHERE NOT EXISTS (SELECT 1 FROM rules WHERE title = '2. Чат и общение');
