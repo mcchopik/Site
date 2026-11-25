@@ -1,4 +1,4 @@
-import { hashPassword, json, sessionUser, verifyPassword } from './_auth.js';
+import { hashPassword, json, sessionUser, verifyPassword } from '../_auth.js';
 
 export async function onRequestPost({ request, env }) {
     if (!env.DB) {

@@ -1,4 +1,4 @@
-import { json } from './_auth.js';
+import { json } from '../_auth.js';
 
 export async function onRequestGet({ env }) {
     if (!env.DB) {

@@ -1,4 +1,4 @@
-import { decrypt, json, sessionUser } from './_auth.js';
+import { decrypt, json, sessionUser } from '../_auth.js';
 
 const ALLOWED_ROLES = ['user', 'helper', 'mod', 'admin', 'owner'];
 
@@ -14,7 +14,7 @@ export async function onRequestGet({ request, env }) {
 
     const query = String(new URL(request.url).searchParams.get('q') || '').trim().toLowerCase();
     const result = await env.DB.prepare(
-        'SELECT id, username, email, role FROM users ORDER BY id LIMIT 200'
+        'SELECT id, username, email, role, banned FROM users ORDER BY id LIMIT 200'
     ).all();
 
     const users = [];
@@ -29,6 +29,7 @@ export async function onRequestGet({ request, env }) {
             username,
             email,
             role: ALLOWED_ROLES.includes(row.role) ? row.role : 'user',
+            banned: Boolean(row.banned),
         });
     }
 

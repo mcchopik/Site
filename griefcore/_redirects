@@ -6,3 +6,5 @@
 /donate /donate.html 200
 /login /login.html 200
 /account /account.html 200
+/profile /profile.html 200
+/news /news.html 200

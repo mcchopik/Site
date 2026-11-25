@@ -1,4 +1,4 @@
-import { json, sessionUser } from './_auth.js';
+import { json, newsEvent, sessionUser } from '../_auth.js';
 
 export async function onRequestPost({ request, env }) {
     if (!env.DB) {
@@ -9,7 +9,7 @@ export async function onRequestPost({ request, env }) {
     if (!user) {
         return json({ error: 'Не авторизован' }, 401);
     }
-    if (user.role !== 'admin') {
+    if (user.role !== 'admin' && user.role !== 'owner') {
         return json({ error: 'Недостаточно прав' }, 403);
     }
 
@@ -25,7 +25,9 @@ export async function onRequestPost({ request, env }) {
         if (!id) {
             return json({ error: 'Правило не найдено' }, 400);
         }
+        const removed = await env.DB.prepare('SELECT title FROM rules WHERE id = ?').bind(id).first();
         await env.DB.prepare('DELETE FROM rules WHERE id = ?').bind(id).run();
+        await newsEvent(env, 'Удалено правило: ' + (removed ? removed.title : id));
         return json({ ok: true });
     }
 
@@ -38,6 +40,7 @@ export async function onRequestPost({ request, env }) {
     await env.DB.prepare('INSERT INTO rules (title, body) VALUES (?, ?)')
         .bind(title, text)
         .run();
+    await newsEvent(env, 'Добавлено правило: ' + title);
 
     return json({ ok: true });
 }

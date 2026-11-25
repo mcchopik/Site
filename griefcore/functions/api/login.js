@@ -31,13 +31,16 @@ export async function onRequestPost({ request, env }) {
     const index = await blindIndex(secret, identifier);
 
     const user = await env.DB.prepare(
-        'SELECT id, username, email, password_hash, role FROM users WHERE username_index = ? OR email_index = ?'
+        'SELECT id, username, email, password_hash, role, banned FROM users WHERE username_index = ? OR email_index = ?'
     )
         .bind(index, index)
         .first();
 
     if (!user || !(await verifyPassword(password, user.password_hash))) {
         return json({ error: 'Неверный логин или пароль' }, 401);
+    }
+    if (user.banned) {
+        return json({ error: 'Аккаунт заблокирован администрацией' }, 403);
     }
 
     const token = randomToken();

@@ -1,4 +1,4 @@
-import { blindIndex, encrypt, json, sessionUser, verifyPassword } from './_auth.js';
+import { blindIndex, encrypt, json, sessionUser, verifyPassword } from '../_auth.js';
 
 export async function onRequestPost({ request, env }) {
     if (!env.AUTH_SECRET || !env.DB) {

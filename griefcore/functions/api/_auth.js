@@ -10,10 +10,6 @@ export function json(data, status = 200, headers = {}) {
         headers: {
             'Content-Type': 'application/json; charset=utf-8',
             'Cache-Control': 'no-store',
-            'Access-Control-Allow-Origin': 'https://mcchopik.pp.ua',
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             ...headers,
         },
     });
@@ -138,14 +134,22 @@ export async function sessionUser(request, env) {
     if (!token) {
         return null;
     }
-    return env.DB.prepare(
-        `SELECT users.id, users.password_hash, users.email_index, users.role
+    const row = await env.DB.prepare(
+        `SELECT users.id, users.password_hash, users.email_index, users.role, users.banned
          FROM sessions
          JOIN users ON users.id = sessions.user_id
          WHERE sessions.token_hash = ? AND sessions.expires_at > ?`
     )
         .bind(await tokenHash(token), Math.floor(Date.now() / 1000))
         .first();
+    return row && !row.banned ? row : null;
+}
+
+export async function newsEvent(env, text) {
+    if (!env.DB) return;
+    await env.DB.prepare('INSERT INTO news (content) VALUES (?)')
+        .bind(String(text).slice(0, 500))
+        .run();
 }
 
 export function sessionCookie(request, token) {

@@ -14,7 +14,7 @@ export async function onRequestGet({ request, env }) {
         `SELECT users.username, users.email, users.role
          FROM sessions
          JOIN users ON users.id = sessions.user_id
-         WHERE sessions.token_hash = ? AND sessions.expires_at > ?`
+         WHERE sessions.token_hash = ? AND sessions.expires_at > ? AND users.banned = 0`
     )
         .bind(await tokenHash(token), Math.floor(Date.now() / 1000))
         .first();

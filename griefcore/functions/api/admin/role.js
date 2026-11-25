@@ -1,6 +1,6 @@
-import { json, sessionUser } from './_auth.js';
+import { json, newsEvent, sessionUser } from '../_auth.js';
 
-const ROLE_VALUES = ['user', 'helper', 'mod', 'admin', 'owner'];
+const ROLE_VALUES = ['user', 'helper', 'mod', 'admin'];
 
 export async function onRequestPost({ request, env }) {
     if (!env.DB) {
@@ -28,6 +28,7 @@ export async function onRequestPost({ request, env }) {
     await env.DB.prepare('UPDATE users SET role = ? WHERE id = ?')
         .bind(role, id)
         .run();
+    await newsEvent(env, 'Изменена роль пользователя #' + id + ': ' + role);
 
     return json({ ok: true });
 }

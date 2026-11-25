@@ -34,6 +34,10 @@ export async function onRequestPost({ request, env }) {
         return json({ error: 'Пароль должен быть не короче 8 символов' }, 400);
     }
 
+    if (body.accept !== true) {
+        return json({ error: 'Примите условия использования' }, 400);
+    }
+
     const secret = env.AUTH_SECRET;
     const usernameIndex = await blindIndex(secret, username);
     const emailIndex = await blindIndex(secret, email);
@@ -56,7 +60,7 @@ export async function onRequestPost({ request, env }) {
 
     const role = email === 'griefcorelt@gmail.com' ? 'admin' : 'user';
     const inserted = await env.DB.prepare(
-        'INSERT INTO users (username, username_index, email, email_index, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)'
+        'INSERT INTO users (username, username_index, email, email_index, password_hash, role, accepted_terms) VALUES (?, ?, ?, ?, ?, ?, 1)'
     )
         .bind(encryptedUsername, usernameIndex, encryptedEmail, emailIndex, passwordHash, role)
         .run();

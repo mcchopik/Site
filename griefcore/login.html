@@ -28,6 +28,7 @@
             <a href="kontact-us.html">Контакты</a>
             <a href="play.html">Как играть</a>
             <a href="socials.html">Мы в соцсетях</a>
+            <a href="news.html">Новости</a>
             <a href="donate.html">Донат</a>
             <a href="login.html" class="auth-btn current">Войти / Регистрация</a>
         </nav>
@@ -59,6 +60,17 @@
                 <label>Пароль
                     <input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="минимум 8 символов">
                 </label>
+                <div class="terms-box">
+                    <p class="subtitle">Условия использования:</p>
+                    <ol>
+                        <li>Администрация вправе менять условия использования, но будет сообщать об этом во вкладке «Новости».</li>
+                        <li>Выполнять правила сайта и не разглашать чужую информацию.</li>
+                        <li>Не использовать чужой email.</li>
+                    </ol>
+                </div>
+                <label class="accept-label">
+                    <input type="checkbox" name="accept" required> Принимаю условия использования
+                </label>
                 <button type="submit" class="auth-submit">Создать аккаунт</button>
             </form>
             <div id="authMessage" class="auth-message" role="status"></div>
@@ -67,6 +79,6 @@
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="js/background.js"></script>
-    <script src="js/main.js?v=9"></script>
+    <script src="js/main.js?v=11"></script>
 </body>
 </html>
