@@ -35,30 +35,79 @@
     </header>
 
     <main>
-        <h2 data-aos="fade-up">Магазин и привилегии</h2>
+        <h2 data-aos="fade-up">Магазин GriefCore</h2>
         <div class="info" data-aos="fade-up" data-aos-delay="100">
-            <p class="subtitle">Иконки пока серверные — до запуска доната. Авто-донат откроется одновременно с запуском сервера.</p>
+            <p class="subtitle">Донат даётся за игровую валюту / достижения (пока что). Иконки пока серверные — до запуска доната.</p>
+            <div class="nickname-box">
+                <input type="text" class="nickname-input" id="playerNick" placeholder="Введите ваш ник на сервере...">
+            </div>
             <div class="donate-grid">
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="TIGER" class="donate-icon">
+                    <h3>TIGER</h3>
+                    <button type="button" class="buy-btn" data-item="TIGER">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="CUSTOM" class="donate-icon">
+                    <h3>CUSTOM</h3>
+                    <button type="button" class="buy-btn" data-item="CUSTOM">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="ANGEL" class="donate-icon">
+                    <h3>ANGEL</h3>
+                    <button type="button" class="buy-btn" data-item="ANGEL">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="D. HELPER" class="donate-icon">
+                    <h3>D. HELPER</h3>
+                    <button type="button" class="buy-btn" data-item="D. HELPER">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="DIAMOND" class="donate-icon">
+                    <h3>DIAMOND</h3>
+                    <button type="button" class="buy-btn" data-item="DIAMOND">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="D. ADMIN" class="donate-icon">
+                    <h3>D. ADMIN</h3>
+                    <button type="button" class="buy-btn" data-item="D. ADMIN">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="EMERALD" class="donate-icon">
+                    <h3>EMERALD</h3>
+                    <button type="button" class="buy-btn" data-item="EMERALD">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="LEGEND" class="donate-icon">
+                    <h3>LEGEND</h3>
+                    <button type="button" class="buy-btn" data-item="LEGEND">Купить</button>
+                </div>
+                <div class="donate-item" data-aos="fade-up">
+                    <img src="https://i.ibb.co/spppKJRL/logo.png" alt="NINJA" class="donate-icon">
+                    <h3>NINJA</h3>
+                    <button type="button" class="buy-btn" data-item="NINJA">Купить</button>
+                </div>
                 <div class="donate-item" data-aos="fade-up">
                     <img src="https://i.ibb.co/spppKJRL/logo.png" alt="WIZARD" class="donate-icon">
                     <h3>WIZARD</h3>
-                    <button type="button" class="auth-submit">Купить</button>
+                    <button type="button" class="buy-btn" data-item="WIZARD">Купить</button>
                 </div>
                 <div class="donate-item" data-aos="fade-up">
                     <img src="https://i.ibb.co/spppKJRL/logo.png" alt="GHOST" class="donate-icon">
                     <h3>GHOST</h3>
-                    <button type="button" class="auth-submit">Купить</button>
+                    <button type="button" class="buy-btn" data-item="GHOST">Купить</button>
                 </div>
                 <div class="donate-item" data-aos="fade-up">
                     <img src="https://i.ibb.co/spppKJRL/logo.png" alt="STORM" class="donate-icon">
                     <h3>STORM</h3>
-                    <button type="button" class="auth-submit">Купить</button>
+                    <button type="button" class="buy-btn" data-item="STORM">Купить</button>
                 </div>
             </div>
+            <div id="donateMessage" class="auth-message" role="status"></div>
         </div>
     </main>
 
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-    <script src="js/main.js?v=5"></script>
+    <script src="js/main.js?v=6"></script>
 </body>
 </html>

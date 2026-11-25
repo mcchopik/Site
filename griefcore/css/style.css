@@ -389,6 +389,46 @@ h2 {
     text-decoration: none !important;
 }
 
+.nickname-box {
+    display: flex;
+    justify-content: center;
+    margin: 18px 0;
+}
+
+.nickname-input {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    color: #ffffff;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.nickname-input:focus {
+    outline: none;
+    border-color: #ffaa00;
+    box-shadow: 0 0 10px rgba(255, 170, 0, 0.25);
+}
+
+.buy-btn {
+    background: linear-gradient(180deg, #FFE600 0%, #FF5500 100%);
+    border: none;
+    color: #0b0b0b;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(255, 85, 0, 0.5);
+}
+
 .team-photo {
     width: 72px;
     height: 72px;

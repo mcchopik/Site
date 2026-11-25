@@ -111,6 +111,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    document.querySelectorAll('.buy-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+            const nickname = document.getElementById('playerNick');
+            if (!nickname || !nickname.value.trim()) {
+                window.alert('Введите ваш ник на сервере');
+                return;
+            }
+            window.alert('Сервер не открыт, поэтому это недоступно');
+        });
+    });
+
     const authLink = document.querySelector('.nav-menu .auth-btn');
     if (authLink) {
         const savedToken = localStorage.getItem('gc_session');
