@@ -133,6 +133,21 @@ export function readToken(request) {
     return match ? decodeURIComponent(match[1]) : null;
 }
 
+export async function sessionUser(request, env) {
+    const token = readToken(request);
+    if (!token) {
+        return null;
+    }
+    return env.DB.prepare(
+        `SELECT users.id, users.password_hash, users.email_index
+         FROM sessions
+         JOIN users ON users.id = sessions.user_id
+         WHERE sessions.token_hash = ? AND sessions.expires_at > ?`
+    )
+        .bind(await tokenHash(token), Math.floor(Date.now() / 1000))
+        .first();
+}
+
 export function sessionCookie(request, token) {
     return `${COOKIE_NAME}=${encodeURIComponent(token)}; HttpOnly; Secure; SameSite=None; Path=/; Max-Age=${SESSION_TTL}`;
 }

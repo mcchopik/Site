@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     password: data.get('password'),
                 });
                 localStorage.setItem('gc_session', result.token);
-                window.location.href = 'index.html';
+                window.location.href = 'account.html';
             } catch (error) {
                 authMessage.textContent = error.message;
                 authMessage.classList.add('error');
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     password: data.get('password'),
                 });
                 localStorage.setItem('gc_session', result.token);
-                window.location.href = 'index.html';
+                window.location.href = 'account.html';
             } catch (error) {
                 authMessage.textContent = error.message;
                 authMessage.classList.add('error');
@@ -132,18 +132,89 @@ document.addEventListener('DOMContentLoaded', () => {
             .then((data) => {
                 if (!data || !data.user) return;
                 authLink.textContent = data.user.username;
-                authLink.href = '#';
-                authLink.addEventListener('click', async (event) => {
-                    event.preventDefault();
-                    const token = localStorage.getItem('gc_session');
-                    await fetch(apiBase + '/api/logout', {
-                        method: 'POST',
-                        headers: token ? { Authorization: `Bearer ${token}` } : {},
-                    });
-                    localStorage.removeItem('gc_session');
-                    window.location.reload();
-                });
+                authLink.href = 'account.html';
             })
             .catch(() => {});
+    }
+
+    const accountInfo = document.getElementById('accountInfo');
+    const accountMessage = document.getElementById('accountMessage');
+
+    if (accountInfo) {
+        const token = localStorage.getItem('gc_session');
+        if (!token) {
+            window.location.href = 'login.html';
+        } else {
+            fetch(apiBase + '/api/me', { headers: { Authorization: `Bearer ${token}` } })
+                .then((response) => (response.ok ? response.json() : null))
+                .then((data) => {
+                    if (!data || !data.user) {
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    accountInfo.textContent = `Вы вошли как ${data.user.username} (${data.user.email})`;
+                })
+                .catch(() => {
+                    accountInfo.textContent = 'Не удалось загрузить аккаунт';
+                });
+        }
+    }
+
+    const passwordForm = document.getElementById('passwordForm');
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const data = new FormData(passwordForm);
+            try {
+                const result = await sendAuth('/api/account/password', {
+                    current: data.get('current'),
+                    password: data.get('password'),
+                });
+                if (result.ok) {
+                    accountMessage.textContent = 'Пароль изменён';
+                    accountMessage.classList.remove('error');
+                    passwordForm.reset();
+                }
+            } catch (error) {
+                accountMessage.textContent = error.message;
+                accountMessage.classList.add('error');
+            }
+        });
+    }
+
+    const emailForm = document.getElementById('emailForm');
+    if (emailForm) {
+        emailForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const data = new FormData(emailForm);
+            try {
+                const result = await sendAuth('/api/account/email', {
+                    email: data.get('email').trim(),
+                    password: data.get('password'),
+                });
+                if (result.ok) {
+                    accountMessage.textContent = 'Email изменён';
+                    accountMessage.classList.remove('error');
+                    emailForm.reset();
+                    accountInfo.textContent = `Вы вошли как ${result.email}`;
+                }
+            } catch (error) {
+                accountMessage.textContent = error.message;
+                accountMessage.classList.add('error');
+            }
+        });
+    }
+
+    const accountLogout = document.getElementById('accountLogout');
+    if (accountLogout) {
+        accountLogout.addEventListener('click', async () => {
+            const token = localStorage.getItem('gc_session');
+            await fetch(apiBase + '/api/logout', {
+                method: 'POST',
+                headers: token ? { Authorization: `Bearer ${token}` } : {},
+            });
+            localStorage.removeItem('gc_session');
+            window.location.href = 'index.html';
+        });
     }
 });
